@@ -130,7 +130,7 @@
                 </div>
             </section>
 
-            <section id="sec-order" class="hidden">
+            </section> <section id="sec-order" class="hidden">
                 <div class="mb-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 no-print">
                     <div class="flex flex-wrap gap-4 w-full md:w-auto">
                         <div id="admin-doc-type-container" class="w-full sm:w-auto hidden bg-indigo-50 px-2 py-1 -mt-1 rounded border border-indigo-100">
@@ -345,7 +345,7 @@
         </div>
     
             <section id="sec-grn" class="hidden">
-                <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
                         <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
                             <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
@@ -389,7 +389,7 @@
             </section>
 
                         <section id="sec-cn" class="hidden">
-                <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
                         <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
                             <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
@@ -443,7 +443,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
+                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
                     <div class="flex justify-between items-center mb-6 pb-6 border-b border-slate-100">
                         <div>
                             <h2 class="text-xl font-black text-slate-900 tracking-widest uppercase">INTERNAL STOCK TRANSFER</h2>
@@ -4482,27 +4482,43 @@ async function processExternalMerge() {
             console.log('Executing multi-print');
         }
 // 🌟 供應鏈大腦：Performance, OTIF & Analytics 引擎
-        window.renderAnalyticsDashboard = function() {
+        window.renderAnalyticsDashboard = function(days) {
             const container = document.getElementById('setup-table-container');
             let orders = LOCAL_DB.get("orders", []) || []; let products = LOCAL_DB.get("products", []) || [];
             
+            // 自動匯入 Filter 選項
+            if (document.getElementById('ana-filter-region') && document.getElementById('ana-filter-region').options.length <= 1) {
+                let regs = [...new Set(LOCAL_DB.get('outlets', []).map(o=>o.region).filter(Boolean))];
+                document.getElementById('ana-filter-region').innerHTML += regs.map(r=>`<option value="${r}">${r}</option>`).join('');
+                document.getElementById('ana-filter-outlet').innerHTML += LOCAL_DB.get('outlets', []).map(o=>`<option value="${o.short_code}">${o.short_code}</option>`).join('');
+                document.getElementById('ana-filter-vendor').innerHTML += LOCAL_DB.get('vendors', []).map(v=>`<option value="${v.short_code}">${v.short_code}</option>`).join('');
+                document.getElementById('ana-filter-product').innerHTML += LOCAL_DB.get('products', []).map(p=>`<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('');
+            }
+
             // 🌟 獲取過濾器設定
-            let fReg = document.getElementById('ana-reg') ? document.getElementById('ana-reg').value : '';
-            let fOut = document.getElementById('ana-out') ? document.getElementById('ana-out').value : '';
-            let fVen = document.getElementById('ana-ven') ? document.getElementById('ana-ven').value : '';
-            let fFrom = document.getElementById('ana-from') ? document.getElementById('ana-from').value : '';
-            let fTo = document.getElementById('ana-to') ? document.getElementById('ana-to').value : '';
+            let fReg = document.getElementById('ana-filter-region') ? document.getElementById('ana-filter-region').value : '';
+            let fOut = document.getElementById('ana-filter-outlet') ? document.getElementById('ana-filter-outlet').value : '';
+            let fVen = document.getElementById('ana-filter-vendor') ? document.getElementById('ana-filter-vendor').value : '';
+            let fProduct = document.getElementById('ana-filter-product') ? document.getElementById('ana-filter-product').value : '';
+            let fFrom = document.getElementById('ana-filter-from') ? document.getElementById('ana-filter-from').value : '';
+            let fTo = document.getElementById('ana-filter-to') ? document.getElementById('ana-filter-to').value : '';
+
+            let daysNum = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : (days || 30);
+            let cutoff = new Date(); cutoff.setDate(cutoff.getDate() - daysNum);
 
             let validOrders = orders.filter(o => {
+                let d = new Date(o.date || o.created_at);
+                if (fFrom && fTo) { if (d < new Date(fFrom) || d > new Date(fTo)) return false; } else { if (d < cutoff) return false; }
                 if (['Cancelled', 'Deleted', 'Amended'].includes(o.status)) return false;
+                
                 if (fReg && o.region !== fReg) return false;
-                if (fOut && o.outlet !== fOut) return false;
+                if (fOut && o.outlet !== fOut && o.vendor !== fOut) return false; 
                 if (fVen && o.vendor !== fVen) return false;
-                if (fFrom && o.date < fFrom) return false;
-                if (fTo && o.date > fTo) return false;
+                if (fProduct) { let hasProd = (o.items || []).some(i => String(i.item).trim() === String(fProduct).trim()); if (!hasProd) return false; }
+                
                 return true;
             });
-             let days = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : 30;
+             days = daysNum; // 讓下方按鈕 highlight 顯示
 
             // 加入了 NormalQty 與 FocQty 的分離追蹤
             let metrics = { prQty: 0, poQty: 0, grnQty: 0, cnQty: 0, estCost: 0, actCost: 0, totalDelayDays: 0, delayCount: 0, focQty: 0, normalQty: 0 };
@@ -4635,13 +4651,18 @@ async function processExternalMerge() {
             };
 
             container.innerHTML = `
-                <div class="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-    <div><h2 class="text-xl font-black text-slate-900">Supply Chain Analytics & Inventory</h2><p class="text-xs text-slate-500 mt-1">Variance, Fulfillment (OTIF), Inventory (Normal vs FOC), and Cost tracking.</p></div>
-    <div class="flex flex-wrap gap-2 items-center">
-        <select id="ana-filter-region" onchange="renderAnalyticsDashboard(${days})" class="mono-input text-xs"><option value="">All Regions</option><option value="SG">SG</option><option value="MY">MY</option></select>
-        <div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200">${[3,7,14,30].map(d => `<button onclick="renderAnalyticsDashboard(${d})" class="px-4 py-1.5 text-xs font-bold rounded ${days === d ? 'bg-white shadow text-indigo-600' : 'text-slate-500 hover:bg-slate-200'} transition-all">${d} Days</button>`).join('')}</div>
-    </div>
-</div>
+                <div class="mb-4 flex flex-col xl:flex-row justify-between items-start gap-4">
+                    <div><h2 class="text-xl font-black text-slate-900">Supply Chain Analytics & Inventory</h2><p class="text-[10px] text-slate-500 mt-1">Variance, Fulfillment, Inventory, and Cost tracking.</p></div>
+                    <div class="flex flex-wrap gap-2 items-center bg-slate-50 p-1.5 rounded-lg border border-slate-200">
+                        <select id="ana-filter-region" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-20"><option value="">All Regions</option></select>
+                        <select id="ana-filter-outlet" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24"><option value="">All Outlets</option></select>
+                        <select id="ana-filter-vendor" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24"><option value="">All Vendors</option></select>
+                        <select id="ana-filter-product" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-28"><option value="">All Products</option></select>
+                        <input type="date" id="ana-filter-from" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24">
+                        <span class="text-[10px] text-slate-400 font-bold">-</span>
+                        <input type="date" id="ana-filter-to" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24">
+                        <button onclick="document.getElementById('ana-filter-from').value=''; document.getElementById('ana-filter-to').value=''; renderAnalyticsDashboard(30);" class="bg-indigo-600 text-white px-2 py-1 rounded text-[10px] font-bold shadow-sm hover:bg-indigo-700">30D Reset</button>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
