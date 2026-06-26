@@ -666,9 +666,9 @@ window.tempMergeFiles = [];
 
         async function executeAdvancedMerge() {
             const btn = document.getElementById('btn-exec-merge'); const pos = document.getElementById('merge-sel-pos').tomselect.getValue();
-            if (!pos || pos.length === 0) return alert("請至少選擇一個 PO！");
+            if (!pos || pos.length === 0) return alert("Please select at least one PO.");
             
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Processing...`; btn.disabled = true; showToast("⏳ 正在靜默生成系統單據...");
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline"></i> Processing...`; btn.disabled = true; showToast("⏳ Generating system documents....");
 
             try {
                 let orders = LOCAL_DB.get("orders", []); let combinedHtml = `<div style="background:#fff;">`;
@@ -2234,32 +2234,6 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                     rows.forEach(r => { let show = true; const cells = r.querySelectorAll('td'); inps.forEach((inp, i) => { const v = inp.value.toLowerCase().trim(); if(v && cells[i]) { let txt = cells[i].textContent.toLowerCase(); if(!txt.includes(v)) show = false; } }); r.style.display = show ? '' : 'none'; });
                 };
 
-                // 🌟 套用欄位排序邏輯 (先排序再產生 HTML)
-                if (setupSort.col) {
-                    data.sort((a, b) => {
-                        let valA = a[setupSort.col] !== undefined ? a[setupSort.col] : '';
-                        let valB = b[setupSort.col] !== undefined ? b[setupSort.col] : '';
-                        let numA = parseFloat(valA); let numB = parseFloat(valB);
-                        if (!isNaN(numA) && !isNaN(numB)) return setupSort.dir === 'asc' ? numA - numB : numB - numA;
-                        let strA = String(valA).toLowerCase(); let strB = String(valB).toLowerCase();
-                        if (strA < strB) return setupSort.dir === 'asc' ? -1 : 1;
-                        if (strA > strB) return setupSort.dir === 'asc' ? 1 : -1;
-                        return 0;
-                    });
-                }
-
-                let html = `<div class="flex gap-2 justify-end mb-2 no-print"><button onclick="document.getElementById('csv-uploader').click()" class="text-xs bg-slate-900 text-white px-3 py-1.5 rounded font-bold">Import CSV</button><button onclick="exportSetupData()" class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded font-bold border border-blue-200">Export</button></div>`;
-                html += `<div class="overflow-x-auto"><table class="w-full text-xs text-left min-w-[800px] border-collapse">`;
-                
-                // 正確繪製唯一的 Table Header
-                html += `<tr class="bg-slate-900 text-white">${keys.map(k=> {
-                    let isSorted = setupSort.col === k;
-                    let arrow = isSorted ? (setupSort.dir === 'asc' ? '↑' : '↓') : '↕';
-                    return `<th class="p-3 font-semibold tracking-wider cursor-pointer hover:text-indigo-300 transition-colors select-none whitespace-nowrap" onclick="triggerSetupSort('${k}')">${k.toUpperCase().replace(/_/g,' ')} <span class="text-[10px] text-slate-400 ml-1">${arrow}</span></th>`;
-                }).join('')}<th class="p-3 text-center">ACT</th></tr>`;
-                
-                // 正確繪製 Filter 搜尋列
-                html += `<tr class="bg-indigo-50">${keys.map(k=>`<td class="p-1 border-b border-indigo-100"><input type="text" class="col-filter-inp mono-input w-full p-1 text-[10px]" placeholder="Filter..." oninput="filterCol()"></td>`).join('')}<td class="bg-indigo-50 border-b border-indigo-100"></td></tr>`;
                 // 🌟 套用欄位排序邏輯
                 if (setupSort.col) {
                     data.sort((a, b) => {
@@ -2542,7 +2516,13 @@ async function saveGlobalSettings() {
                         // 沒有重複，直接新增
                         executeCsvSave(newItems, []);
                     }
-        
+                } catch(err) { 
+                    alert("匯入時發生錯誤：" + err); 
+                } 
+                document.getElementById('csv-uploader').value = ''; 
+            }; 
+            reader.readAsText(file);
+        }
 
         function toggleAllCsvConflicts(cb) {
             document.querySelectorAll('.csv-conflict-cb').forEach(el => el.checked = cb.checked);
@@ -4476,7 +4456,7 @@ async function processExternalMerge() {
         function executeMultiPrint() {
             console.log('Executing multi-print');
         }
-// 🌟 供應鏈大腦：Performance, OTIF & Analytics 引擎
+
         window.renderAnalyticsDashboard = function(days) {
             const container = document.getElementById('setup-table-container');
             container.classList.add('h-[calc(100vh-140px)]', 'overflow-y-auto', 'pr-2'); // 🌟 Auto fit to view size
@@ -4674,10 +4654,7 @@ async function processExternalMerge() {
                     })()}
                     ${genVendorOtifTable()}
                 </div>
-            };
-                    ${genVendorOtifTable()}
-                </div>
-            };
+            `;
             lucide.createIcons();
         };
 
