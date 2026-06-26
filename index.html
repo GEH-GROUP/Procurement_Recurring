@@ -346,13 +346,23 @@
     
             <section id="sec-grn" class="hidden">
                 <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
-                    <div class="mb-4 flex flex-wrap gap-4 w-full items-end no-print">
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">1. Select Outlet</label><select id="grn-sel-outlet" class="mono-input w-full sm:w-40 block mt-1" onchange="loadGrnPoList()"></select></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">2. Linked PO Number</label><select id="grn-sel-po" class="mono-input w-full sm:w-56 block mt-1" onchange="renderGrnWorkspace()"></select></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">DO Number</label><input type="text" id="grn-input-do" class="mono-input w-full sm:w-32 block mt-1" placeholder="Optional DO No..."></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">DO Date</label><input type="date" id="grn-input-do-date" class="mono-input w-full sm:w-32 block mt-1"></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">Invoice Number</label><input type="text" id="grn-input-inv" class="mono-input w-full sm:w-32 block mt-1" placeholder="Optional Invoice No..."></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">Invoice Date</label><input type="date" id="grn-input-inv-date" class="mono-input w-full sm:w-32 block mt-1"></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
+                        <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
+                            <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
+                            <div class="flex flex-col gap-4">
+                                <div><label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">1. Select Outlet</label><select id="grn-sel-outlet" class="mono-input w-full block bg-white" onchange="loadGrnPoList()"></select></div>
+                                <div><label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">2. Linked PO Number</label><select id="grn-sel-po" class="mono-input w-full block bg-white" onchange="renderGrnWorkspace()"></select></div>
+                            </div>
+                        </div>
+                        <div class="bg-indigo-50/50 border border-indigo-100 p-4 md:p-5 rounded-xl shadow-sm">
+                            <div class="text-[10px] font-black text-indigo-600 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> REFERENCE DOCUMENTS</div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label class="text-[10px] text-indigo-500 font-bold uppercase block mb-1">DO Number</label><input type="text" id="grn-input-do" class="mono-input w-full block bg-white border-indigo-200 focus:border-indigo-400" placeholder="Please key in Inv Number if Don't Have"></div>
+                                <div><label class="text-[10px] text-indigo-500 font-bold uppercase block mb-1">DO Date</label><input type="date" id="grn-input-do-date" class="mono-input w-full block bg-white border-indigo-200 focus:border-indigo-400"></div>
+                                <div><label class="text-[10px] text-indigo-500 font-bold uppercase block mb-1">Invoice Number</label><input type="text" id="grn-input-inv" class="mono-input w-full block bg-white border-indigo-200 focus:border-indigo-400" placeholder="Compulsory"></div>
+                                <div><label class="text-[10px] text-indigo-500 font-bold uppercase block mb-1">Invoice Date</label><input type="date" id="grn-input-inv-date" class="mono-input w-full block bg-white border-indigo-200 focus:border-indigo-400"></div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="bg-indigo-50 border border-indigo-200 p-3 rounded mb-6 text-xs text-indigo-800 font-medium no-print">
@@ -380,11 +390,21 @@
 
                         <section id="sec-cn" class="hidden">
                 <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
-                    <div class="mb-4 flex flex-wrap gap-4 w-full items-end no-print">
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">1. Select Outlet</label><select id="cn-sel-outlet" class="mono-input w-full sm:w-48 block mt-1" onchange="loadCnDocList()"></select></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">2. Linked Doc (PO/GRN/Inv)</label><select id="cn-sel-doc" class="mono-input w-full sm:w-64 block mt-1" onchange="renderCnWorkspace()"></select></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">Credit Note Number</label><input type="text" id="cn-input-num" class="mono-input w-full sm:w-40 block mt-1" placeholder="Official CN Number..."></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">CN Date</label><input type="date" id="cn-input-date" class="mono-input w-full sm:w-36 block mt-1"></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
+                        <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
+                            <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
+                            <div class="flex flex-col gap-4">
+                                <div><label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">1. Select Outlet</label><select id="cn-sel-outlet" class="mono-input w-full block bg-white" onchange="loadCnDocList()"></select></div>
+                                <div><label class="text-[10px] text-slate-500 font-bold uppercase block mb-1">2. Linked Doc (PO/GRN/Inv)</label><select id="cn-sel-doc" class="mono-input w-full block bg-white" onchange="renderCnWorkspace()"></select></div>
+                            </div>
+                        </div>
+                        <div class="bg-amber-50/50 border border-amber-100 p-4 md:p-5 rounded-xl shadow-sm">
+                            <div class="text-[10px] font-black text-amber-600 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="receipt-refund" class="w-3.5 h-3.5"></i> CREDIT NOTE DETAILS</div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div><label class="text-[10px] text-amber-600 font-bold uppercase block mb-1">Official CN Number</label><input type="text" id="cn-input-num" class="mono-input w-full block bg-white border-amber-200 focus:border-amber-400" placeholder="Input CN No..."></div>
+                                <div><label class="text-[10px] text-amber-600 font-bold uppercase block mb-1">CN Date</label><input type="date" id="cn-input-date" class="mono-input w-full block bg-white border-amber-200 focus:border-amber-400"></div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="bg-amber-50 border border-amber-200 p-3 rounded mb-6 text-xs text-amber-800 font-medium no-print">
@@ -410,6 +430,54 @@
                     <div class="flex flex-col sm:flex-row justify-between items-end border-t border-slate-200 pt-5 mt-2 gap-4">
                         <div class="w-full sm:w-auto no-print"><button onclick="saveCnDocument()" class="btn-mono w-full sm:w-auto px-6 py-3 rounded-lg flex justify-center items-center gap-2 font-bold shadow text-xs tracking-wider bg-amber-600 hover:bg-amber-700 border-none"><i data-lucide="receipt-refund" class="w-4 h-4"></i> CREATE CREDIT NOTE (CN)</button></div>
                         <div class="text-right w-full sm:w-auto"><div class="text-xs text-slate-500 font-bold mb-1">Total Credit / Deduction Value</div><div class="text-2xl font-black text-amber-600" id="cn-total-val">$0.00</div></div>
+                    </div>
+                </div>
+            </section>
+
+<section id="sec-transfer" class="hidden">
+                <div class="mb-4 flex flex-col md:flex-row justify-between items-start gap-4 no-print">
+                    <div class="flex flex-wrap gap-4 w-full">
+                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">1. From Outlet (來源)</label><select id="tf-from-outlet" class="mono-input w-full sm:w-48 block mt-1" onchange="initTransferTable()"></select></div>
+                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">2. To Outlet (目標)</label><select id="tf-to-outlet" class="mono-input w-full sm:w-48 block mt-1"></select></div>
+                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">3. Transfer Date</label><input type="date" id="tf-date" class="mono-input w-full sm:w-48 block mt-1 font-bold text-slate-700"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-lg p-4 md:p-8 shadow-sm">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-slate-100">
+                        <div>
+                            <h2 class="text-xl font-black text-slate-900 tracking-widest uppercase">INTERNAL STOCK TRANSFER</h2>
+                            <p class="text-xs text-slate-500 mt-1">Movement of inventory between outlets</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">Total Estimated Cost Value</span>
+                            <span class="text-2xl font-black text-indigo-600" id="tf-total-val">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full overflow-x-auto mb-4">
+                        <table class="w-full text-xs border-collapse min-w-[700px]">
+                            <thead>
+                                <tr class="bg-slate-100 border-y border-slate-300 font-bold text-slate-700 text-left">
+                                    <th class="py-2 px-2 w-10 text-center">NO</th>
+                                    <th class="py-2 px-2 min-w-[250px]">ITEM DESCRIPTION</th>
+                                    <th class="py-2 px-2 w-24 text-center">TRANSFER QTY</th>
+                                    <th class="py-2 px-2 w-24 text-right text-slate-400">UNIT COST</th>
+                                    <th class="py-2 px-2 w-24 text-right text-slate-400">TOTAL VALUE</th>
+                                    <th class="py-2 px-2 w-10 text-center no-print">ACT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tf-tbody" class="divide-y divide-slate-100 border-b border-slate-300"></tbody>
+                        </table>
+                    </div>
+                    <div class="mb-6 no-print"><button onclick="addTransferRow()" class="text-xs font-bold text-slate-500 hover:text-slate-900 border border-dashed border-slate-300 w-full py-2.5 rounded flex justify-center items-center gap-1 hover:bg-slate-50"><i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Transfer Item</button></div>
+                    
+                    <div class="mb-5 flex flex-col sm:flex-row text-xs items-start sm:items-center mt-3"><span class="font-bold text-slate-900 mr-2 shrink-0">REMARKS / REASON:</span><input type="text" class="border-b border-slate-300 w-full outline-none pb-0.5 text-slate-800 font-medium" id="tf-remarks" placeholder="Enter reason for transfer..."></div>
+                    
+                    <div class="mt-6 flex justify-end no-print">
+                        <button onclick="saveTransferDocument()" class="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-lg flex justify-center items-center gap-2 font-bold shadow text-xs tracking-wider">
+                            <i data-lucide="arrow-right-left" class="w-4 h-4"></i> EXECUTE TRANSFER
+                        </button>
                     </div>
                 </div>
             </section>
@@ -444,6 +512,23 @@
 
             <div id="modal-content-area" class="space-y-4 text-xs"></div>
             <div class="border-t pt-4 mt-4 flex flex-wrap justify-end gap-2" id="modal-actions-area"></div>
+        </div>
+    </div>
+
+<div id="csv-conflict-modal" class="fixed inset-0 bg-slate-900/60 z-[100] backdrop-blur-sm hidden items-center justify-center p-4 no-print">
+        <div class="bg-white rounded-lg max-w-4xl w-full p-6 shadow-2xl flex flex-col max-h-[85vh]">
+            <h3 class="text-lg font-black text-slate-900 mb-2"><i data-lucide="alert-triangle" class="text-amber-500 w-5 h-5 inline mr-1"></i> 發現重複資料 (Data Conflict)</h3>
+            <p class="text-xs text-slate-500 mb-4">系統偵測到以下匯入資料與現有資料庫衝突。請勾選您想要「覆蓋更新」的項目。未勾選的項目將被忽略。</p>
+            <div class="overflow-y-auto overflow-x-auto flex-1 border border-slate-200 rounded-lg mb-4">
+                <table class="w-full text-xs text-left whitespace-nowrap min-w-[600px]">
+                    <thead class="bg-slate-100 border-b text-slate-600 font-bold"><tr id="csv-conflict-thead"></tr></thead>
+                    <tbody id="csv-conflict-tbody" class="divide-y divide-slate-100 font-medium"></tbody>
+                </table>
+            </div>
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                <button onclick="closeCsvModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-xs font-bold transition-colors">Cancel</button>
+                <button onclick="confirmCsvMerge()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-bold shadow-sm flex items-center gap-1 transition-colors"><i data-lucide="save" class="w-3.5 h-3.5"></i> 確認覆蓋 (Override Selected)</button>
+            </div>
         </div>
     </div>
 
@@ -672,6 +757,7 @@ window.tempMergeFiles = [];
         let activeViewingDoc = null; let currentOrderBreakdown = { sub: 0, gst: 0, customFees: {}, total: 0 };
         let activeSetupTab = 'regions';
         let historySort = { col: 'default', dir: 'asc' };
+        let setupSort = { col: null, dir: 'asc' };
         
         // ADDED new permissions to the constant (Split History Archives)
         const ALL_SYSTEM_PERMISSIONS = [{ id: 'view_dashboard', name: 'Dashboard' }, { id: 'create_order', name: 'Create PR/PO' }, { id: 'create_grn', name: 'Create GRN & Inv' }, { id: 'create_cn', name: 'Create CN' }, { id: 'view_history_pr', name: 'Archive (PR)' }, { id: 'view_history_po', name: 'Archive (PO)' }, { id: 'view_history_cpo', name: 'Closed POs' }, { id: 'view_history_grn', name: 'Archive (GRN)' }, { id: 'view_history_cn', name: 'Archive (CN)' }, { id: 'edit_po', name: 'Edit Doc' }, { id: 'cancel_po', name: 'Cancel Doc' }, { id: 'delete_doc', name: 'Delete Forever' }, { id: 'finance_export', name: 'Finance Export' }, { id: 'system_setup', name: 'System Setup' }, { id: 'manage_users', name: 'Users Setup' }, { id: 'manage_roles', name: 'Roles Setup' }, { id: 'use_merge_pdf', name: 'Merge PDF' }, { id: 'upload_merge_docs', name: 'Upload External PDF' }, { id: 'edit_linked_docs', name: 'Edit Linked Docs' }];
@@ -1072,6 +1158,51 @@ function generatePdfFileName(docId, ruleType) {
         }
         patchPriceAlertSystem();
 
+async function checkDelayedDocs() {
+    if (!['SuperAdmin', 'Admin'].includes(currentUser.role)) return; // 依需求限制角色
+    
+    let orders = LOCAL_DB.get("orders", []);
+    let iAlerts = LOCAL_DB.get("internal_alerts", []) || [];
+    let now = Date.now();
+    let updated = false;
+
+    orders.forEach(o => {
+        // 只針對未完成的 PR / PO
+        if (['PR', 'PO'].includes(o.type) && ['Pending', 'Pending Approval', 'Partial Closed'].includes(o.status)) {
+            let docDate = new Date(o.date).getTime();
+            let diffDays = (now - docDate) / (1000 * 60 * 60 * 24);
+            
+            // 7天後觸發，且若是跨區只能看到自己的 Region
+            if (diffDays >= 7 && (currentUser.role === 'SuperAdmin' || o.region === currentUser.region)) {
+                let alertId = `DELAY-${o.id}`;
+                let existing = iAlerts.find(a => a.id === alertId);
+                
+                // 每 3 天提醒一次機制
+                let shouldRemind = !existing || ((now - new Date(existing.last_remind || existing.date).getTime()) / (1000 * 60 * 60 * 24) >= 3);
+                
+                if (shouldRemind) {
+                    if (existing) {
+                        existing.last_remind = new Date().toISOString();
+                        existing.read_by = []; // 清空已讀，重新提醒
+                    } else {
+                        iAlerts.push({
+                            id: alertId, type: 'DELAY', date: new Date().toISOString(), last_remind: new Date().toISOString(),
+                            doc_id: o.id, user: currentUser.user, read_by: [], region: o.region,
+                            msg: `${o.type} 停滯超過 7 天 (${Math.floor(diffDays)} 天). 目前狀態: ${o.status}`
+                        });
+                    }
+                    updated = true;
+                }
+            }
+        }
+    });
+    
+    if (updated) {
+        await LOCAL_DB.set("internal_alerts", iAlerts);
+        renderInternalAlerts();
+    }
+}
+
         function renderInternalAlerts() {
             let settings = LOCAL_DB.get("settings", {});
             let alertRoles = settings.alert_roles || ['SuperAdmin']; 
@@ -1096,8 +1227,8 @@ function generatePdfFileName(docId, ruleType) {
                     <div id="alert-list" class="bg-white border border-slate-200 rounded-lg shadow-2xl max-h-80 overflow-y-auto flex flex-col divide-y divide-slate-100 hidden absolute bottom-[110%] left-4 right-4 z-[100]"></div>
                     <div class="bg-slate-900 text-white rounded-lg px-4 py-2.5 flex justify-between items-center shadow-md cursor-pointer hover:bg-slate-800 transition-colors">
                         <div class="flex items-center gap-2" onclick="document.getElementById('alert-list').classList.toggle('hidden'); lucide.createIcons();">
-                            <i data-lucide="bell-ring" class="w-4 h-4 text-amber-400"></i><span class="font-black text-xs tracking-wide">Price Alerts</span>
-                            <span id="alert-badge" class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-black hidden">0</span>
+                            <i data-lucide="bell-ring" class="w-4 h-4 text-amber-400"></i><span class="font-black text-xs tracking-wide">System Alerts</span>
+<span id="alert-badge" class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-black hidden">0</span>
                         </div>
                         <button onclick="setAlertThreshold(event)" title="Set Alert % Threshold" class="text-slate-400 hover:text-white"><i data-lucide="settings" class="w-3.5 h-3.5"></i></button>
                     </div>
@@ -1281,7 +1412,10 @@ async function initSeedData() {
                     <td class="p-2 text-center text-slate-500">${req}</td>
                     <td class="p-2 text-center text-emerald-600 font-bold">${rec}</td>
                     <td class="p-2 text-center text-amber-600 font-black">${remain}</td>
-                    <td class="p-2 text-center bg-indigo-50 border-x border-indigo-200"><input type="number" min="0" max="${remain}" value="${remain}" class="mono-input w-full min-w-[80px] text-center grn-workspace-qty font-bold p-1 rounded ${remain === 0 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'text-indigo-700 bg-white border border-indigo-300'}" data-item="${escapeHTML(it.item)}" ${remain === 0 ? 'disabled' : ''} oninput="calcGrnWorkspaceTotal()"></td>
+                    <td class="p-2 text-center bg-indigo-50 border-x border-indigo-200 flex items-center gap-1">
+    <input type="number" min="0" value="${remain}" class="mono-input w-full min-w-[60px] text-center grn-workspace-qty font-bold p-1 rounded ${remain === 0 ? 'bg-slate-100 text-slate-400' : 'text-indigo-700 bg-white border border-indigo-300'}" data-item="${escapeHTML(it.item)}" oninput="calcGrnWorkspaceTotal()">
+    ${remain > 0 ? `<button title="Mark Out of Stock" onclick="markOutOfStock('${poId}', '${escapeHTML(it.item)}')" class="p-1 bg-red-100 text-red-600 rounded hover:bg-red-200"><i data-lucide="package-x" class="w-3.5 h-3.5"></i></button>` : ''}
+</td>
                     <td class="p-2 text-right text-slate-500">${po.breakdown?.currency_symbol||'$'}${(parseFloat(it.price)||0).toFixed(2)}</td>
                     <td class="p-2 text-center"><input type="checkbox" class="grn-same-tick w-5 h-5 cursor-pointer accent-indigo-600" onchange="window.toggleGrnInvPrice(this)"></td>
                     <td class="p-2 text-right bg-indigo-50 border-x border-indigo-200"><input type="number" step="0.01" class="mono-input w-full min-w-[90px] text-right grn-inv-price font-bold text-indigo-700 bg-white p-1 rounded border border-indigo-300" data-po-price="${it.price||0}" oninput="calcGrnWorkspaceTotal()"></td>
@@ -1294,6 +1428,34 @@ async function initSeedData() {
             if (!hasReceivableItems) html = `<tr><td colspan="11" class="p-6 text-center text-emerald-600 font-bold bg-emerald-50"><i data-lucide="check-circle" class="w-5 h-5 inline mr-1"></i> 此 PO 已全數收齊！</td></tr>`;
             tbody.innerHTML = html; lucide.createIcons(); calcGrnWorkspaceTotal();
         }
+
+async function markOutOfStock(poId, itemName) {
+    if(!confirm(`確定要將 [${itemName}] 標記為 Out of Stock 嗎？\n這將會把 PO 中該項目的剩餘未交貨數量歸零。`)) return;
+    let orders = LOCAL_DB.get("orders", []);
+    let poIdx = orders.findIndex(x => x.id === poId);
+    if(poIdx > -1) {
+        let linkedGrns = orders.filter(x => x.type === 'GRN' && x.po_reference === poId && x.status !== 'Cancelled');
+        let recMap = {}; linkedGrns.forEach(grn => { (grn.items || []).forEach(it => { recMap[it.item] = (recMap[it.item] || 0) + (parseFloat(it.qty) || 0); }); });
+        
+        let targetItem = orders[poIdx].items.find(i => i.item === itemName);
+        if(targetItem) {
+            let alreadyRec = recMap[itemName] || 0;
+            targetItem.qty = alreadyRec; // 將需求量降至已收量 (即剩餘為 0)
+            if(!orders[poIdx].history_logs) orders[poIdx].history_logs = [];
+            orders[poIdx].history_logs.push(`Vendor OOS: ${itemName} qty adjusted to ${alreadyRec} by ${currentUser.user}.`);
+            
+            // 重新計算 PO Total
+            let newTotal = 0;
+            orders[poIdx].items.forEach(it => newTotal += (parseFloat(it.qty)*parseFloat(it.price)));
+            orders[poIdx].total = newTotal;
+            if(orders[poIdx].breakdown) orders[poIdx].breakdown.total = newTotal;
+            
+            await LOCAL_DB.set("orders", orders);
+            showToast(`✅ 已將 ${itemName} 標記為 OOS 並更新 PO。`);
+            renderGrnWorkspace(); // 重新整理畫面
+        }
+    }
+}
 
         async function saveGrnDocument() {
             const sPo = document.getElementById('grn-sel-po');
@@ -1350,14 +1512,23 @@ async function initSeedData() {
             
             allLinkedGrns.forEach(grn => { (grn.items || []).forEach(it => { poRecMap[it.item] = (poRecMap[it.item] || 0) + (parseFloat(it.qty) || 0); }); });
             
-            let allReceived = true; let partialReceived = false;
-            (po.items || []).forEach(it => { let req = parseFloat(it.qty) || 0; let rec = poRecMap[it.item] || 0; if (rec < req) allReceived = false; if (rec > 0) partialReceived = true; });
- 
-            let poIdx = orders.findIndex(x => x.id === poId);
-            if (poIdx > -1) {
-                let oldStatus = orders[poIdx].status;
-                if (allReceived) {
-                    orders[poIdx].status = 'Closed';
+            let allReceived = true; let partialReceived = false; let overReceived = false;
+(po.items || []).forEach(it => { 
+    let req = parseFloat(it.qty) || 0; let rec = poRecMap[it.item] || 0; 
+    if (rec < req) allReceived = false; 
+    if (rec > 0) partialReceived = true; 
+    if (rec > req) overReceived = true;
+});
+
+let poIdx = orders.findIndex(x => x.id === poId);
+if (poIdx > -1) {
+    let oldStatus = orders[poIdx].status;
+    if (overReceived) {
+        orders[poIdx].status = 'Over Received ❗️';
+        if (!orders[poIdx].history_logs) orders[poIdx].history_logs = [];
+        orders[poIdx].history_logs.push(`PO marked as Over Received by System.`);
+    } else if (allReceived) {
+        orders[poIdx].status = 'Closed';
                     if (oldStatus !== 'Closed') { if(!orders[poIdx].history_logs) orders[poIdx].history_logs = []; orders[poIdx].history_logs.push(`PO automatically marked as Fully Closed by System.`); }
                 } else if (partialReceived) {
                     orders[poIdx].status = 'Partial Closed';
@@ -1397,7 +1568,9 @@ async function initSeedData() {
             let reasonsDB = LOCAL_DB.get("cn_reasons", []);
             let rHtml = `<option value="">Select Root Cause...</option>`;
             reasonsDB.forEach(r => {
-                let icon = r.type === 'Vendor Error' ? '🏢' : '👤';
+                let icon = '🏷️'; // 預設 Icon (適用於 Rebate 等自訂類別)
+                if(r.type.toLowerCase().includes('vendor')) icon = '🏢';
+                else if(r.type.toLowerCase().includes('human')) icon = '👤';
                 rHtml += `<option value="${r.reason} [${r.type}]">${icon} ${r.reason} (${r.type})</option>`;
             });
             let reasonSelect = document.getElementById('cn-reason-select');
@@ -1568,7 +1741,10 @@ async function initSeedData() {
             }
         }
         
-        function triggerSessionAutoLogin() { document.getElementById('login-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('opacity-0', 'pointer-events-none'); document.getElementById('user-name-display').innerText = currentUser.user; document.getElementById('user-role-display').innerText = currentUser.role; document.getElementById('user-avatar').innerText = currentUser.user.charAt(0).toUpperCase(); document.getElementById('announcement-text').innerText = LOCAL_DB.get("settings", {}).announcement || ''; document.getElementById('header-region-badge').innerText = `Region: ${currentUser.role==='SuperAdmin'?'ALL':(currentUser.region||'SG')} | Outlet: ${currentUser.outlet || 'ALL'}`; document.getElementById('header-region-badge').classList.remove('hidden'); buildNav(); if (typeof renderInternalAlerts === 'function') renderInternalAlerts(); if (hasPermission('view_dashboard')) navigate('dashboard', 'Dashboard'); else if (hasPermission('view_history_po')) navigate('history_po', 'Document Archive (PO)'); else if (hasPermission('view_history_pr')) navigate('history_pr', 'Document Archive (PR)'); else if (hasPermission('view_history_grn')) navigate('history_grn', 'Document Archive (GRN & Invoice)'); else navigate('setup', 'System Setup'); }
+        function triggerSessionAutoLogin() { document.getElementById('login-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('opacity-0', 'pointer-events-none'); document.getElementById('user-name-display').innerText = currentUser.user; document.getElementById('user-role-display').innerText = currentUser.role; document.getElementById('user-avatar').innerText = currentUser.user.charAt(0).toUpperCase(); document.getElementById('announcement-text').innerText = LOCAL_DB.get("settings", {}).announcement || ''; document.getElementById('header-region-badge').innerText = `Region: ${currentUser.role==='SuperAdmin'?'ALL':(currentUser.region||'SG')} | Outlet: ${currentUser.outlet || 'ALL'}`; document.getElementById('header-region-badge').classList.remove('hidden'); buildNav(); if (typeof renderInternalAlerts === 'function') {
+    renderInternalAlerts();
+    checkDelayedDocs();
+} if (hasPermission('view_dashboard')) navigate('dashboard', 'Dashboard'); else if (hasPermission('view_history_po')) navigate('history_po', 'Document Archive (PO)'); else if (hasPermission('view_history_pr')) navigate('history_pr', 'Document Archive (PR)'); else if (hasPermission('view_history_grn')) navigate('history_grn', 'Document Archive (GRN & Invoice)'); else navigate('setup', 'System Setup'); }
         
         function logout() { localStorage.removeItem('session_user_store'); localStorage.removeItem('session_time_stamp'); location.reload(); }
         
@@ -1581,10 +1757,11 @@ async function initSeedData() {
             if(hasPermission('create_order')) links.push({ id: 'order', icon: 'file-edit', title: 'Create PR/PO' });
             if(hasPermission('create_grn')) links.push({ id: 'grn', icon: 'package-check', title: 'Create GRN & Inv' });
             if(hasPermission('create_cn')) links.push({ 
-                id: 'cn', 
-                customIcon: `<div class="w-[18px] h-[18px] shrink-0 flex items-center justify-center border-[1.5px] border-slate-600 rounded-[4px] text-[8px] font-black text-slate-600 tracking-tighter">CN</div>`, 
-                title: 'Create Credit Note' 
-            });
+    id: 'cn', 
+    customIcon: `<div class="w-[18px] h-[18px] shrink-0 flex items-center justify-center border-[1.5px] border-slate-600 rounded-[4px] text-[8px] font-black text-slate-600 tracking-tighter">CN</div>`, 
+    title: 'Create Credit Note' 
+});
+if(hasPermission('create_order')) links.push({ id: 'transfer', icon: 'arrow-right-left', title: 'Internal Transfer' });
             if(hasPermission('view_history_pr')) links.push({ id: 'history_pr', icon: 'file-text', title: 'Document Archive (PR)' });
             if(hasPermission('view_history_po')) links.push({ id: 'history_po', icon: 'file-check-2', title: 'Document Archive (PO)' });
             if(hasPermission('view_history_cpo')) links.push({ id: 'history_closed_po', icon: 'archive', title: 'Closed POs' });
@@ -1597,8 +1774,13 @@ async function initSeedData() {
         }
 
         function navigate(id, title) {
+            window.amendingDocId = null; // 🌟 核心防呆 1：點擊任何左側選單，徹底拔除 Amend (改版) 記憶！
+            window.editingDocId = null;  // 🌟 核心防呆 2：同時拔除 Edit 記憶！
+            
             let titleEl = document.getElementById('current-section-title');
             if(titleEl) titleEl.innerText = title;
+            
+            // Explicitly hide all sections
             
             // Explicitly hide all sections
             let allSecs = ['dashboard', 'order', 'grn', 'cn', 'history', 'finance', 'setup'];
@@ -1671,6 +1853,23 @@ async function initSeedData() {
             }
             if(id === 'order') { if(typeof resetOrderFormWorkspace === 'function') resetOrderFormWorkspace(); }
             
+            if (id === 'transfer') {
+                let isSuper = currentUser.role === 'SuperAdmin';
+                const out = LOCAL_DB.get("outlets", []).filter(o => isSuper || o.region === currentUser.region);
+                const options = out.map(o => `<option value="${escapeHTML(o.short_code)}">${escapeHTML(o.short_code)}</option>`).join('');
+                
+                const sFrom = document.getElementById('tf-from-outlet');
+                const sTo = document.getElementById('tf-to-outlet');
+                if(sFrom && sTo) {
+                    sFrom.innerHTML = options; sTo.innerHTML = options;
+                    initSearchableSelect(sFrom, function(){ initTransferTable(); }); initSearchableSelect(sTo);
+                    if(currentUser.role === 'Outlet' && currentUser.outlet) {
+                        if(sFrom.tomselect) { sFrom.tomselect.setValue(currentUser.outlet, true); sFrom.tomselect.disable(); }
+                    }
+                    setTimeout(() => initTransferTable(), 150);
+                }
+            }
+
             if(id === 'grn') {
                 let dEl = document.getElementById('grn-sys-date');
                 if(dEl) dEl.innerText = new Date().toISOString().split('T')[0];
@@ -1736,6 +1935,16 @@ async function initSeedData() {
         }
 
         function filterSetupTable() { const val = document.getElementById('setup-search-filter').value.toLowerCase(); document.querySelectorAll('#setup-table-container tr.setup-data-row').forEach(row => { let txt = ''; row.querySelectorAll('input, textarea, select, td, div').forEach(el => txt += (el.value || el.innerText || '') + ' '); row.style.display = txt.toLowerCase().includes(val) ? '' : 'none'; }); }
+
+function triggerSetupSort(col) {
+            if (setupSort.col === col) {
+                setupSort.dir = setupSort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                setupSort.col = col;
+                setupSort.dir = 'asc';
+            }
+            renderSetupTable(activeSetupTab);
+        }
 
         function renderProductColToggles() {
             const container = document.getElementById('product-col-toggles');
@@ -1812,7 +2021,13 @@ async function initSeedData() {
                     if (fileInput && fileInput.files && fileInput.files.length > 0) { newObj[k] = await compressImage(fileInput.files[0]); } else { newObj[k] = ''; }
                 } else {
                     const el = document.getElementById(`new-${collection}-${k}`);
-                    if(el) newObj[k] = ['unit_cost','foc_req','foc_qty','threshold','ex_rate','tax_rate'].includes(k)?(parseFloat(el.value)||0):el.value.trim(); 
+                    if(el) {
+                        if (el.type === 'checkbox') {
+                            newObj[k] = el.checked ? 'Y' : 'N';
+                        } else {
+                            newObj[k] = ['unit_cost','foc_req','foc_qty','threshold','ex_rate','tax_rate'].includes(k)?(parseFloat(el.value)||0):el.value.trim(); 
+                        }
+                    }
                 }
             } 
             if (collection === 'products') {
@@ -1843,8 +2058,13 @@ async function initSeedData() {
             else if(activeSetupTab === 'users') keys = ['region', 'user', 'pass', 'role', 'outlet'];
             else if(activeSetupTab === 'approval_rules') keys = ['region', 'type', 'threshold', 'approver'];
             else if(activeSetupTab === 'numbering_rules') keys = ['rule_name', 'region', 'type', 'follow_pr', 'slot1', 'slot2', 'slot3', 'slot4', 'slot5', 'slot6'];
-            else if(activeSetupTab === 'pdf_templates') keys = ['name', 'sequence']; else if(collection === 'cn_reasons' || activeSetupTab === 'cn_reasons') keys = ['reason', 'type'];
-            const csv = "\uFEFF" + keys.join(',') + "\n"; const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            else if(activeSetupTab === 'pdf_templates') keys = ['name', 'sequence']; else if(activeSetupTab === 'cn_reasons') keys = ['reason', 'type'];
+            let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id);
+            const csv = "\uFEFF" + keys.map(k => {
+                if (activeSetupTab === 'products' && customFuncs.includes(k)) return k + ' (Y/N)';
+                return k;
+            }).join(',') + "\n"; 
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${activeSetupTab}_template.csv`; a.click();
         }
 
@@ -1862,7 +2082,11 @@ async function initSeedData() {
             else if(collection === 'numbering_rules') keys = ['rule_name', 'region', 'type', 'follow_pr', 'slot1', 'slot2', 'slot3', 'slot4', 'slot5', 'slot6', 'slot7', 'slot8'];
             else if(collection === 'pdf_templates') keys = ['name', 'sequence']; else if(collection === 'cn_reasons' || activeSetupTab === 'cn_reasons') keys = ['reason', 'type'];
             let data = LOCAL_DB.get(collection, []); if (currentUser.role !== 'SuperAdmin' && collection !== 'regions' && collection !== 'pdf_templates') data = data.filter(d => !d.region || d.region === currentUser.region || d.region === 'ALL');
-            let csv = "\uFEFF" + keys.map(k => k.toUpperCase()).join(',') + "\n";
+            let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id);
+            let csv = "\uFEFF" + keys.map(k => {
+                if (collection === 'products' && customFuncs.includes(k)) return k.toUpperCase() + ' (Y/N)';
+                return k.toUpperCase().replace(/_/g,' ');
+            }).join(',') + "\n";
             data.forEach(row => { let r = keys.map(k => { let val = row[k] === undefined || row[k] === null ? '' : row[k]; return `"${String(val).replace(/"/g, '""')}"`; }); csv += r.join(',') + "\n"; }); 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${collection}_export.csv`; a.click(); showToast(`✅ ${collection.toUpperCase()} 資料庫已成功匯出！`);
         }
@@ -1934,6 +2158,18 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 let rawData = LOCAL_DB.get(collection, []);
                 let data = (currentUser.role === 'SuperAdmin' || collection === 'regions' || collection === 'roles' || collection === 'numbering_rules' || collection === 'pdf_templates') ? rawData : rawData.filter(d => !d.region || d.region === currentUser.region || d.region === 'ALL');
                 
+                // 🌟 核心修復：在 System Setup 中，強制將資料根據 Region 進行排序分組顯示！
+                data.sort((a, b) => {
+                    let rA = a.region || 'SG';
+                    let rB = b.region || 'SG';
+                    if (rA !== rB) return rA.localeCompare(rB); // 先按地區排
+                    
+                    // 地區一樣再按名稱排
+                    let keyA = a.short_code || a.item || a.name || a.rule_name || '';
+                    let keyB = b.short_code || b.item || b.name || b.rule_name || '';
+                    return String(keyA).localeCompare(String(keyB));
+                });
+
                 if (collection === 'roles') {
                     let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">🛡️ 雲端功能安全控制 Matrix</span><p class="text-slate-500 mt-1">您可以自由在下方 Create 新角色，並勾選該角色可以「看到」和「用到」的獨立控制按鈕與分頁面板。</p></div><div class="w-full overflow-x-auto pb-4"><table class="w-full text-xs text-left min-w-[1200px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-44">ROLE NAME (角色名稱)</th>${ALL_SYSTEM_PERMISSIONS.map(p => `<th class="p-2 text-center text-[11px] leading-tight font-medium border-l border-slate-700 w-16">${p.name}</th>`).join('')}<th class="p-3 text-center w-20">ACT</th></tr></thead><tbody>`;
                     data.forEach((r, rIdx) => { html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row"><td class="p-3 font-black text-slate-900 bg-slate-50 border-r">${r.roleName}</td>${ALL_SYSTEM_PERMISSIONS.map(p => { const checked = r.permissions.includes(p.id) ? 'checked' : ''; return `<td class="p-2 text-center border-l"><input type="checkbox" ${checked} onchange="togglePermission('${r.roleName}', '${p.id}', this.checked)" class="w-4 h-4 cursor-pointer"></td>`; }).join('')}<td class="p-2 text-center border-l"><button onclick="deleteRow('roles', ${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-2 py-1 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`; });
@@ -1957,14 +2193,69 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 
                 if (keys.length === 0) { cont.innerHTML = `<div class="p-4 text-slate-500 font-bold">目前無可顯示的欄位。</div>`; return; }
 
-                let html = `<div class="flex flex-col sm:flex-row gap-2 justify-between items-center mb-2 no-print"><div class="w-full sm:w-1/3 relative"><input type="text" id="setup-search-filter" oninput="filterSetupTable()" placeholder="🔍 Search records..." class="mono-input w-full text-xs shadow-sm pl-8"><i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i></div><div class="flex gap-2 w-full sm:w-auto"><button onclick="document.getElementById('csv-uploader').click()" class="text-xs bg-slate-900 text-white px-3 py-1.5 rounded font-bold shadow-sm hover:bg-slate-800 flex items-center gap-1"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Import CSV</button><button onclick="exportSetupData()" class="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded font-bold shadow-sm hover:bg-blue-100 flex items-center gap-1"><i data-lucide="download-cloud" class="w-3.5 h-3.5"></i> Export Data</button><button onclick="downloadCSVTemplateForCurrentTab()" class="text-xs bg-white border border-slate-300 px-3 py-1.5 rounded font-bold shadow-sm hover:bg-slate-50 flex items-center gap-1"><i data-lucide="file-template" class="w-3.5 h-3.5"></i> Get Template</button></div></div>`;
-                html += `<table class="w-full text-xs text-left min-w-[800px] border-collapse"><tr class="bg-slate-900 text-white">${keys.map(k=>`<th class="p-3 font-semibold tracking-wider">${k.toUpperCase().replace('_',' ')}</th>`).join('')}<th class="p-3 text-center">ACT</th></tr>`;
+                // 🌟 排序引擎初始化
+                window.setupSort = window.setupSort || { col: null, dir: 'asc' };
+                window.sortSetupTable = function(col) {
+                    if(window.setupSort.col === col) window.setupSort.dir = window.setupSort.dir === 'asc' ? 'desc' : 'asc';
+                    else { window.setupSort.col = col; window.setupSort.dir = 'asc'; }
+                    renderSetupTable(activeSetupTab);
+                };
+                if(window.setupSort.col) {
+                    data.sort((a,b) => {
+                        let va = a[window.setupSort.col]||''; let vb = b[window.setupSort.col]||'';
+                        if(!isNaN(parseFloat(va)) && !isNaN(parseFloat(vb))) { va = parseFloat(va); vb = parseFloat(vb); }
+                        else { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
+                        if(va < vb) return window.setupSort.dir === 'asc' ? -1 : 1;
+                        if(va > vb) return window.setupSort.dir === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                }
                 
+                window.filterCol = function() {
+                    const rows = document.querySelectorAll('.setup-data-row'); const inps = document.querySelectorAll('.col-filter-inp');
+                    rows.forEach(r => { let show = true; const cells = r.querySelectorAll('td'); inps.forEach((inp, i) => { const v = inp.value.toLowerCase().trim(); if(v && cells[i]) { let txt = cells[i].textContent.toLowerCase(); if(!txt.includes(v)) show = false; } }); r.style.display = show ? '' : 'none'; });
+                };
+
+                let html = `<div class="flex gap-2 justify-end mb-2 no-print"><button onclick="document.getElementById('csv-uploader').click()" class="text-xs bg-slate-900 text-white px-3 py-1.5 rounded font-bold">Import CSV</button><button onclick="exportSetupData()" class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded font-bold border border-blue-200">Export</button></div>`;
+                html += `<div class="overflow-x-auto"><table class="w-full text-xs text-left min-w-[800px] border-collapse"><tr class="bg-slate-900 text-white">${keys.map(k=>`<th class="p-3 font-semibold cursor-pointer hover:bg-slate-800" onclick="sortSetupTable('${k}')">${k.toUpperCase()} ${window.setupSort.col===k?(window.setupSort.dir==='asc'?'▲':'▼'):'↕'}</th>`).join('')}<th class="p-3">ACT</th></tr>`;
+                html += `<tr class="bg-indigo-50">${keys.map(k=>`<td class="p-1"><input type="text" class="col-filter-inp mono-input w-full p-1 text-[10px]" placeholder="Filter..." oninput="filterCol()"></td>`).join('')}<td></td></tr>`;
+                // 🌟 套用欄位排序邏輯
+                if (setupSort.col) {
+                    data.sort((a, b) => {
+                        let valA = a[setupSort.col] !== undefined ? a[setupSort.col] : '';
+                        let valB = b[setupSort.col] !== undefined ? b[setupSort.col] : '';
+                        
+                        // 嘗試轉數字比較
+                        let numA = parseFloat(valA); let numB = parseFloat(valB);
+                        if (!isNaN(numA) && !isNaN(numB)) {
+                            return setupSort.dir === 'asc' ? numA - numB : numB - numA;
+                        }
+                        
+                        // 字串比較
+                        let strA = String(valA).toLowerCase(); let strB = String(valB).toLowerCase();
+                        if (strA < strB) return setupSort.dir === 'asc' ? -1 : 1;
+                        if (strA > strB) return setupSort.dir === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                }
+
+                html += `<table class="w-full text-xs text-left min-w-[800px] border-collapse"><tr class="bg-slate-900 text-white">${keys.map(k=> {
+                    let isSorted = setupSort.col === k;
+                    let arrow = isSorted ? (setupSort.dir === 'asc' ? '↑' : '↓') : '↕';
+                    return `<th class="p-3 font-semibold tracking-wider cursor-pointer hover:text-indigo-300 transition-colors select-none" onclick="triggerSetupSort('${k}')">${k.toUpperCase().replace(/_/g,' ')} <span class="text-[10px] text-slate-400 ml-1">${arrow}</span></th>`;
+                }).join('')}<th class="p-3 text-center">ACT</th></tr>`;
+                
+                let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id);
                 data.forEach((row, rIdx) => {
                     html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row">`;
                     keys.forEach(k => {
                         const val = row[k] === undefined || row[k] === null ? '' : row[k];
-                        if (k === 'region' && collection !== 'regions') { 
+                        if (collection === 'products' && customFuncs.includes(k)) { 
+                            // 🌟 UI 轉換為 Checkbox 打勾
+                            let isChecked = (val === 'Y' || val === true || String(val).toLowerCase() === 'true' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0));
+                            html += `<td class="p-2 min-w-[100px] text-center"><input type="checkbox" class="w-4 h-4 cursor-pointer accent-indigo-600" ${isChecked ? 'checked' : ''} onchange="updateDB('${collection}',${rIdx},'${k}', this.checked ? 'Y' : 'N')"></td>`; 
+                        }
+                        else if (k === 'region' && collection !== 'regions') { 
                             if(currentUser.role === 'SuperAdmin') { html += `<td class="p-2 min-w-[100px]"><select class="mono-input w-full p-2 text-xs text-blue-700 font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="ALL" ${val==='ALL'?'selected':''}>ALL</option>${allRegions.map(reg => `<option value="${reg.region}" ${val===reg.region?'selected':''}>${reg.region}</option>`).join('')}</select></td>`; } 
                             else { html += `<td class="p-2 min-w-[100px]"><span class="font-bold text-slate-500">${val}</span></td>`; }
                         }
@@ -1974,7 +2265,10 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                         else if (collection === 'approval_rules' && k === 'type') { html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Grand Total" ${val==='Grand Total'?'selected':''}>Grand Total</option><option value="Single Item Total" ${val==='Single Item Total'?'selected':''}>Single Item Total</option></select></td>`; }
                         else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
                         else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
-                        else if (collection === 'cn_reasons' && k === 'type') { html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Vendor Error" ${val==='Vendor Error'?'selected':''}>Vendor Error</option><option value="Human Error" ${val==='Human Error'?'selected':''}>Human Error</option></select></td>`; }
+                        else if (collection === 'cn_reasons' && k === 'type') { 
+                            let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))];
+                            html += `<td class="p-2 min-w-[150px]"><input type="text" list="dl-cntypes-${rIdx}" class="mono-input w-full p-2 text-xs font-bold text-indigo-700" value="${escapeHTML(val)}" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><datalist id="dl-cntypes-${rIdx}">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
+                        }
                         else if (collection === 'products' && k === 'discontinued') { html += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="false" ${String(val)!=='true'?'selected':''}>Active</option><option value="true" ${String(val)==='true'?'selected':''}>Discontinued</option></select></td>`; }
                         else if (collection === 'products' && k === 'cost_per_100ml') { html += `<td class="p-2 min-w-[120px]"><input type="text" value="$${parseFloat(val||0).toFixed(4)}" class="mono-input w-full p-2 text-xs font-black bg-slate-100 text-slate-500 cursor-not-allowed border-dashed" disabled></td>`; }
                         else if (collection === 'numbering_rules' && k === 'rule_name') { html += `<td class="p-2 min-w-[150px]"><input type="text" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
@@ -1990,12 +2284,23 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                         else { if (['item', 'address', 'company'].includes(k)) html += `<td class="p-2 min-w-[200px]"><textarea class="mono-input w-full p-2 bg-transparent text-xs whitespace-normal break-words resize-none overflow-hidden" rows="2" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${val}</textarea></td>`;
                         else html += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
                     });
-                    html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`;
+                    // 保護 SuperAdmin 防禦邏輯
+let isProtected = (row.role === 'SuperAdmin' || row.roleName === 'SuperAdmin' || row.user === 'Syadmin');
+let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
+
+if (canEdit) {
+    html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`;
+} else {
+    html += `<td class="p-2 text-center"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
+}
                 });
 
                 html += `<tr class="bg-slate-50 border-t-2 border-slate-200">`;
                 keys.forEach(k => { 
-                    if (k === 'region' && collection !== 'regions' && collection !== 'pdf_templates') { 
+                    if (collection === 'products' && customFuncs.includes(k)) { 
+                        html += `<td class="p-2 text-center"><input type="checkbox" id="new-${collection}-${k}" class="w-4 h-4 cursor-pointer accent-indigo-600"></td>`; 
+                    }
+                    else if (k === 'region' && collection !== 'regions' && collection !== 'pdf_templates') { 
                         if(currentUser.role === 'SuperAdmin') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs text-blue-700 font-bold bg-white"><option value="ALL">ALL</option>${allRegions.map(reg => `<option value="${reg.region}">${reg.region}</option>`).join('')}</select></td>`; }
                         else { html += `<td class="p-2"><input type="hidden" id="new-${collection}-${k}" value="${currentUser.region}"><span class="font-bold text-slate-500 px-2">${currentUser.region}</span></td>`; }
                     }
@@ -2004,7 +2309,10 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                     else if (collection === 'outlets' && k === 'default_logo') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}">${l.name}</option>`).join('')}</select></td>`; }
                     else if (collection === 'approval_rules' && k === 'type') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="Grand Total">Grand Total</option><option value="Single Item Total">Single Item Total</option></select></td>`; }
                     else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="">-</option>${sigs.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select></td>`; }
-                    else if (collection === 'cn_reasons' && k === 'type') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white font-bold"><option value="Vendor Error">Vendor Error</option><option value="Human Error">Human Error</option></select></td>`; }
+                    else if (collection === 'cn_reasons' && k === 'type') { 
+                        let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))];
+                        html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" list="dl-cntypes-new" class="mono-input w-full p-2 text-xs border-slate-300 bg-white font-bold text-indigo-700" placeholder="Type new or select..."><datalist id="dl-cntypes-new">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
+                    }
                     else if (collection === 'products' && k === 'discontinued') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="false">Active</option><option value="true">Discontinued</option></select></td>`; }
                     else if (collection === 'products' && k === 'cost_per_100ml') { html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" placeholder="Auto Calc" class="mono-input w-full p-2 text-xs border-dashed bg-slate-100 text-slate-400 cursor-not-allowed" disabled></td>`; }
                     else if (collection === 'numbering_rules' && k === 'rule_name') { html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" placeholder="New Rule Name" class="mono-input w-full p-2 text-xs border-slate-300 font-bold bg-white"></td>`; }
@@ -2123,10 +2431,27 @@ async function saveGlobalSettings() {
         }
 
         function parseCSVText(text) {
+            let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id); // 🌟 動態獲取 Layout Fees
             let row = [], val = '', inQuotes = false; const rows = [];
             for (let i = 0; i < text.length; i++) { let c = text[i], next = text[i+1]; if (c === '"' && next === '"') { val += '"'; i++; } else if (c === '"') { inQuotes = !inQuotes; } else if (c === ',' && !inQuotes) { row.push(val); val = ''; } else if ((c === '\n' || (c === '\r' && next === '\n')) && !inQuotes) { if (c === '\r') i++; row.push(val); rows.push(row); row = []; val = ''; } else if (c !== '\r') { val += c; } }
-            if (val || row.length > 0) { row.push(val); rows.push(row); } const results = []; if (rows.length < 2) return results; const headers = rows[0].map(h => h.trim().toLowerCase().replace(/^\uFEFF/, ''));
-            for (let i = 1; i < rows.length; i++) { if(rows[i].length === 0 || (rows[i].length === 1 && rows[i][0] === '')) continue; let obj = {}; headers.forEach((h, idx) => { let cell = String(rows[i][idx] || '').replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim(); if(['unit_cost', 'foc_req', 'foc_qty', 'cost', 'bcrs', 'guinness_crate', 'tiger_crate', 'threshold', 'ex_rate', 'tax_rate', 'volume', 'qty_in_pack', 'cost_per_100ml'].includes(h)) cell = parseFloat(cell) || 0; obj[h] = cell; }); results.push(obj); } return results;
+            if (val || row.length > 0) { row.push(val); rows.push(row); } const results = []; if (rows.length < 2) return results; 
+            const headers = rows[0].map(h => h.trim().toLowerCase().replace(/^\uFEFF/, '').replace(/\s*\(y\/n\)$/, '')); // 🌟 剝離 (Y/N) 標籤
+            for (let i = 1; i < rows.length; i++) { 
+                if(rows[i].length === 0 || (rows[i].length === 1 && rows[i][0] === '')) continue; 
+                let obj = {}; 
+                headers.forEach((h, idx) => { 
+                    let cell = String(rows[i][idx] || '').replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim(); 
+                    if (activeSetupTab === 'products' && customFuncs.includes(h)) {
+                        // 🌟 核心修復：強制將 Custom Columns 轉為 Y/N (相容舊的數字設定)
+                        cell = (cell === 'Y' || cell === 'y' || cell === 'Yes' || cell === 'yes' || String(cell).toLowerCase() === 'true' || cell === '1' || cell === 1 || (!isNaN(parseFloat(cell)) && parseFloat(cell) > 0)) ? 'Y' : 'N'; 
+                    } else if(['unit_cost', 'foc_req', 'foc_qty', 'cost', 'threshold', 'ex_rate', 'tax_rate', 'volume', 'qty_in_pack', 'cost_per_100ml'].includes(h)) {
+                        cell = parseFloat(cell) || 0; 
+                    } 
+                    obj[h] = cell; 
+                }); 
+                results.push(obj); 
+            } 
+            return results;
         }
 
         async function handleCSVUpload(event) {
@@ -2140,43 +2465,101 @@ async function saveGlobalSettings() {
                     else if (activeSetupTab === 'approval_rules') pk = 'type'; else if (activeSetupTab === 'regions') pk = 'region';
                     else if (activeSetupTab === 'logos') pk = 'name'; else if (activeSetupTab === 'pdf_templates') pk = 'name'; let duplicates = []; let newItems = [];
                     parsed.forEach(p => { if(!p.region && activeSetupTab !== 'regions' && activeSetupTab !== 'pdf_templates') p.region = currentUser.role === 'SuperAdmin' ? 'SG' : currentUser.region; if(activeSetupTab === 'products') { if(!p['item'] || !p['supplier']) return; let idx = data.findIndex(x => String(x.item).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim() === String(p.item).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim() && String(x.supplier).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim() === String(p.supplier).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim()); if(idx > -1) duplicates.push({idx, newData: p}); else newItems.push(p); } else { if(!p[pk]) return; let idx = data.findIndex(x => String(x[pk]).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim() === String(p[pk]).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim()); if(idx > -1) duplicates.push({idx, newData: p}); else newItems.push(p); } });
-                    let replaceDuplicates = false; if(duplicates.length > 0) { let msg = `發現 ${duplicates.length} 筆重複資料，是否要覆蓋 (Replace)？\n\n(點擊「取消」則保留原資料，僅新增全新項目)`; if(activeSetupTab === 'products') { msg = `檢查到 ${duplicates.length} 筆產品已存在 (相同 Vendor Code + Product Name)！\n是否要進行覆蓋 (Replace)？\n\n(點擊「取消」則只會新增全新的產品)`; } replaceDuplicates = confirm(msg); }
-                    
-                    if(replaceDuplicates) { 
-                        duplicates.forEach(d => { 
-                            let oldPrice = data[d.idx].unit_cost;
-                            data[d.idx] = {...data[d.idx], ...d.newData}; 
-                            if (activeSetupTab === 'products') {
-                                let cost = parseFloat(data[d.idx].unit_cost) || 0;
-                                let qty = parseFloat(data[d.idx].qty_in_pack) || 0;
-                                let vol = parseFloat(data[d.idx].volume) || 0;
-                                data[d.idx].cost_per_100ml = (qty > 0 && vol > 0) ? ((cost / qty) / vol) * 100 : 0;
-                                if (parseFloat(oldPrice) !== parseFloat(d.newData.unit_cost)) {
-                                    recordPriceHistory(d.newData.region || currentUser.region, d.newData.item, d.newData.supplier, d.newData.unit_cost);
-                                }
-                            }
-                        }); 
-                    } 
-                    
-                    if (activeSetupTab === 'products') {
-                        newItems.forEach(p => {
-                            let cost = parseFloat(p.unit_cost) || 0;
-                            let qty = parseFloat(p.qty_in_pack) || 0;
-                            let vol = parseFloat(p.volume) || 0;
-                            p.cost_per_100ml = (qty > 0 && vol > 0) ? ((cost / qty) / vol) * 100 : 0;
+                    let approvedDups = [];
+                    if(duplicates.length > 0) {
+                        approvedDups = await new Promise((resolve) => {
+                            let overlay = document.createElement('div'); overlay.className = "fixed inset-0 z-[300] bg-slate-900/80 backdrop-blur-sm flex justify-center items-center p-4 no-print";
+                            let listHtml = duplicates.map((d, i) => `<label class="flex items-center gap-3 p-3 hover:bg-slate-50 border-b cursor-pointer"><input type="checkbox" class="w-5 h-5 dup-checkbox accent-indigo-600" value="${i}" checked><div class="text-xs"><span class="font-black text-slate-800 text-sm">${d.newData[pk]}</span><span class="text-slate-500 ml-2 block mt-0.5">Override existing data?</span></div></label>`).join('');
+                            overlay.innerHTML = `<div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col"><div class="p-5 border-b bg-amber-50 flex justify-between items-center rounded-t-xl"><h3 class="font-black text-amber-800 text-lg flex items-center gap-2">⚠️ Duplicate Records Found</h3></div><div class="p-4 text-xs font-bold text-slate-600 bg-white border-b border-slate-200">Found <b class="text-amber-600">${duplicates.length}</b> records already in system. Tick to overwrite.</div><div class="overflow-y-auto flex-1 p-2 bg-slate-50">${listHtml}</div><div class="p-5 border-t flex justify-end gap-3 bg-white rounded-b-xl"><button id="btn-dup-cancel" class="px-6 py-2 bg-slate-100 rounded text-xs font-bold hover:bg-slate-200">Cancel All</button><button id="btn-dup-confirm" class="px-6 py-2 bg-indigo-600 rounded text-xs font-black text-white hover:bg-indigo-700">Confirm Overwrite</button></div></div>`;
+                            document.body.appendChild(overlay);
+                            document.getElementById('btn-dup-cancel').onclick = () => { overlay.remove(); resolve([]); };
+                            document.getElementById('btn-dup-confirm').onclick = () => { let selected = Array.from(overlay.querySelectorAll('.dup-checkbox:checked')).map(cb => duplicates[parseInt(cb.value)]); overlay.remove(); resolve(selected); };
                         });
                     }
-                    data.push(...newItems); 
                     
-                    if (activeSetupTab === 'products') {
-                        newItems.forEach(p => {
-                            recordPriceHistory(p.region || currentUser.region, p.item, p.supplier, p.unit_cost);
-                        });
-                    }
+                    window.tempCsvDuplicates = duplicates;
+                    window.tempCsvNewItems = newItems;
+                    window.tempCsvData = data;
 
-                    await LOCAL_DB.set(activeSetupTab, data); renderSetupTable(activeSetupTab); 
-                    let toastMsg = `✅ 成功新增 ${newItems.length} 筆資料！`; if(replaceDuplicates) toastMsg = `✅ 成功新增 ${newItems.length} 筆，並覆蓋更新了 ${duplicates.length} 筆！`; else if(duplicates.length > 0) toastMsg += ` (跳過了 ${duplicates.length} 筆重複資料)`; showToast(toastMsg);
-                    await triggerSystemSync(activeSetupTab);
+                    if(duplicates.length > 0) { 
+                        // 彈出精緻的 Modal 讓使用者選擇
+                        let keys = Object.keys(duplicates[0].newData);
+                        document.getElementById('csv-conflict-thead').innerHTML = `<th class="p-2 text-center w-12"><input type="checkbox" id="csv-check-all" class="w-4 h-4 cursor-pointer accent-indigo-600" checked onchange="toggleAllCsvConflicts(this)"></th>` + keys.map(k => `<th class="p-2 tracking-wider uppercase">${k.replace(/_/g, ' ')}</th>`).join('');
+                        
+                        document.getElementById('csv-conflict-tbody').innerHTML = duplicates.map((d, i) => {
+                            return `<tr class="hover:bg-amber-50 transition-colors">
+                                <td class="p-2 text-center"><input type="checkbox" class="csv-conflict-cb w-4 h-4 cursor-pointer accent-indigo-600" value="${i}" checked></td>
+                                ${keys.map(k => `<td class="p-2 truncate max-w-[150px]" title="${escapeHTML(d.newData[k])}">${escapeHTML(d.newData[k])}</td>`).join('')}
+                            </tr>`;
+                        }).join('');
+                        
+                        document.getElementById('csv-conflict-modal').classList.remove('hidden');
+                        document.getElementById('csv-conflict-modal').classList.add('flex');
+                        lucide.createIcons();
+                    } else {
+                        // 沒有重複，直接新增
+                        executeCsvSave(newItems, []);
+                    }
+                } catch(err) { alert("匯入時發生錯誤：" + err); } 
+                document.getElementById('csv-uploader').value = ''; 
+            }; 
+            reader.readAsText(file);
+        }
+
+        function toggleAllCsvConflicts(cb) {
+            document.querySelectorAll('.csv-conflict-cb').forEach(el => el.checked = cb.checked);
+        }
+
+        function closeCsvModal() {
+            document.getElementById('csv-conflict-modal').classList.add('hidden');
+            document.getElementById('csv-conflict-modal').classList.remove('flex');
+            window.tempCsvDuplicates = null; window.tempCsvNewItems = null; window.tempCsvData = null;
+        }
+
+        async function confirmCsvMerge() {
+            let selectedIndexes = Array.from(document.querySelectorAll('.csv-conflict-cb:checked')).map(cb => parseInt(cb.value));
+            let approvedDuplicates = selectedIndexes.map(i => window.tempCsvDuplicates[i]);
+            await executeCsvSave(window.tempCsvNewItems, approvedDuplicates);
+            closeCsvModal();
+        }
+
+        async function executeCsvSave(newItems, approvedDuplicates) {
+            let data = window.tempCsvData;
+            
+            if(approvedDuplicates.length > 0) { 
+                approvedDuplicates.forEach(d => { 
+                    let oldPrice = data[d.idx].unit_cost;
+                    data[d.idx] = {...data[d.idx], ...d.newData}; 
+                    if (activeSetupTab === 'products') {
+                        let cost = parseFloat(data[d.idx].unit_cost) || 0;
+                        let qty = parseFloat(data[d.idx].qty_in_pack) || 0;
+                        let vol = parseFloat(data[d.idx].volume) || 0;
+                        data[d.idx].cost_per_100ml = (qty > 0 && vol > 0) ? ((cost / qty) / vol) * 100 : 0;
+                        if (parseFloat(oldPrice) !== parseFloat(d.newData.unit_cost)) {
+                            recordPriceHistory(d.newData.region || currentUser.region, d.newData.item, d.newData.supplier, d.newData.unit_cost);
+                        }
+                    }
+                }); 
+            } 
+            
+            if (activeSetupTab === 'products') {
+                newItems.forEach(p => {
+                    let cost = parseFloat(p.unit_cost) || 0;
+                    let qty = parseFloat(p.qty_in_pack) || 0;
+                    let vol = parseFloat(p.volume) || 0;
+                    p.cost_per_100ml = (qty > 0 && vol > 0) ? ((cost / qty) / vol) * 100 : 0;
+                    recordPriceHistory(p.region || currentUser.region, p.item, p.supplier, p.unit_cost);
+                });
+            }
+            data.push(...newItems); 
+
+            await LOCAL_DB.set(activeSetupTab, data); 
+            renderSetupTable(activeSetupTab); 
+            let toastMsg = `✅ 成功新增 ${newItems.length} 筆資料！`; 
+            if(approvedDuplicates.length > 0) toastMsg = `✅ 成功新增 ${newItems.length} 筆，並覆蓋更新了 ${approvedDuplicates.length} 筆！`; 
+            showToast(toastMsg);
+            await triggerSystemSync(activeSetupTab);
+        }
                 } catch(err) { alert("匯入時發生錯誤：" + err); } document.getElementById('csv-uploader').value = ''; 
             }; reader.readAsText(file);
         }
@@ -2233,11 +2616,17 @@ function resetOrderFormWorkspace() {
             const logos = LOCAL_DB.get("logos", []).filter(l => isSuper || l.region === myReg || l.region === 'ALL');
             
             const sO = document.getElementById('sel-outlet'); const sV = document.getElementById('sel-vendor');
-            sO.innerHTML = out.map(o => `<option value="${escapeHTML(o.short_code)}">${escapeHTML(o.short_code)}</option>`).join('');
-            sV.innerHTML = ven.map(v => `<option value="${escapeHTML(v.short_code)}">${escapeHTML(v.short_code)} - ${escapeHTML(v.company)}</option>`).join('');
-            initSearchableSelect(sO, function() { handleOutletChange(); }); initSearchableSelect(sV, function() { handleVendorChange(); });
+            
+            // 🌟 加上 [Region] 標籤
+            sO.innerHTML = out.map(o => `<option value="${escapeHTML(o.short_code)}">[${escapeHTML(o.region||'SG')}] ${escapeHTML(o.short_code)}</option>`).join('');
+            sV.innerHTML = ''; // 清空，交給下方的 handleOutletChange 來動態生成
+            
+            initSearchableSelect(sO, function() { handleOutletChange(); }); 
             
             if(currentUser.role === 'Outlet' && currentUser.outlet) { if(sO.tomselect) { sO.tomselect.setValue(currentUser.outlet, true); sO.tomselect.disable(); } } else { if(sO.tomselect) sO.tomselect.enable(); }
+            
+            // 🌟 強制觸發一次 Outlet 變更，讓 Vendor 選單被正確篩選
+            handleOutletChange();
             
             document.getElementById('input-doc-date').value = new Date().toISOString().split('T')[0];
             document.getElementById('lbl-delivery-date').value = ''; 
@@ -2250,6 +2639,31 @@ function resetOrderFormWorkspace() {
         }
 
         function handleOutletChange() {
+            const sO = document.getElementById('sel-outlet');
+            if(!sO) return;
+            const oCode = sO.tomselect ? sO.tomselect.getValue() : sO.value;
+            const orderRegion = getActiveRegionForDoc(oCode);
+            
+            // 🌟 跨區防火牆：根據你選擇的 Outlet 所屬的 Region，動態過濾 Vendors！
+            const ven = LOCAL_DB.get("vendors", []).filter(v => v.region === orderRegion || v.region === 'ALL');
+            const sV = document.getElementById('sel-vendor');
+            
+            if(sV) {
+                const currentV = sV.tomselect ? sV.tomselect.getValue() : sV.value;
+                if(sV.tomselect) sV.tomselect.destroy();
+                
+                // 自動加上 [Region] 標籤
+                sV.innerHTML = ven.map(v => `<option value="${escapeHTML(v.short_code)}">[${escapeHTML(v.region||'ALL')}] ${escapeHTML(v.short_code)} - ${escapeHTML(v.company)}</option>`).join('');
+                initSearchableSelect(sV, function() { handleVendorChange(); });
+                
+                // 如果原本選的供應商在切換區域後還活著，就保留；否則清空並清空購物車
+                if(ven.find(v => v.short_code === currentV)) {
+                    if(sV.tomselect) sV.tomselect.setValue(currentV, true);
+                } else {
+                    if(sV.tomselect) sV.tomselect.clear(true);
+                    document.getElementById('po-tbody').innerHTML = ''; 
+                }
+            }
             renderOrderHeader();
         }
 
@@ -2270,6 +2684,17 @@ function resetOrderFormWorkspace() {
             let docType = 'PR';
             if (document.getElementById('admin-doc-type-container') && !document.getElementById('admin-doc-type-container').classList.contains('hidden')) {
                 docType = document.getElementById('sel-doc-type').value;
+            }
+
+            // 🌟 第三道鎖 (UI 視覺鎖)：只要在 Amend 模式，強制蓋掉一切錯誤的 UI 狀態，鎖定原本的單據類型！
+            if (window.amendingDocId) {
+                let oldObj = LOCAL_DB.get("orders", []).find(x => x.id === window.amendingDocId) || {};
+                docType = oldObj.type || 'PO';
+                let tCont = document.getElementById('admin-doc-type-container');
+                let rCont = document.getElementById('admin-pr-ref-container');
+                if(tCont) tCont.classList.add('hidden');
+                if(rCont) rCont.classList.add('hidden');
+                document.getElementById('doc-title').innerText = 'AMEND: ' + (docType === 'PO' ? 'PURCHASE ORDER' : 'PURCHASE REQUISITION');
             }
 
             // 🌟 畫面上：將 RV 分離顯示，並且追溯 Ref PR
@@ -2313,6 +2738,94 @@ function resetOrderFormWorkspace() {
             initSearchableSelect(selEl, function(val) { autoFillRow(selEl, val); }); Array.from(tbody.children).forEach((r,i) => r.querySelector('.idx').innerText = i+1);
         }
 
+function initTransferTable() {
+            document.getElementById('tf-date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('tf-tbody').innerHTML = '';
+            addTransferRow();
+        }
+
+        function addTransferRow() {
+            const tbody = document.getElementById('tf-tbody');
+            const fromCode = document.getElementById('tf-from-outlet').tomselect ? document.getElementById('tf-from-outlet').tomselect.getValue() : '';
+            const orderRegion = getActiveRegionForDoc(fromCode) || getActiveRegion();
+            const prods = LOCAL_DB.get("products", []).filter(p => currentUser.role === 'SuperAdmin' || p.region === orderRegion || p.region === 'ALL');
+            
+            const tr = document.createElement('tr');
+            tr.className = 'tf-row';
+            tr.innerHTML = `<td class="py-2 px-2 text-center text-slate-400 font-bold idx"></td>
+                <td class="py-2 px-2 whitespace-normal break-words row-item-wrapper"><select class="w-full bg-transparent outline-none border-b border-dashed border-slate-300 pb-0.5 text-xs tf-item whitespace-normal"><option value="">Select Item...</option>${prods.map(p => `<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('')}</select></td>
+                <td class="py-2 px-2"><input type="number" min="1" value="1" class="w-full text-center outline-none bg-transparent font-bold tf-qty text-indigo-700 bg-indigo-50 border border-indigo-200 rounded p-1" oninput="calcTransferTotal()"></td>
+                <td class="py-2 px-2 text-right text-slate-500 font-medium tf-price">0.00</td>
+                <td class="py-2 px-2 text-right font-black text-slate-800 tf-row-total">0.00</td>
+                <td class="py-2 px-2 text-center no-print"><button onclick="this.closest('tr').remove(); calcTransferTotal();" class="text-red-500 hover:bg-red-50 p-1 rounded"><i data-lucide="trash-2" class="w-3.5 h-3.5 mx-auto"></i></button></td>`;
+            
+            tbody.appendChild(tr); lucide.createIcons();
+            
+            const selEl = tr.querySelector('.tf-item');
+            initSearchableSelect(selEl, function(val) {
+                const searchVal = String(val).trim();
+                const p = prods.find(x => String(x.item).trim() === searchVal);
+                if(p) { tr.querySelector('.tf-price').innerText = parseFloat(p.unit_cost||0).toFixed(2); tr.dataset.price = p.unit_cost||0; }
+                else { tr.querySelector('.tf-price').innerText = '0.00'; tr.dataset.price = 0; }
+                calcTransferTotal();
+            });
+            Array.from(tbody.children).forEach((r,i) => r.querySelector('.idx').innerText = i+1);
+        }
+
+        function calcTransferTotal() {
+            let total = 0;
+            document.querySelectorAll('#tf-tbody tr.tf-row').forEach(tr => {
+                let qty = parseFloat(tr.querySelector('.tf-qty').value) || 0;
+                let price = parseFloat(tr.dataset.price) || 0;
+                let rowTot = qty * price;
+                tr.querySelector('.tf-row-total').innerText = rowTot.toFixed(2);
+                total += rowTot;
+            });
+            document.getElementById('tf-total-val').innerText = `$${total.toFixed(2)}`;
+        }
+
+        async function saveTransferDocument() {
+            let fromOutlet = document.getElementById('tf-from-outlet').tomselect ? document.getElementById('tf-from-outlet').tomselect.getValue() : '';
+            let toOutlet = document.getElementById('tf-to-outlet').tomselect ? document.getElementById('tf-to-outlet').tomselect.getValue() : '';
+            let tDate = document.getElementById('tf-date').value;
+            let remarks = document.getElementById('tf-remarks').value;
+
+            if(!fromOutlet || !toOutlet) return alert("❌ Please select both From and To Outlets.");
+            if(fromOutlet === toOutlet) return alert("❌ 來源與目標 Outlet 不能相同！");
+
+            let items = []; let totalVal = 0;
+            document.querySelectorAll('#tf-tbody tr.tf-row').forEach(tr => {
+                const item = tr.querySelector('.tf-item').value;
+                const qty = parseFloat(tr.querySelector('.tf-qty').value) || 0;
+                const price = parseFloat(tr.dataset.price) || 0;
+                if(item && qty > 0) { items.push({ item, qty, price }); totalVal += (qty * price); }
+            });
+
+            if(items.length === 0) return alert("❌ Please add at least one item to transfer.");
+
+            let orders = LOCAL_DB.get("orders", []);
+            let d = new Date(tDate);
+            let yymm = String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2, '0');
+            let docId = calculateSequence(`TRF-${fromOutlet}${yymm}`, 3);
+
+            let doc = {
+                id: docId, type: 'TRANSFER', status: 'Completed', date: tDate,
+                outlet: fromOutlet, vendor: toOutlet, // 將 vendor 欄位作為 target outlet 以符合現有資料結構
+                region: getActiveRegionForDoc(fromOutlet),
+                requestor: currentUser.user, remarks: remarks, items: items,
+                total: totalVal, breakdown: { currency_symbol: '$', sub: totalVal, total: totalVal },
+                history_logs: [`Stock Transferred from ${fromOutlet} to ${toOutlet} by ${currentUser.user}`]
+            };
+
+            orders.push(doc);
+            await LOCAL_DB.set("orders", orders);
+            showToast(`✅ Transfer Document ${docId} Created Successfully!`);
+            
+            // 重置表單
+            initTransferTable();
+            document.getElementById('tf-remarks').value = '';
+        }
+
         function autoFillRow(selEl, eventVal) {
             const tr = selEl.closest('tr');
             const val = eventVal !== undefined ? eventVal : (selEl.tomselect ? selEl.tomselect.getValue() : selEl.value); const searchVal = String(val).replace(/[\u00A0\u200B-\u200D\uFEFF]/g, ' ').trim();
@@ -2320,7 +2833,18 @@ function resetOrderFormWorkspace() {
             if(p) { 
                 tr.querySelector('.row-price').value = p.unit_cost || 0; const qtyInput = tr.querySelector('.row-qty'); if(!qtyInput.value || parseInt(qtyInput.value) <= 0) qtyInput.value = 1; 
                 const orderRegion = getActiveRegion(); const funcs = LOCAL_DB.get("functions", []).filter(f => f.region === 'ALL' || f.region === orderRegion);
-                funcs.forEach(f => { if(f.id === 'foc') { tr.dataset.focReq = p.foc_req||0; tr.dataset.focQty = p.foc_qty||0; } else if(f.id === 'uom') { const uNode = tr.querySelector('.row-uom'); if(uNode) uNode.innerText = p.uom || '-'; } else { tr.dataset[f.id] = p[f.id] || 0; const cell = tr.querySelector(`.row-dyn-${f.id}`); if (cell) cell.dataset.calc = 'auto'; } });
+                funcs.forEach(f => { 
+                    if(f.id === 'foc') { tr.dataset.focReq = p.foc_req||0; tr.dataset.focQty = p.foc_qty||0; } 
+                    else if(f.id === 'uom') { const uNode = tr.querySelector('.row-uom'); if(uNode) uNode.innerText = p.uom || '-'; } 
+                    else { 
+                        let val = p[f.id];
+                        // 🌟 若為 Y 則啟動 (Multiplier = 1)，舊版如果填 24 也相容算為啟動
+                        let multi = (val === 'Y' || val === true || String(val).toLowerCase() === 'true' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0)) ? 1 : 0;
+                        tr.dataset[f.id] = multi; 
+                        const cell = tr.querySelector(`.row-dyn-${f.id}`); 
+                        if (cell) cell.dataset.calc = 'auto'; 
+                    } 
+                });
             } else { tr.querySelector('.row-price').value = ''; const uNode = tr.querySelector('.row-uom'); if(uNode) uNode.innerText = '-'; } calcTotals();
         }
 
@@ -2332,10 +2856,34 @@ function resetOrderFormWorkspace() {
                 const qty = parseInt(tr.querySelector('.row-qty').value) || 0; const prc = parseFloat(tr.querySelector('.row-price').value) || 0; const freq = parseInt(tr.dataset.focReq) || 0; const fqty = parseInt(tr.dataset.focQty) || 0;
                 if(freq > 0 && qty >= freq) { const fNode = tr.querySelector('.row-foc'); if(fNode) fNode.value = Math.floor(qty/freq) * fqty; }
                 tr.querySelector('.row-total').innerText = (qty*prc).toFixed(2); sub += (qty*prc);
+                // 🌟 自動抓取 Pack Size (為 BCRS 自動計算做準備)
+                const sV = document.getElementById('sel-vendor'); 
+                const vCode = sV ? (sV.tomselect ? sV.tomselect.getValue() : sV.value) : '';
+                const itemVal = tr.querySelector('.row-item') ? tr.querySelector('.row-item').value : '';
+                const dbP = LOCAL_DB.get("products", []).find(p => p.supplier === vCode && p.item === itemVal) || {};
+                const packSize = parseFloat(dbP.qty_in_pack) || 1;
+
                 funcs.filter(f => !f.isCore).forEach(f => {
-                    const multi = parseFloat(tr.dataset[f.id]) || 0; let feeAmt = qty * multi * f.cost; const cell = tr.querySelector(`.row-dyn-${f.id}`);
-                    if (cell) { if (cell.dataset.calc === 'manual') { feeAmt = parseFloat(cell.value) || 0; } else { cell.value = feeAmt.toFixed(2); } }
-                    if(f.showTotal) { if(!cFees[f.id]) cFees[f.id] = { name: f.name, total: 0, qty: 0 }; cFees[f.id].total += feeAmt; cFees[f.id].qty += (qty * multi); }
+                    // 取得是否有啟用 (1) 或手動填入的數值
+                    const multi = parseFloat(tr.dataset[f.id]) || 0; 
+                    let feeAmt = 0;
+                    const cell = tr.querySelector(`.row-dyn-${f.id}`);
+                    
+                    if (cell && cell.dataset.calc === 'manual') { 
+                        feeAmt = parseFloat(cell.value) || 0; 
+                    } else { 
+                        // 自動計算：(數量) * (啟用乘數通常為1) * (System Setup 中定義的費率 cost)
+                        // BCRS 通常是看 qty_in_pack (一箱有多少瓶)，這裡可以用 qty * multi * f.cost 計算。
+                        feeAmt = qty * multi * parseFloat(f.cost || 0);
+                        if (cell) cell.value = feeAmt.toFixed(2); 
+                    }
+                    
+                    if(f.showTotal) { 
+                        if(!cFees[f.id]) cFees[f.id] = { name: f.name, total: 0, qty: 0 }; 
+                        cFees[f.id].total += feeAmt; 
+                        // 若為 BCRS，紀錄產生了多少費用的實體數量
+                        cFees[f.id].qty += (multi > 0 ? (qty * multi) : 0); 
+                    }
                 });
             });
             
@@ -2610,15 +3158,22 @@ async function saveCurrentDocument(sendEmail = false) {
 
             if(!isValid || items.length === 0) return alert("❌ Validation Failed: Please ensure all rows have valid items and quantities greater than 0.");
             
-            const docType = document.getElementById('sel-doc-type') && !document.getElementById('admin-doc-type-container').classList.contains('hidden') ? document.getElementById('sel-doc-type').value : 'PR';
+            let orders = LOCAL_DB.get("orders", []) || [];
+            let docType = document.getElementById('sel-doc-type') && !document.getElementById('admin-doc-type-container').classList.contains('hidden') ? document.getElementById('sel-doc-type').value : 'PR';
+            
+            // 🌟 存盤鎖：按下 Save 瞬間，強制把單據認作原本的屬性 (PO)，絕不允許被判定為 PR 導致報錯！
+            let ordersDB = LOCAL_DB.get("orders", []) || [];
+            if (window.amendingDocId) {
+                let oldDoc = ordersDB.find(x => x.id === window.amendingDocId);
+                if (oldDoc) docType = oldDoc.type; 
+            }
+
             const requestor = document.getElementById('order-requestor').value.trim();
             if(docType === 'PR' && !requestor) return alert("❌ Requestor name is required for PR!");
 
             const outletCode = document.getElementById('sel-outlet').tomselect ? document.getElementById('sel-outlet').tomselect.getValue() : document.getElementById('sel-outlet').value;
             const vendorCode = document.getElementById('sel-vendor').tomselect ? document.getElementById('sel-vendor').tomselect.getValue() : document.getElementById('sel-vendor').value;
             if(!outletCode || !vendorCode) return alert("❌ Please select both Outlet and Vendor.");
-
-            let orders = LOCAL_DB.get("orders", []) || [];
             let docId = window.editingDocId;
             let doc = docId ? orders.find(o => o.id === docId) : null;
             let isNew = !doc;
@@ -2741,7 +3296,7 @@ async function saveCurrentDocument(sendEmail = false) {
         }
 
         
-// 🚀 EmailJS 核心寄件引擎 (修復表格跑版問題)
+// 🚀 EmailJS 核心寄件引擎 (改為只發送內部 Procurement 核准通知)
         async function triggerPoEmailJS(docId) {
             let orders = LOCAL_DB.get("orders", []);
             let doc = orders.find(o => o.id === docId);
@@ -2752,12 +3307,9 @@ async function saveCurrentDocument(sendEmail = false) {
             let outlets = LOCAL_DB.get("outlets", []);
             let outlet = outlets.find(o => o.short_code === doc.outlet) || {};
 
-            let toEmail = vendor.order_email || vendor.email || '';
-            if (!toEmail) return alert(`⚠️ 供應商 (${doc.vendor}) 缺少 Email，無法寄信！`);
-
             let sym = doc.breakdown?.currency_symbol || '$';
 
-            // 1. 在 JS 裡面把「整個 Table」組裝起來，避免被 EmailJS 的編輯器破壞格式！
+            // 1. 組裝 Table
             let tableHtml = `
             <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; border: 1px solid #cbd5e1; font-size: 12px; font-family: sans-serif;">
                 <thead>
@@ -2802,9 +3354,9 @@ async function saveCurrentDocument(sendEmail = false) {
             let crateFees = sym + (gCrate + tCrate).toFixed(2);
             let total = sym + parseFloat(doc.total || 0).toFixed(2);
 
-            // 4. 準備發送給 EmailJS 的完整變數
+            // 4. 發送給 EmailJS (改為內部通知)
             let templateParams = {
-                to_email: toEmail,
+                to_email: currentUser ? currentUser.email : 'procurement@company.com', // 🌟 將收件人改為當前登入者 (Procurement)
                 doc_type: doc.type || 'PO',
                 doc_number: doc.id,
                 pr_number: doc.pr_reference || '-',
@@ -2813,7 +3365,7 @@ async function saveCurrentDocument(sendEmail = false) {
                 date: doc.date,
                 vendor: vendor.company || doc.vendor,
                 requested_by: doc.requestor || doc.approved_by_name || (currentUser ? currentUser.user : 'System'),
-                full_html_table: tableHtml,   // 🌟 這裡改成傳送完整的 Table 變數
+                full_html_table: tableHtml,   
                 subtotal: subtotal,
                 tax_line: taxLine,
                 bcrs: sym + bcrsVal.toFixed(2),
@@ -2824,17 +3376,19 @@ async function saveCurrentDocument(sendEmail = false) {
                 items_text: itemsText
             };
 
-            showToast("⏳ 正在透過 EmailJS 寄送 PO...");
+            showToast("⏳ 正在發送內部核准通知...");
             
             try {
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-                showToast(`✅ PO 已成功寄出`);
+                showToast(`✅ 內部 Approve 通知已成功寄出`);
                 if (!doc.history_logs) doc.history_logs = [];
-                doc.history_logs.push(`PO automatically emailed to vendor (${toEmail}) via EmailJS.`);
+                // 🌟 修正這裡的 Log，拔除對 toEmail 變數的依賴，徹底解決當機不跳轉的問題
+                doc.history_logs.push(`Internal Approval Email sent via EmailJS.`);
                 await LOCAL_DB.set("orders", orders);
             } catch (error) {
                 console.error('EmailJS Error:', error);
-                alert("❌ Email 寄送失敗，請檢查 EmailJS 額度或連線設定。");
+                // 🌟 即使寄信失敗，也只顯示提示，不阻擋畫面跳轉 (讓單據能順利 Approve)
+                showToast("⚠️ Email 寄送失敗，但單據已成功 Approve！");
             }
         }
  
@@ -2847,7 +3401,7 @@ async function saveCurrentDocument(sendEmail = false) {
             // 防呆：防止滑鼠連點兩下導致寄出兩次
             if(doc && doc.status === 'Approved') return alert("⚠️ 這張單據已經核准並寄出過了，請勿重複點擊！");
 
-            if(!confirm(`確定要 Approve 並且寄送 Email 給供應商嗎？`)) return;
+            if(!confirm(`確定要 Approve 並且寄送 Email嗎？`)) return;
             
             if(doc) {
                 doc.status = 'Approved';
@@ -3217,19 +3771,46 @@ async function saveCurrentDocument(sendEmail = false) {
             content += `</tbody></table></div>`;
  
             if(doc.remarks) {
-                content += `<div class="bg-amber-50 border border-amber-200 p-3 rounded mb-4">
-                    <p class="text-[10px] font-bold text-amber-700 uppercase mb-1">Remarks</p>
-                    <p class="text-xs text-amber-900 font-medium">${escapeHTML(doc.remarks)}</p>
-                </div>`;
-            }
- 
-            document.getElementById('modal-content-area').innerHTML = content;
+    content += `<div class="bg-amber-50 border border-amber-200 p-3 rounded mb-4">
+        <p class="text-[10px] font-bold text-amber-700 uppercase mb-1">Remarks</p>
+        <p class="text-xs text-amber-900 font-medium">${escapeHTML(doc.remarks)}</p>
+    </div>`;
+}
+
+// === 注入 PO GRN Matching Progress Bar ===
+if (doc.type === 'PO') {
+    let allGrns = (LOCAL_DB.get("orders", []) || []).filter(x => x.type === 'GRN' && x.po_reference === doc.id && x.status !== 'Cancelled');
+    let totalPoQty = 0; let totalRecQty = 0;
+    (doc.items || []).forEach(it => totalPoQty += (parseFloat(it.qty) || 0));
+    allGrns.forEach(g => { (g.items || []).forEach(it => totalRecQty += (parseFloat(it.qty) || 0)); });
+    
+    let pct = totalPoQty > 0 ? Math.min((totalRecQty / totalPoQty) * 100, 100).toFixed(0) : 0;
+    let barColor = pct == 100 ? 'bg-emerald-500' : (pct > 0 ? 'bg-amber-400' : 'bg-slate-300');
+    
+    content += `
+    <div class="bg-white border border-slate-200 p-4 rounded-lg mb-4 shadow-sm">
+        <div class="flex justify-between items-end mb-2">
+            <h4 class="text-[10px] font-black text-slate-500 uppercase">GRN Matching Progress</h4>
+            <span class="text-xs font-black text-slate-700">${totalRecQty} / ${totalPoQty} Items (${pct}%)</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2.5 mb-3"><div class="${barColor} h-2.5 rounded-full transition-all" style="width: ${pct}%"></div></div>
+        ${allGrns.length > 0 ? `<div class="text-[10px] space-y-1 mt-2 border-t pt-2 border-slate-100">
+            ${allGrns.map(g => {
+                let gQ = 0; (g.items||[]).forEach(i=>gQ+=(parseFloat(i.qty)||0));
+                return `<div class="flex justify-between text-slate-600"><span class="font-bold cursor-pointer hover:text-indigo-600" onclick="viewDoc('${g.id}')">📎 ${g.id} (${g.date})</span><span>Received: <b class="text-slate-800">${gQ}</b></span></div>`;
+            }).join('')}
+        </div>` : '<div class="text-[10px] text-slate-400 italic">No delivery received yet.</div>'}
+    </div>`;
+}
+
+document.getElementById('modal-content-area').innerHTML = content;
             
 // --- 恢復所有控制按鈕 ---
             let actionsHtml = `<button onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded text-xs font-bold">Close</button>`;
 
 // 針對 Pending Approval 的單據，提供一鍵 Approve & Send 按鈕
-            if (hasPermission('approve_po') && doc.type === 'PO' && doc.status === 'Pending Approval') {
+            // 🌟 修復：允許所有在 Pending 或 Pending Approval 的單據（包含 Amend 後的 PO）都能顯示審批按鈕
+            if (hasPermission('approve_po') && doc.type === 'PO' && ['Pending', 'Pending Approval'].includes(doc.status)) {
                 actionsHtml += `<button onclick="approveAndSendPO('${doc.id}')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold shadow-sm flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Approve & Send Email</button>`;
             }
             
@@ -3857,15 +4438,27 @@ async function processExternalMerge() {
             console.log('Executing multi-print');
         }
 // 🌟 供應鏈大腦：Performance, OTIF & Analytics 引擎
-        window.renderAnalyticsDashboard = function(days = 30) {
+        window.renderAnalyticsDashboard = function() {
             const container = document.getElementById('setup-table-container');
-            let orders = LOCAL_DB.get("orders", []) || [];
-            let products = LOCAL_DB.get("products", []) || [];
-
-            let cutoff = new Date();
-            cutoff.setDate(cutoff.getDate() - days);
+            let orders = LOCAL_DB.get("orders", []) || []; let products = LOCAL_DB.get("products", []) || [];
             
+            // 🌟 獲取過濾器設定
+            let fReg = document.getElementById('ana-reg') ? document.getElementById('ana-reg').value : '';
+            let fOut = document.getElementById('ana-out') ? document.getElementById('ana-out').value : '';
+            let fVen = document.getElementById('ana-ven') ? document.getElementById('ana-ven').value : '';
+            let fFrom = document.getElementById('ana-from') ? document.getElementById('ana-from').value : '';
+            let fTo = document.getElementById('ana-to') ? document.getElementById('ana-to').value : '';
+
             let validOrders = orders.filter(o => {
+                if (['Cancelled', 'Deleted', 'Amended'].includes(o.status)) return false;
+                if (fReg && o.region !== fReg) return false;
+                if (fOut && o.outlet !== fOut) return false;
+                if (fVen && o.vendor !== fVen) return false;
+                if (fFrom && o.date < fFrom) return false;
+                if (fTo && o.date > fTo) return false;
+                return true;
+            });
+            let days = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : 30;
                 let d = new Date(o.date || o.created_at);
                 return d >= cutoff && !['Cancelled', 'Deleted', 'Amended'].includes(o.status);
             });
@@ -3885,7 +4478,7 @@ async function processExternalMerge() {
                 let vCode = o.vendor;
 
                 if(!outlets[o.outlet]) outlets[o.outlet] = { estCost: 0, actCost: 0 };
-                if(vCode && !vendors[vCode]) vendors[vCode] = { estCost: 0, actCost: 0, prQty: 0, poQty: 0, grnQty: 0, delayDays: 0, grnCount: 0, humanErr: 0, vendorErr: 0 };
+                if(vCode && !vendors[vCode]) vendors[vCode] = { estCost: 0, actCost: 0, prQty: 0, poQty: 0, grnQty: 0, delayDays: 0, grnCount: 0, cnTypes: {} };
 
                 (o.items || []).forEach(it => {
                     let packMultiplier = getPackQty(it.item);
@@ -3923,8 +4516,16 @@ async function processExternalMerge() {
                         outlets[o.outlet].actCost -= lineTotal;
                         if(vCode) { 
                             vendors[vCode].actCost -= lineTotal; 
-                            if(o.remarks && o.remarks.includes('Vendor Error')) vendors[vCode].vendorErr++;
-                            else vendors[vCode].humanErr++;
+                            
+                            // 🌟 動態捕捉 CN Type (例如從 "XXX [Rebate by CN]" 中抓出 "Rebate by CN")
+                            let matchedType = 'Uncategorized';
+                            let match = o.remarks ? o.remarks.match(/\[(.*?)\]/) : null;
+                            if(match) matchedType = match[1];
+                            else if(o.remarks && o.remarks.includes('Vendor Error')) matchedType = 'Vendor Error';
+                            else if(o.remarks && o.remarks.includes('Human Error')) matchedType = 'Human Error';
+                            
+                            if(!vendors[vCode].cnTypes[matchedType]) vendors[vCode].cnTypes[matchedType] = 0;
+                            vendors[vCode].cnTypes[matchedType]++;
                         }
                         if(it.item) prods[it.item].actCost -= lineTotal;
                     }
@@ -3972,7 +4573,7 @@ async function processExternalMerge() {
                     let fulfillPct = d.poQty > 0 ? ((d.grnQty / d.poQty) * 100).toFixed(1) : 0;
                     let avgDly = d.grnCount > 0 ? (d.delayDays / d.grnCount).toFixed(1) : 0;
                     let dlyColor = avgDly > 0 ? 'text-red-500 font-black' : (avgDly < 0 ? 'text-indigo-500 font-bold' : 'text-emerald-500 font-bold');
-                    let dlyText = avgDly > 0 ? \`+\${avgDly} Days (Late)\` : (avgDly < 0 ? \`\${avgDly} Days (Early)\` : \`On Time\`);
+                    let dlyText = avgDly > 0 ? `+${avgDly} Days (Late)` : (avgDly < 0 ? `${avgDly} Days (Early)` : `On Time`);
                     
                     return `<tr class="border-b border-slate-100 hover:bg-slate-50">
                         <td class="p-3 font-bold text-slate-800">${k}</td>
@@ -3984,21 +4585,26 @@ async function processExternalMerge() {
                             ${fulfillPct}%
                         </td>
                         <td class="p-3 text-right ${dlyColor}">${dlyText}</td>
-                        <td class="p-3 text-center font-bold text-red-600">${d.vendorErr}</td>
-                        <td class="p-3 text-center font-bold text-amber-600">${d.humanErr}</td>
+                        <td class="p-3 text-left whitespace-normal border-l border-slate-100">
+                            ${Object.keys(d.cnTypes).length > 0 ? Object.keys(d.cnTypes).map(t => `<span class="text-[9px] bg-slate-100 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded inline-block mr-1 mb-1">${t}: <span class="font-black text-slate-800">${d.cnTypes[t]}</span></span>`).join('') : '-'}
+                        </td>
                     </tr>`;
                 }).join('');
-                return `<div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm w-full lg:col-span-3 mt-4"><h3 class="text-xs font-black text-slate-800 tracking-widest uppercase mb-1">Supplier Reliability & Fulfillment (OTIF)</h3><p class="text-[10px] text-slate-400 mb-4">Quantity funnel, average delivery delay tracked from PR to GRN, and Error tracking.</p><div class="overflow-x-auto"><table class="w-full text-xs text-left whitespace-nowrap"><thead><tr class="bg-slate-100 text-slate-500 border-b"><th class="p-3">Vendor</th><th class="p-3 text-center border-x border-white">PR Qty<br><span class="text-[9px] font-normal">Requested</span></th><th class="p-3 text-center border-r border-white">PO Qty<br><span class="text-[9px] font-normal">Approved</span></th><th class="p-3 text-center border-r border-white">GRN Qty<br><span class="text-[9px] font-normal">Received</span></th><th class="p-3 text-center w-24">Supply Rate</th><th class="p-3 text-right">Avg Delivery Time<br><span class="text-[9px] font-normal">vs PR Req Date</span></th><th class="p-3 text-center text-red-800">Vendor<br>Errors (CN)</th><th class="p-3 text-center text-amber-800">Human<br>Errors (CN)</th></tr></thead><tbody>${rows||'<tr><td colspan="8" class="p-6 text-center text-slate-400">No OTIF data generated yet</td></tr>'}</tbody></table></div></div>`;
+                return `<div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm w-full lg:col-span-3 mt-4"><h3 class="text-xs font-black text-slate-800 tracking-widest uppercase mb-1">Supplier Reliability & Fulfillment (OTIF)</h3><p class="text-[10px] text-slate-400 mb-4">Quantity funnel, average delivery delay tracked from PR to GRN, and Error tracking.</p><div class="overflow-x-auto"><table class="w-full text-xs text-left whitespace-nowrap"><thead><tr class="bg-slate-100 text-slate-500 border-b"><th class="p-3">Vendor</th><th class="p-3 text-center border-x border-white">PR Qty<br><span class="text-[9px] font-normal">Requested</span></th><th class="p-3 text-center border-r border-white">PO Qty<br><span class="text-[9px] font-normal">Approved</span></th><th class="p-3 text-center border-r border-white">GRN Qty<br><span class="text-[9px] font-normal">Received</span></th><th class="p-3 text-center w-24">Supply Rate</th><th class="p-3 text-right">Avg Delivery Time<br><span class="text-[9px] font-normal">vs PR Req Date</span></th><th class="p-3 text-left w-48 border-l border-white">CN Category<br><span class="text-[9px] font-normal">Breakdown</span></th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="p-6 text-center text-slate-400">No OTIF data generated yet</td></tr>'}</tbody></table></div></div>`;
             };
 
             container.innerHTML = `
-                <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div><h2 class="text-xl font-black text-slate-900">Supply Chain Analytics & Inventory</h2><p class="text-xs text-slate-500 mt-1">Variance, Fulfillment (OTIF), Inventory (Normal vs FOC), and Cost tracking.</p></div>
-                    <div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200">${[3,7,14,30].map(d => `<button onclick="renderAnalyticsDashboard(${d})" class="px-4 py-1.5 text-xs font-bold rounded ${days === d ? 'bg-white shadow text-indigo-600' : 'text-slate-500 hover:bg-slate-200'} transition-all">${d} Days</button>`).join('')}</div>
+                <div class="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div><h2 class="text-xl font-black text-slate-900">Supply Chain Analytics & Inventory</h2><p class="text-xs text-slate-500 mt-1">Variance, Fulfillment (OTIF), Inventory (Normal vs FOC), and Cost tracking.</p></div>
+    <div class="flex flex-wrap gap-2 items-center">
+        <select id="ana-filter-region" onchange="renderAnalyticsDashboard(${days})" class="mono-input text-xs"><option value="">All Regions</option><option value="SG">SG</option><option value="MY">MY</option></select>
+        <div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200">${[3,7,14,30].map(d => `<button onclick="renderAnalyticsDashboard(${d})" class="px-4 py-1.5 text-xs font-bold rounded ${days === d ? 'bg-white shadow text-indigo-600' : 'text-slate-500 hover:bg-slate-200'} transition-all">${d} Days</button>`).join('')}</div>
+    </div>
+</div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-6">
-                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 shadow-sm lg:col-span-2"><div class="text-[10px] text-indigo-500 font-black uppercase mb-1">Purchased Inventory</div><div class="text-2xl font-black text-indigo-800">${metrics.normalQty.toFixed(0)} <span class="text-sm font-bold text-indigo-400">+ ${metrics.focQty.toFixed(0)} FOC</span></div><div class="text-[9px] text-indigo-600 mt-1">Actual (GRN - CN) x Pack Size</div></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 shadow-sm col-span-2"><div class="text-[10px] text-indigo-500 font-black uppercase mb-1">Purchased Inventory</div><div class="text-2xl font-black text-indigo-800">${metrics.normalQty.toFixed(0)} <span class="text-sm font-bold text-indigo-400">+ ${metrics.focQty.toFixed(0)} FOC</span></div><div class="text-[9px] text-indigo-600 mt-1">Actual (GRN - CN) x Pack Size</div></div>
                     <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-400 font-black uppercase mb-1">PR Fulfilment</div><div class="text-2xl font-black text-slate-800">${prFulfilment}%</div><div class="text-[9px] text-slate-400 mt-1">PO Qty / PR Est. Qty</div></div>
                     <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-400 font-black uppercase mb-1">Supply Rate</div><div class="text-2xl font-black ${deliveryRate < 90 ? 'text-amber-500' : 'text-emerald-500'}">${deliveryRate}%</div><div class="text-[9px] text-slate-400 mt-1">GRN / PO Qty</div></div>
                     <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-400 font-black uppercase mb-1">Avg Delay</div><div class="text-2xl font-black ${avgDelayTotal > 0 ? 'text-red-500' : 'text-emerald-500'}">${avgDelayTotal > 0 ? '+'+avgDelayTotal : avgDelayTotal}d</div><div class="text-[9px] text-slate-400 mt-1">GRN Date vs PR Req</div></div>
