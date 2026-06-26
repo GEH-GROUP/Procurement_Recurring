@@ -2516,7 +2516,7 @@ async function saveGlobalSettings() {
                         // 沒有重複，直接新增
                         executeCsvSave(newItems, []);
                     }
-                } catch(err) { 
+                catch(err) { 
                     alert("Import Error：" + err); 
                 } 
                 document.getElementById('csv-uploader').value = ''; 
