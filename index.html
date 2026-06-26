@@ -4454,10 +4454,7 @@ async function processExternalMerge() {
                 if (fTo && o.date > fTo) return false;
                 return true;
             });
-            let days = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : 30;
-                let d = new Date(o.date || o.created_at);
-                return d >= cutoff && !['Cancelled', 'Deleted', 'Amended'].includes(o.status);
-            });
+             let days = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : 30;
 
             // 加入了 NormalQty 與 FocQty 的分離追蹤
             let metrics = { prQty: 0, poQty: 0, grnQty: 0, cnQty: 0, estCost: 0, actCost: 0, totalDelayDays: 0, delayCount: 0, focQty: 0, normalQty: 0 };
