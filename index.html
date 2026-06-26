@@ -2500,11 +2500,7 @@ async function saveGlobalSettings() {
                         // 沒有重複，直接新增
                         executeCsvSave(newItems, []);
                     }
-                } catch(err) { alert("匯入時發生錯誤：" + err); } 
-                document.getElementById('csv-uploader').value = ''; 
-            }; 
-            reader.readAsText(file);
-        }
+        
 
         function toggleAllCsvConflicts(cb) {
             document.querySelectorAll('.csv-conflict-cb').forEach(el => el.checked = cb.checked);
