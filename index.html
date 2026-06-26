@@ -2578,8 +2578,6 @@ async function saveGlobalSettings() {
             showToast(toastMsg);
             await triggerSystemSync(activeSetupTab);
         }
-                } catch(err) { alert("Import Error：" + err); } document.getElementById('csv-uploader').value = ''; 
-            }; reader.readAsText(file);
         }
 
         function renderOrderTableHeaders() {
