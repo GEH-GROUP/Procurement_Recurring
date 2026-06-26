@@ -2156,7 +2156,8 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 }
 
                 let rawData = LOCAL_DB.get(collection, []);
-                let data = (currentUser.role === 'SuperAdmin' || collection === 'regions' || collection === 'roles' || collection === 'numbering_rules' || collection === 'pdf_templates') ? rawData : rawData.filter(d => !d.region || d.region === currentUser.region || d.region === 'ALL');
+                // 🌟 修正：當使用者的 Region 是 ALL 時，無條件顯示所有地區資料
+                let data = (currentUser.role === 'SuperAdmin' || collection === 'regions' || collection === 'roles' || collection === 'numbering_rules' || collection === 'pdf_templates') ? rawData : rawData.filter(d => !d.region || currentUser.region === 'ALL' || d.region === currentUser.region || d.region === 'ALL');
                 
                 // 🌟 核心修復：在 System Setup 中，強制將資料根據 Region 進行排序分組顯示！
                 data.sort((a, b) => {
@@ -2172,7 +2173,23 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
 
                 if (collection === 'roles') {
                     let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">🛡️ 雲端功能安全控制 Matrix</span><p class="text-slate-500 mt-1">您可以自由在下方 Create 新角色，並勾選該角色可以「看到」和「用到」的獨立控制按鈕與分頁面板。</p></div><div class="w-full overflow-x-auto pb-4"><table class="w-full text-xs text-left min-w-[1200px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-44">ROLE NAME (角色名稱)</th>${ALL_SYSTEM_PERMISSIONS.map(p => `<th class="p-2 text-center text-[11px] leading-tight font-medium border-l border-slate-700 w-16">${p.name}</th>`).join('')}<th class="p-3 text-center w-20">ACT</th></tr></thead><tbody>`;
-                    data.forEach((r, rIdx) => { html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row"><td class="p-3 font-black text-slate-900 bg-slate-50 border-r">${r.roleName}</td>${ALL_SYSTEM_PERMISSIONS.map(p => { const checked = r.permissions.includes(p.id) ? 'checked' : ''; return `<td class="p-2 text-center border-l"><input type="checkbox" ${checked} onchange="togglePermission('${r.roleName}', '${p.id}', this.checked)" class="w-4 h-4 cursor-pointer"></td>`; }).join('')}<td class="p-2 text-center border-l"><button onclick="deleteRow('roles', ${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-2 py-1 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`; });
+                    data.forEach((r, rIdx) => { 
+                        // 🌟 針對 Matrix 的防護：鎖定 Checkbox，不准點擊
+                        let isProtected = (r.roleName === 'SuperAdmin');
+                        let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
+                        let disabledStr = canEdit ? '' : 'disabled class="w-4 h-4 cursor-not-allowed opacity-40"';
+                        
+                        html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row"><td class="p-3 font-black text-slate-900 bg-slate-50 border-r">${r.roleName}</td>${ALL_SYSTEM_PERMISSIONS.map(p => { 
+                            const checked = r.permissions.includes(p.id) ? 'checked' : ''; 
+                            return `<td class="p-2 text-center border-l"><input type="checkbox" ${checked} ${disabledStr} onchange="togglePermission('${r.roleName}', '${p.id}', this.checked)" ${canEdit?'class="w-4 h-4 cursor-pointer"':''}></td>`; 
+                        }).join('')}`;
+                        
+                        if (canEdit) {
+                            html += `<td class="p-2 text-center border-l"><button onclick="deleteRow('roles', ${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-2 py-1 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`; 
+                        } else {
+                            html += `<td class="p-2 text-center border-l"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
+                        }
+                    });
                     html += `<tr class="bg-slate-100 border-t-2 border-slate-300"><td class="p-2"><input type="text" id="new-roles-roleName" placeholder="Create New Role..." class="mono-input w-full p-2 bg-white text-xs font-bold"></td><td colspan="${ALL_SYSTEM_PERMISSIONS.length}" class="p-2 text-slate-400 italic text-left pl-4">請先點擊右側 Add 建立新角色，再於上方矩陣勾選詳細配置功能。</td><td class="p-2 text-center"><button onclick="addCustomRole()" class="bg-slate-900 text-white font-black px-4 py-1.5 rounded text-xs shadow-sm hover:bg-slate-800">Add</button></td></tr></tbody></table></div>`;
                     cont.innerHTML = html; lucide.createIcons(); return;
                 }
@@ -2216,9 +2233,32 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                     rows.forEach(r => { let show = true; const cells = r.querySelectorAll('td'); inps.forEach((inp, i) => { const v = inp.value.toLowerCase().trim(); if(v && cells[i]) { let txt = cells[i].textContent.toLowerCase(); if(!txt.includes(v)) show = false; } }); r.style.display = show ? '' : 'none'; });
                 };
 
+                // 🌟 套用欄位排序邏輯 (先排序再產生 HTML)
+                if (setupSort.col) {
+                    data.sort((a, b) => {
+                        let valA = a[setupSort.col] !== undefined ? a[setupSort.col] : '';
+                        let valB = b[setupSort.col] !== undefined ? b[setupSort.col] : '';
+                        let numA = parseFloat(valA); let numB = parseFloat(valB);
+                        if (!isNaN(numA) && !isNaN(numB)) return setupSort.dir === 'asc' ? numA - numB : numB - numA;
+                        let strA = String(valA).toLowerCase(); let strB = String(valB).toLowerCase();
+                        if (strA < strB) return setupSort.dir === 'asc' ? -1 : 1;
+                        if (strA > strB) return setupSort.dir === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                }
+
                 let html = `<div class="flex gap-2 justify-end mb-2 no-print"><button onclick="document.getElementById('csv-uploader').click()" class="text-xs bg-slate-900 text-white px-3 py-1.5 rounded font-bold">Import CSV</button><button onclick="exportSetupData()" class="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded font-bold border border-blue-200">Export</button></div>`;
-                html += `<div class="overflow-x-auto"><table class="w-full text-xs text-left min-w-[800px] border-collapse"><tr class="bg-slate-900 text-white">${keys.map(k=>`<th class="p-3 font-semibold cursor-pointer hover:bg-slate-800" onclick="sortSetupTable('${k}')">${k.toUpperCase()} ${window.setupSort.col===k?(window.setupSort.dir==='asc'?'▲':'▼'):'↕'}</th>`).join('')}<th class="p-3">ACT</th></tr>`;
-                html += `<tr class="bg-indigo-50">${keys.map(k=>`<td class="p-1"><input type="text" class="col-filter-inp mono-input w-full p-1 text-[10px]" placeholder="Filter..." oninput="filterCol()"></td>`).join('')}<td></td></tr>`;
+                html += `<div class="overflow-x-auto"><table class="w-full text-xs text-left min-w-[800px] border-collapse">`;
+                
+                // 正確繪製唯一的 Table Header
+                html += `<tr class="bg-slate-900 text-white">${keys.map(k=> {
+                    let isSorted = setupSort.col === k;
+                    let arrow = isSorted ? (setupSort.dir === 'asc' ? '↑' : '↓') : '↕';
+                    return `<th class="p-3 font-semibold tracking-wider cursor-pointer hover:text-indigo-300 transition-colors select-none whitespace-nowrap" onclick="triggerSetupSort('${k}')">${k.toUpperCase().replace(/_/g,' ')} <span class="text-[10px] text-slate-400 ml-1">${arrow}</span></th>`;
+                }).join('')}<th class="p-3 text-center">ACT</th></tr>`;
+                
+                // 正確繪製 Filter 搜尋列
+                html += `<tr class="bg-indigo-50">${keys.map(k=>`<td class="p-1 border-b border-indigo-100"><input type="text" class="col-filter-inp mono-input w-full p-1 text-[10px]" placeholder="Filter..." oninput="filterCol()"></td>`).join('')}<td class="bg-indigo-50 border-b border-indigo-100"></td></tr>`;
                 // 🌟 套用欄位排序邏輯
                 if (setupSort.col) {
                     data.sort((a, b) => {
@@ -2247,52 +2287,61 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 
                 let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id);
                 data.forEach((row, rIdx) => {
-                    html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row">`;
+                    // 保護 SuperAdmin 防禦邏輯：不只是鎖按鈕，還要鎖住欄位輸入
+                    let isProtected = (row.role === 'SuperAdmin' || row.roleName === 'SuperAdmin' || row.user === 'Syadmin');
+                    let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
+                    
+                    let rowHtml = `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row">`;
                     keys.forEach(k => {
                         const val = row[k] === undefined || row[k] === null ? '' : row[k];
                         if (collection === 'products' && customFuncs.includes(k)) { 
-                            // 🌟 UI 轉換為 Checkbox 打勾
                             let isChecked = (val === 'Y' || val === true || String(val).toLowerCase() === 'true' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0));
-                            html += `<td class="p-2 min-w-[100px] text-center"><input type="checkbox" class="w-4 h-4 cursor-pointer accent-indigo-600" ${isChecked ? 'checked' : ''} onchange="updateDB('${collection}',${rIdx},'${k}', this.checked ? 'Y' : 'N')"></td>`; 
+                            rowHtml += `<td class="p-2 min-w-[100px] text-center"><input type="checkbox" class="w-4 h-4 cursor-pointer accent-indigo-600" ${isChecked ? 'checked' : ''} onchange="updateDB('${collection}',${rIdx},'${k}', this.checked ? 'Y' : 'N')"></td>`; 
                         }
                         else if (k === 'region' && collection !== 'regions') { 
-                            if(currentUser.role === 'SuperAdmin') { html += `<td class="p-2 min-w-[100px]"><select class="mono-input w-full p-2 text-xs text-blue-700 font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="ALL" ${val==='ALL'?'selected':''}>ALL</option>${allRegions.map(reg => `<option value="${reg.region}" ${val===reg.region?'selected':''}>${reg.region}</option>`).join('')}</select></td>`; } 
-                            else { html += `<td class="p-2 min-w-[100px]"><span class="font-bold text-slate-500">${val}</span></td>`; }
+                            if(currentUser.role === 'SuperAdmin') { rowHtml += `<td class="p-2 min-w-[100px]"><select class="mono-input w-full p-2 text-xs text-blue-700 font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="ALL" ${val==='ALL'?'selected':''}>ALL</option>${allRegions.map(reg => `<option value="${reg.region}" ${val===reg.region?'selected':''}>${reg.region}</option>`).join('')}</select></td>`; } 
+                            else { rowHtml += `<td class="p-2 min-w-[100px]"><span class="font-bold text-slate-500">${val}</span></td>`; }
                         }
-                        else if(collection === 'users' && k === 'role') { html += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${allRoles.map(role => `<option value="${role.roleName}" ${val===role.roleName?'selected':''}>${role.roleName}</option>`).join('')}</select></td>`; } 
-                        else if (collection === 'signatures' && k === 'name') { html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${LOCAL_DB.get("users", []).map(u => `<option value="${u.user}" ${val===u.user?'selected':''}>${u.user}</option>`).join('')}</select></td>`; } 
-                        else if (collection === 'outlets' && k === 'default_logo') { html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}" ${val===l.name?'selected':''}>${l.name}</option>`).join('')}</select></td>`; }
-                        else if (collection === 'approval_rules' && k === 'type') { html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Grand Total" ${val==='Grand Total'?'selected':''}>Grand Total</option><option value="Single Item Total" ${val==='Single Item Total'?'selected':''}>Single Item Total</option></select></td>`; }
-                        else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
-                        else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
+                        else if(collection === 'users' && k === 'role') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${allRoles.map(role => `<option value="${role.roleName}" ${val===role.roleName?'selected':''}>${role.roleName}</option>`).join('')}</select></td>`; } 
+                        else if (collection === 'signatures' && k === 'name') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${LOCAL_DB.get("users", []).map(u => `<option value="${u.user}" ${val===u.user?'selected':''}>${u.user}</option>`).join('')}</select></td>`; } 
+                        else if (collection === 'outlets' && k === 'default_logo') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}" ${val===l.name?'selected':''}>${l.name}</option>`).join('')}</select></td>`; }
+                        else if (collection === 'approval_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Grand Total" ${val==='Grand Total'?'selected':''}>Grand Total</option><option value="Single Item Total" ${val==='Single Item Total'?'selected':''}>Single Item Total</option></select></td>`; }
+                        else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
                         else if (collection === 'cn_reasons' && k === 'type') { 
                             let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))];
-                            html += `<td class="p-2 min-w-[150px]"><input type="text" list="dl-cntypes-${rIdx}" class="mono-input w-full p-2 text-xs font-bold text-indigo-700" value="${escapeHTML(val)}" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><datalist id="dl-cntypes-${rIdx}">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
+                            rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" list="dl-cntypes-${rIdx}" class="mono-input w-full p-2 text-xs font-bold text-indigo-700" value="${escapeHTML(val)}" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><datalist id="dl-cntypes-${rIdx}">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
                         }
-                        else if (collection === 'products' && k === 'discontinued') { html += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="false" ${String(val)!=='true'?'selected':''}>Active</option><option value="true" ${String(val)==='true'?'selected':''}>Discontinued</option></select></td>`; }
-                        else if (collection === 'products' && k === 'cost_per_100ml') { html += `<td class="p-2 min-w-[120px]"><input type="text" value="$${parseFloat(val||0).toFixed(4)}" class="mono-input w-full p-2 text-xs font-black bg-slate-100 text-slate-500 cursor-not-allowed border-dashed" disabled></td>`; }
-                        else if (collection === 'numbering_rules' && k === 'rule_name') { html += `<td class="p-2 min-w-[150px]"><input type="text" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
-                        else if (collection === 'numbering_rules' && k === 'type') { html += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs font-bold text-slate-700" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="PR" ${val==='PR'?'selected':''}>PR</option><option value="PO" ${val==='PO'?'selected':''}>PO</option><option value="Merged PDF" ${val==='Merged PDF'?'selected':''}>Merged PDF</option><option value="Export PDF" ${val==='Export PDF'?'selected':''}>Export PDF</option></select></td>`; }
+                        else if (collection === 'products' && k === 'discontinued') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="false" ${String(val)!=='true'?'selected':''}>Active</option><option value="true" ${String(val)==='true'?'selected':''}>Discontinued</option></select></td>`; }
+                        else if (collection === 'products' && k === 'cost_per_100ml') { rowHtml += `<td class="p-2 min-w-[120px]"><input type="text" value="$${parseFloat(val||0).toFixed(4)}" class="mono-input w-full p-2 text-xs font-black bg-slate-100 text-slate-500 cursor-not-allowed border-dashed" disabled></td>`; }
+                        else if (collection === 'numbering_rules' && k === 'rule_name') { rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
+                        else if (collection === 'numbering_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs font-bold text-slate-700" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="PR" ${val==='PR'?'selected':''}>PR</option><option value="PO" ${val==='PO'?'selected':''}>PO</option><option value="Merged PDF" ${val==='Merged PDF'?'selected':''}>Merged PDF</option><option value="Export PDF" ${val==='Export PDF'?'selected':''}>Export PDF</option></select></td>`; }
                         else if (collection === 'numbering_rules' && k === 'follow_pr') { 
                             let prRules = LOCAL_DB.get("numbering_rules", []).filter(r => r.type === 'PR');
                             let options = `<option value="">- No, Independant -</option>` + prRules.map(r => `<option value="${r.rule_name}" ${val===r.rule_name?'selected':''}>Follow: ${r.rule_name}</option>`).join('');
-                            html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs ${row.type==='PR'?'opacity-50 pointer-events-none bg-slate-50 text-slate-400':''}" ${row.type==='PR'?'disabled':''} onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${options}</select></td>`;
+                            rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs ${row.type==='PR'?'opacity-50 pointer-events-none bg-slate-50 text-slate-400':''}" ${row.type==='PR'?'disabled':''} onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${options}</select></td>`;
                         }
-                        else if (collection === 'numbering_rules' && k.startsWith('slot')) { html += `<td class="p-2 min-w-[130px]"><select class="mono-input w-full p-2 text-[11px]" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${SLOT_OPTIONS.map(opt => `<option value="${opt}" ${val===opt?'selected':''}>${opt}</option>`).join('')}</select></td>`; }
-                        else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { html += `<td class="p-2 min-w-[150px]"><div class="flex flex-col gap-2 items-start">${val ? `<img src="${val}" class="h-8 object-contain bg-slate-100 border border-slate-200 rounded p-1" />` : `<span class="text-[10px] text-slate-400">No Image</span>`}<label class="cursor-pointer bg-slate-100 text-slate-600 border border-slate-300 px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-200 shadow-sm"><i data-lucide="upload" class="w-3 h-3 inline"></i> Upload<input type="file" accept="image/*" class="hidden" onchange="handleLogoUpload(this, ${rIdx}, '${collection}', '${k}')"></label></div></td>`; }
-                        else if (collection === 'outlets' && k === 'pdf_header') { let allHeaders = LOCAL_DB.get("headers", []); html += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- Default (Settings) -</option>${allHeaders.map(h => `<option value="${escapeHTML(h.name)}" ${val===h.name?'selected':''}>${escapeHTML(h.name)}</option>`).join('')}</select></td>`; }
-                        else { if (['item', 'address', 'company'].includes(k)) html += `<td class="p-2 min-w-[200px]"><textarea class="mono-input w-full p-2 bg-transparent text-xs whitespace-normal break-words resize-none overflow-hidden" rows="2" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${val}</textarea></td>`;
-                        else html += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
+                        else if (collection === 'numbering_rules' && k.startsWith('slot')) { rowHtml += `<td class="p-2 min-w-[130px]"><select class="mono-input w-full p-2 text-[11px]" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${SLOT_OPTIONS.map(opt => `<option value="${opt}" ${val===opt?'selected':''}>${opt}</option>`).join('')}</select></td>`; }
+                        else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { rowHtml += `<td class="p-2 min-w-[150px]"><div class="flex flex-col gap-2 items-start">${val ? `<img src="${val}" class="h-8 object-contain bg-slate-100 border border-slate-200 rounded p-1" />` : `<span class="text-[10px] text-slate-400">No Image</span>`}<label class="cursor-pointer bg-slate-100 text-slate-600 border border-slate-300 px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-200 shadow-sm"><i data-lucide="upload" class="w-3 h-3 inline"></i> Upload<input type="file" accept="image/*" class="hidden" onchange="handleLogoUpload(this, ${rIdx}, '${collection}', '${k}')"></label></div></td>`; }
+                        else if (collection === 'outlets' && k === 'pdf_header') { let allHeaders = LOCAL_DB.get("headers", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- Default (Settings) -</option>${allHeaders.map(h => `<option value="${escapeHTML(h.name)}" ${val===h.name?'selected':''}>${escapeHTML(h.name)}</option>`).join('')}</select></td>`; }
+                        else { if (['item', 'address', 'company'].includes(k)) rowHtml += `<td class="p-2 min-w-[200px]"><textarea class="mono-input w-full p-2 bg-transparent text-xs whitespace-normal break-words resize-none overflow-hidden" rows="2" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${val}</textarea></td>`;
+                        else rowHtml += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
                     });
-                    // 保護 SuperAdmin 防禦邏輯
-let isProtected = (row.role === 'SuperAdmin' || row.roleName === 'SuperAdmin' || row.user === 'Syadmin');
-let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
 
-if (canEdit) {
-    html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`;
-} else {
-    html += `<td class="p-2 text-center"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
-}
+                    // 🌟 動態禁用 HTML：如果鎖定，將該行內的所有 input, select, textarea 禁用
+                    if (!canEdit) {
+                        rowHtml = rowHtml.replace(/<input /g, '<input disabled class="opacity-50 cursor-not-allowed" ')
+                                         .replace(/<select /g, '<select disabled class="opacity-50 cursor-not-allowed" ')
+                                         .replace(/<textarea /g, '<textarea disabled class="opacity-50 cursor-not-allowed" ')
+                                         .replace(/<label /g, '<label class="opacity-50 cursor-not-allowed pointer-events-none" '); // 連圖片上傳按鈕也鎖死
+                    }
+                    html += rowHtml;
+
+                    if (canEdit) {
+                        html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`;
+                    } else {
+                        html += `<td class="p-2 text-center"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
+                    }
+                });
                 });
 
                 html += `<tr class="bg-slate-50 border-t-2 border-slate-200">`;
