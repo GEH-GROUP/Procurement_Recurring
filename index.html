@@ -760,7 +760,7 @@ window.tempMergeFiles = [];
         let setupSort = { col: null, dir: 'asc' };
         
         // ADDED new permissions to the constant (Split History Archives)
-        const ALL_SYSTEM_PERMISSIONS = [{ id: 'view_dashboard', name: 'Dashboard' }, { id: 'create_order', name: 'Create PR/PO' }, { id: 'create_grn', name: 'Create GRN & Inv' }, { id: 'create_cn', name: 'Create CN' }, { id: 'view_history_pr', name: 'Archive (PR)' }, { id: 'view_history_po', name: 'Archive (PO)' }, { id: 'view_history_cpo', name: 'Closed POs' }, { id: 'view_history_grn', name: 'Archive (GRN)' }, { id: 'view_history_cn', name: 'Archive (CN)' }, { id: 'edit_po', name: 'Edit Doc' }, { id: 'cancel_po', name: 'Cancel Doc' }, { id: 'delete_doc', name: 'Delete Forever' }, { id: 'finance_export', name: 'Finance Export' }, { id: 'system_setup', name: 'System Setup' }, { id: 'manage_users', name: 'Users Setup' }, { id: 'manage_roles', name: 'Roles Setup' }, { id: 'use_merge_pdf', name: 'Merge PDF' }, { id: 'upload_merge_docs', name: 'Upload External PDF' }, { id: 'edit_linked_docs', name: 'Edit Linked Docs' }];
+        const ALL_SYSTEM_PERMISSIONS = [{ id: 'view_dashboard', name: 'Dashboard' }, { id: 'create_order', name: 'Create PR/PO' }, { id: 'create_grn', name: 'Create GRN & Inv' }, { id: 'create_cn', name: 'Create CN' }, { id: 'view_history_pr', name: 'Archive (PR)' }, { id: 'view_history_po', name: 'Archive (PO)' }, { id: 'view_history_cpo', name: 'Closed POs' }, { id: 'view_history_grn', name: 'Archive (GRN)' }, { id: 'view_history_cn', name: 'Archive (CN)' }, { id: 'edit_po', name: 'Edit Doc' }, { id: 'cancel_po', name: 'Cancel Doc' }, { id: 'delete_doc', name: 'Delete Forever' }, { id: 'finance_export', name: 'Finance Export' }, { id: 'system_setup', name: 'System Setup' }, { id: 'manage_users', name: 'Users Setup' }, { id: 'manage_roles', name: 'Roles Setup' }, { id: 'use_merge_pdf', name: 'Merge PDF' }, { id: 'upload_merge_docs', name: 'Upload External PDF' }, { id: 'edit_linked_docs', name: 'Edit Linked Docs' },{ id: 'create_transfer', name: 'Internal Transfer' }];
 const SLOT_OPTIONS = ['Empty', 'Fixed: PR / PO', 'Fixed: RF / GEH', 'Outlet Short Code', 'Username', 'Year (YYYY)', 'Year (YY)', 'Month (MM)', 'Date (DD)', 'Symbol: -', 'Symbol: /', 'Symbol: _', 'Symbol: SPACE', 'Sequence (001)', 'Sequence (0001)', 'Vendor Shorts', 'PR Number', 'PO Number', 'Invoice Number', 'DO Number', 'PR Date (DDMMYYYY)', 'PO Date (DDMMYYYY)', 'Invoice Date (DDMMYYYY)', 'DO Date (DDMMYYYY)'];
         
         function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.remove('translate-x-[150%]'); setTimeout(() => t.classList.add('translate-x-[150%]'), 3000); }
@@ -1762,6 +1762,15 @@ if (poIdx > -1) {
     customIcon: `<div class="w-[18px] h-[18px] shrink-0 flex items-center justify-center border-[1.5px] border-slate-600 rounded-[4px] text-[8px] font-black text-slate-600 tracking-tighter">CN</div>`, 
     title: 'Create Credit Note' 
 });
+
+if(hasPermission('create_transfer')) {
+    links.push({ 
+        id: 'transfer', 
+        icon: 'arrow-right-left', 
+        title: 'Internal Transfer' 
+    });
+}
+
 if(hasPermission('create_order')) links.push({ id: 'transfer', icon: 'arrow-right-left', title: 'Internal Transfer' });
             if(hasPermission('view_history_pr')) links.push({ id: 'history_pr', icon: 'file-text', title: 'Document Archive (PR)' });
             if(hasPermission('view_history_po')) links.push({ id: 'history_po', icon: 'file-check-2', title: 'Document Archive (PO)' });
