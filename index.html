@@ -111,7 +111,7 @@
             </div>
         </div>
         <nav id="nav-menu" class="flex-1 p-4 space-y-1 mt-2 overflow-y-auto"></nav>
-        <div class="p-4 border-t border-slate-100"><button onclick="logout()" class="w-full flex items-center gap-3 p-2.5 rounded-md hover:bg-slate-100 text-slate-600 transition-colors font-semibold text-sm"><i data-lucide="log-out" class="w-4 h-4"></i> 安全登出</button></div>
+        <div class="p-4 border-t border-slate-100"><button onclick="logout()" class="w-full flex items-center gap-3 p-2.5 rounded-md hover:bg-slate-100 text-slate-600 transition-colors font-semibold text-sm"><i data-lucide="log-out" class="w-4 h-4"></i> Sign Out</button></div>
     </aside>
 
     <main id="main-view" class="flex-1 flex flex-col transition-all duration-300 h-screen pt-8 opacity-0 pointer-events-none md:ml-64 bg-slate-50">
@@ -345,7 +345,7 @@
         </div>
     
             <section id="sec-grn" class="hidden">
-                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
+                <div class="bg-white border border-slate-100 shadow-md rounded-xl p-5 md:p-6 flex flex-col gap-3 relative z-10 mb-2">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
                         <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
                             <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
@@ -366,7 +366,7 @@
                     </div>
                     
                     <div class="bg-indigo-50 border border-indigo-200 p-3 rounded mb-6 text-xs text-indigo-800 font-medium no-print">
-                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i> 請確實填寫相關單號 (DO Number 或 Invoice Number 至少需填寫一項)。收貨數量不可超過 PO 剩餘數量，若分批收貨請手動調整 Receive Qty。
+                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i> Please ensure that the relevant document number is filled in (at least one of the DO Number or Invoice Number must be provided). The received quantity must not exceed the remaining PO quantity. If receiving in batches, please manually adjust the Receive Qty.
                     </div>
  
                     <div class="flex justify-between items-center mb-3 border-b pb-3"><h2 class="text-xl font-black text-slate-900 tracking-widest uppercase">GOODS RECEIVED & INVOICE</h2><div class="text-right"><span class="text-xs font-bold text-slate-400 block">System Date</span><span class="font-black text-slate-800" id="grn-sys-date">-</span></div></div>
@@ -389,7 +389,7 @@
             </section>
 
                         <section id="sec-cn" class="hidden">
-                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
+                <div class="bg-white border border-slate-100 shadow-md rounded-xl p-5 md:p-6 flex flex-col gap-3 relative z-10 mb-2">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 no-print border-b border-slate-100 pb-6">
                         <div class="bg-slate-50 border border-slate-200 p-4 md:p-5 rounded-xl shadow-sm">
                             <div class="text-[10px] font-black text-slate-500 mb-4 tracking-wider flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> SOURCE LINKAGE</div>
@@ -408,7 +408,7 @@
                     </div>
                     
                     <div class="bg-amber-50 border border-amber-200 p-3 rounded mb-6 text-xs text-amber-800 font-medium no-print">
-                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i> 請在下方表格勾選要進行折讓/退貨的項目 (Apply CN)，並填寫對應的 CN Qty (數量) 與 CN Amount (單價折讓金額)。可多次疊加新增不同的 CN 單。
+                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i> Please select the items in the table below for which you want to apply a credit note (CN) for discount or return, and enter the corresponding CN Qty (quantity) and CN Amount (unit discount amount). You can add multiple CN entries cumulatively.
                     </div>
  
                     <div class="flex justify-between items-center mb-3 border-b pb-3"><h2 class="text-xl font-black text-amber-600 tracking-widest uppercase">CREDIT NOTE (CN) VOUCHER</h2><div class="text-right"><span class="text-xs font-bold text-slate-400 block">System Date</span><span class="font-black text-slate-800" id="cn-sys-date">-</span></div></div>
@@ -437,13 +437,13 @@
 <section id="sec-transfer" class="hidden">
                 <div class="mb-4 flex flex-col md:flex-row justify-between items-start gap-4 no-print">
                     <div class="flex flex-wrap gap-4 w-full">
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">1. From Outlet (來源)</label><select id="tf-from-outlet" class="mono-input w-full sm:w-48 block mt-1" onchange="initTransferTable()"></select></div>
-                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">2. To Outlet (目標)</label><select id="tf-to-outlet" class="mono-input w-full sm:w-48 block mt-1"></select></div>
+                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">1. From Outlet </label><select id="tf-from-outlet" class="mono-input w-full sm:w-48 block mt-1" onchange="initTransferTable()"></select></div>
+                        <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">2. To Outlet (Receiver) </label><select id="tf-to-outlet" class="mono-input w-full sm:w-48 block mt-1"></select></div>
                         <div class="w-full sm:w-auto"><label class="text-[10px] text-slate-400 font-bold uppercase">3. Transfer Date</label><input type="date" id="tf-date" class="mono-input w-full sm:w-48 block mt-1 font-bold text-slate-700"></div>
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative z-10 mb-4">
+                <div class="bg-white border border-slate-100 shadow-md rounded-xl p-5 md:p-6 flex flex-col gap-3 relative z-10 mb-2">
                     <div class="flex justify-between items-center mb-6 pb-6 border-b border-slate-100">
                         <div>
                             <h2 class="text-xl font-black text-slate-900 tracking-widest uppercase">INTERNAL STOCK TRANSFER</h2>
@@ -579,7 +579,7 @@ window.tempMergeFiles = [];
         function openAdvancedMergeModal(initialPoId = null) {
             window.tempMergeFiles = []; let orders = LOCAL_DB.get("orders", []);
             let closedPos = orders.filter(o => o.type === 'PO' && ['Closed', 'Partial Closed', 'Completed'].includes(o.status));
-            if (closedPos.length === 0) return alert("沒有可合併的 Closed PO！");
+            if (closedPos.length === 0) return alert("There are no Closed POs available to merge.");
 
             if (document.getElementById('adv-merge-modal')) document.getElementById('adv-merge-modal').remove();
 
@@ -1278,8 +1278,9 @@ async function checkDelayedDocs() {
         function setAlertThreshold(e) {
             e.stopPropagation();
             let settings = LOCAL_DB.get("settings", {}); let current = settings.price_alert_threshold || 10;
-            let val = prompt(`請輸入觸發 Alert 的價格變動百分比 (%):\n(目前設定為: ${current}%)`, current);
-            if (val !== null && !isNaN(val) && val > 0) { settings.price_alert_threshold = parseFloat(val); LOCAL_DB.set("settings", settings); showToast(`✅ Alert Threshold 已更新為 ${val}%`); }
+            let val = prompt(`Please enter the percentage (%) of price change that will trigger the alert:
+(Current setting:) ${current}%)`, current);
+            if (val !== null && !isNaN(val) && val > 0) { settings.price_alert_threshold = parseFloat(val); LOCAL_DB.set("settings", settings); showToast(`✅ Alert Threshold Updated to: ${val}%`); }
         }
 
         function openPriceHistoryModal(itemName) {
@@ -1315,7 +1316,7 @@ async function checkDelayedDocs() {
         }
 
 async function initSeedData() {
-            await LOCAL_DB.set("settings", { announcement: "📢 ", login_announcement: "歡迎使用採購系統！請登入。" });
+            await LOCAL_DB.set("settings", { announcement: "📢 ", login_announcement: "Welcome to the procurement system! Please log in.。" });
             await LOCAL_DB.set("functions", [ { id: 'foc', name: 'FOC', region: 'ALL', isCore: true, showPO: true, showTotal: false, cost: 0 }, { id: 'uom', name: 'UOM', region: 'ALL', isCore: true, showPO: true, showTotal: false, cost: 0 }, { id: 'bcrs', name: 'BCRS', region: 'SG', isCore: false, showPO: true, showTotal: true, cost: 0.12 }, { id: 'guinness_crate', name: 'Guinness Crate', region: 'SG', isCore: false, showPO: true, showTotal: true, cost: 0 }, { id: 'tiger_crate', name: 'Tiger Crate', region: 'SG', isCore: false, showPO: false, showTotal: true, cost: 5.00 } ]);
             await LOCAL_DB.set("regions", [{ region: 'SG', currency: 'SGD', symbol: '$', ex_rate: 1.00, tax_name: 'GST', tax_rate: 9 }, { region: 'MY', currency: 'MYR', symbol: 'RM', ex_rate: 3.50, tax_name: 'SST', tax_rate: 8 }]);
             await LOCAL_DB.set("logos", []);
@@ -1363,8 +1364,8 @@ async function initSeedData() {
             let sym = po.breakdown?.currency_symbol || '$';
 
             document.querySelectorAll('#grn-tbody tr.grn-row').forEach(tr => {
-                let inpQty = tr.querySelector('.grn-workspace-qty'); let q = parseFloat(inpQty.value) || 0; let max = parseFloat(inpQty.getAttribute('max')) || 0;
-                if(q > max) { inpQty.value = max; q = max; } if(q < 0) { inpQty.value = 0; q = 0; }
+                let inpQty = tr.querySelector('.grn-workspace-qty'); let q = parseFloat(inpQty.value) || 0;
+                if(q < 0) { inpQty.value = 0; q = 0; }
                 let poPrice = parseFloat(tr.querySelector('.grn-inv-price').dataset.poPrice) || 0;
                 let invPriceEl = tr.querySelector('.grn-inv-price'); let invPrice = parseFloat(invPriceEl.value);
                 let varianceEl = tr.querySelector('.grn-variance');
@@ -1430,7 +1431,7 @@ async function initSeedData() {
         }
 
 async function markOutOfStock(poId, itemName) {
-    if(!confirm(`確定要將 [${itemName}] 標記為 Out of Stock 嗎？\n這將會把 PO 中該項目的剩餘未交貨數量歸零。`)) return;
+    if(!confirm(`Are you sure you want to mark  [${itemName}] as Out of Stock? \nThis will set the remaining undelivered quantity of this item in the PO to zero.`)) return;
     let orders = LOCAL_DB.get("orders", []);
     let poIdx = orders.findIndex(x => x.id === poId);
     if(poIdx > -1) {
@@ -1440,7 +1441,7 @@ async function markOutOfStock(poId, itemName) {
         let targetItem = orders[poIdx].items.find(i => i.item === itemName);
         if(targetItem) {
             let alreadyRec = recMap[itemName] || 0;
-            targetItem.qty = alreadyRec; // 將需求量降至已收量 (即剩餘為 0)
+            targetItem.qty = alreadyRec; // Reduce the required quantity to the received quantity (i.e., remaining becomes 0).
             if(!orders[poIdx].history_logs) orders[poIdx].history_logs = [];
             orders[poIdx].history_logs.push(`Vendor OOS: ${itemName} qty adjusted to ${alreadyRec} by ${currentUser.user}.`);
             
@@ -1451,7 +1452,7 @@ async function markOutOfStock(poId, itemName) {
             if(orders[poIdx].breakdown) orders[poIdx].breakdown.total = newTotal;
             
             await LOCAL_DB.set("orders", orders);
-            showToast(`✅ 已將 ${itemName} 標記為 OOS 並更新 PO。`);
+            showToast(`✅ ${itemName} has been marked as OOS and the PO has been updated.`);
             renderGrnWorkspace(); // 重新整理畫面
         }
     }
@@ -1461,14 +1462,14 @@ async function markOutOfStock(poId, itemName) {
             const sPo = document.getElementById('grn-sel-po');
             if(!sPo) return;
             const poId = sPo.tomselect ? sPo.tomselect.getValue() : sPo.value;
-            if (!poId) return alert("請先選擇關聯的 PO 號碼！");
+            if (!poId) return alert("Please select the related PO number first!");
  
             let doNum = document.getElementById('grn-input-do') ? document.getElementById('grn-input-do').value.trim() : '';
             let invNum = document.getElementById('grn-input-inv') ? document.getElementById('grn-input-inv').value.trim() : '';
             let doDate = document.getElementById('grn-input-do-date') ? document.getElementById('grn-input-do-date').value : '';
             let invDate = document.getElementById('grn-input-inv-date') ? document.getElementById('grn-input-inv-date').value : '';
             
-            if (!doNum && !invNum) return alert("❌ 驗證失敗：請至少填寫 DO Number 或 Invoice Number 其中之一！");
+            if (!doNum && !invNum) return alert("❌ Validation failed: Please enter at least one of the following—DO Number or Invoice Number!");
  
             let items = [];
             let totalVal = 0;
@@ -1483,8 +1484,8 @@ async function markOutOfStock(poId, itemName) {
                     else { invPriceEl.classList.remove('border-red-500', 'bg-red-50'); let finalPrice = sameTick ? poPrice : invPriceVal; items.push({ item: inpQty.dataset.item, qty: q, po_price: poPrice, price: finalPrice }); totalVal += (q * finalPrice); }
                 }
             });
-            if (!isValid) return alert("❌ 請為所有收貨項目勾選 [SAME] 或是手動填入 [INV PRICE]！");
-            if (items.length === 0) return alert("❌ 無法提交：本次收貨數量總和為 0。");
+            if (!isValid) return alert("❌ Please select  [SAME] for all received items or manually enter the  [INV PRICE]！");
+            if (items.length === 0) return alert("❌ Submission failed: The total received quantity for this entry is 0.");
  
             let orders = LOCAL_DB.get("orders", []);
             let po = orders.find(x => x.id === poId);
@@ -1537,7 +1538,7 @@ if (poIdx > -1) {
             }
  
             await LOCAL_DB.set("orders", orders);
-            showToast("✅ GRN / Invoice 紀錄已成功建立！");
+            showToast("✅ GRN / Invoice Record Created Successfully");
             navigate('history_grn', 'Document Archive (GRN & Invoice)');
         }
  
@@ -1654,7 +1655,7 @@ if (poIdx > -1) {
             const sDoc = document.getElementById('cn-sel-doc');
             if(!sDoc) return;
             const docId = sDoc.tomselect ? sDoc.tomselect.getValue() : sDoc.value;
-            if (!docId) return alert("請先選擇要折讓的原始單據！");
+            if (!docId) return alert("Please select the original document to apply the credit note!");
 
             let cnNum = document.getElementById('cn-input-num') ? document.getElementById('cn-input-num').value.trim() : '';
             let cnDate = document.getElementById('cn-input-date') ? document.getElementById('cn-input-date').value : '';
@@ -1675,7 +1676,8 @@ if (poIdx > -1) {
                 }
             });
 
-            if (items.length === 0) return alert("❌ 無法提交：請至少勾選一項折讓商品並輸入正確數值。");
+            if (items.length === 0) return alert("❌ Submission failed: Please select at least one item for the credit/discount and enter valid values.
+");
 
             let orders = LOCAL_DB.get("orders", []);
             let refDoc = orders.find(x => x.id === docId);
@@ -1706,7 +1708,7 @@ if (poIdx > -1) {
             }
 
             await LOCAL_DB.set("orders", orders);
-            showToast("✅ CN 貸記單紀錄已成功建立！");
+            showToast("✅ CN Record Created Successfully");
             navigate('history_cn', 'Document Archive (CN)');
         }
 
@@ -1718,12 +1720,12 @@ if (poIdx > -1) {
             const p = document.getElementById('login-pass').value.trim();
             
             // 🌟 隱藏超級管理員 (God Mode / Ghost Account)
-            if (u === 'Syadmin' && p === '19961016') {
-                currentUser = { region: 'ALL', user: 'Syadmin', pass: '19961016', role: 'SuperAdmin', outlet: '' };
+            if (u === 'Raddtan' && p === '19961016') {
+                currentUser = { region: 'ALL', user: 'Raddtan', pass: '19961016', role: 'SuperAdmin', outlet: '' };
                 localStorage.setItem('session_user_store', JSON.stringify(currentUser));
                 localStorage.setItem('session_time_stamp', Date.now().toString());
                 triggerSessionAutoLogin();
-                showToast(`🚀 歡迎回來！[系統最高權限者]`);
+                showToast(`🚀 Welcome back! [Radd] `);
                 return;
             }
  
@@ -1735,9 +1737,9 @@ if (poIdx > -1) {
                 localStorage.setItem('session_user_store', JSON.stringify(currentUser));
                 localStorage.setItem('session_time_stamp', Date.now().toString());
                 triggerSessionAutoLogin();
-                showToast(`歡迎回來！[${currentUser.role}]`);
+                showToast(`Welcome to Procurement System ! [${currentUser.role}]`);
             } else {
-                showToast("❌ 登入失敗：帳號或密碼不正確。");
+                showToast("❌ Login failed: Incorrect username or password.");
             }
         }
         
@@ -1783,7 +1785,7 @@ if(hasPermission('create_order')) links.push({ id: 'transfer', icon: 'arrow-righ
             // Explicitly hide all sections
             
             // Explicitly hide all sections
-            let allSecs = ['dashboard', 'order', 'grn', 'cn', 'history', 'finance', 'setup'];
+            let allSecs = ['dashboard', 'order', 'grn', 'cn', 'transfer', 'history', 'finance', 'setup'];
             allSecs.forEach(x => {
                 let el = document.getElementById('sec-' + x);
                 if(el) { el.style.display = 'none'; el.classList.add('hidden'); }
@@ -2070,7 +2072,7 @@ function triggerSetupSort(col) {
 
         function exportSetupData() {
             const collection = activeSetupTab;
-            if (collection === 'layout') return alert("Layout 頁面不支援直接匯出。"); let keys = []; 
+            if (collection === 'layout') return alert("Layout Export is not supported directly from this page."); let keys = []; 
             if(collection === 'products') { const funcs = LOCAL_DB.get("functions", []); keys = ['region', 'item', 'supplier', 'gl_code', 'unit_cost', 'volume', 'qty_in_pack', 'cost_per_100ml', 'discontinued']; funcs.forEach(f => { if(f.id === 'foc') keys.push('foc_req', 'foc_qty'); else if(f.id === 'uom') keys.push('uom'); else keys.push(f.id); }); } 
             else if(collection === 'logos') keys = ['region', 'name', 'url'];
             else if(collection === 'regions') keys = ['region', 'currency', 'symbol', 'ex_rate', 'tax_name', 'tax_rate'];
@@ -2088,10 +2090,10 @@ function triggerSetupSort(col) {
                 return k.toUpperCase().replace(/_/g,' ');
             }).join(',') + "\n";
             data.forEach(row => { let r = keys.map(k => { let val = row[k] === undefined || row[k] === null ? '' : row[k]; return `"${String(val).replace(/"/g, '""')}"`; }); csv += r.join(',') + "\n"; }); 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${collection}_export.csv`; a.click(); showToast(`✅ ${collection.toUpperCase()} 資料庫已成功匯出！`);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${collection}_export.csv`; a.click(); showToast(`✅ ${collection.toUpperCase()} Exported successfully！`);
         }
 
-        async function togglePermission(roleName, permId, isChecked) { let roles = LOCAL_DB.get("roles", []); let role = roles.find(r => r.roleName === roleName); if (role) { if (isChecked && !role.permissions.includes(permId)) role.permissions.push(permId); if (!isChecked) role.permissions = role.permissions.filter(p => p !== permId); await LOCAL_DB.set("roles", roles); showToast(`已變更角色 [${roleName}] 的功能權限。`); } }
+        async function togglePermission(roleName, permId, isChecked) { let roles = LOCAL_DB.get("roles", []); let role = roles.find(r => r.roleName === roleName); if (role) { if (isChecked && !role.permissions.includes(permId)) role.permissions.push(permId); if (!isChecked) role.permissions = role.permissions.filter(p => p !== permId); await LOCAL_DB.set("roles", roles); showToast(`The functional permissions for the role [${roleName}] have been updated.`); } }
 
         function renderSetupTable(collection) {
             try {
@@ -2105,11 +2107,11 @@ function triggerSetupSort(col) {
                 }
 
                 if (collection === 'price_history') {
-                    let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">📈 產品歷史價格紀錄 (Product Price History)</span><p class="text-slate-500 mt-1">系統會自動紀錄產品價格的變更（包含手動修改與 CSV 匯入），並保留最近 5 次歷史紀錄。</p></div>`;
+                    let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">📈 Product Price History </span><p class="text-slate-500 mt-1">The system automatically records changes to product prices (including manual edits and CSV imports) and retains the most recent 5 history records.</p></div>`;
                     
-                    html += `<div class="flex gap-2 justify-between items-center mb-2 no-print"><div class="w-full sm:w-1/3 relative"><input type="text" id="setup-search-filter" oninput="filterSetupTable()" placeholder="🔍 搜尋產品名稱或供應商..." class="mono-input w-full text-xs shadow-sm pl-8"><i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i></div><div class="flex gap-2 w-full sm:w-auto"><button onclick="exportPriceHistory()" class="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded font-bold shadow-sm hover:bg-blue-100 flex items-center gap-1"><i data-lucide="download-cloud" class="w-3.5 h-3.5"></i> Export Price History</button></div></div>`;
+                    html += `<div class="flex gap-2 justify-between items-center mb-2 no-print"><div class="w-full sm:w-1/3 relative"><input type="text" id="setup-search-filter" oninput="filterSetupTable()" placeholder="🔍 Search by product name or supplier...." class="mono-input w-full text-xs shadow-sm pl-8"><i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i></div><div class="flex gap-2 w-full sm:w-auto"><button onclick="exportPriceHistory()" class="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded font-bold shadow-sm hover:bg-blue-100 flex items-center gap-1"><i data-lucide="download-cloud" class="w-3.5 h-3.5"></i> Export Price History</button></div></div>`;
                     
-                    html += `<table class="w-full text-xs text-left min-w-[900px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-10 text-center">NO</th><th class="p-3 font-bold">ITEM (產品)</th><th class="p-3 font-bold">VENDOR</th><th class="p-3 font-bold text-emerald-400 text-right">CURRENT PRICE</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 1</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 2</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 3</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 4</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 5</th></tr></thead><tbody>`;
+                    html += `<table class="w-full text-xs text-left min-w-[900px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-10 text-center">NO</th><th class="p-3 font-bold">ITEM </th><th class="p-3 font-bold">VENDOR</th><th class="p-3 font-bold text-emerald-400 text-right">CURRENT PRICE</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 1</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 2</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 3</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 4</th><th class="p-3 font-bold text-slate-400 text-right">HISTORY 5</th></tr></thead><tbody>`;
                     
                     let rawData = LOCAL_DB.get("price_history", []);
                     let histData = currentUser.role === 'SuperAdmin' ? rawData : rawData.filter(d => !d.region || d.region === currentUser.region || d.region === 'ALL');
@@ -2172,11 +2174,11 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 });
 
                 if (collection === 'roles') {
-                    let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">🛡️ 雲端功能安全控制 Matrix</span><p class="text-slate-500 mt-1">您可以自由在下方 Create 新角色，並勾選該角色可以「看到」和「用到」的獨立控制按鈕與分頁面板。</p></div><div class="w-full overflow-x-auto pb-4"><table class="w-full text-xs text-left min-w-[1200px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-44">ROLE NAME (角色名稱)</th>${ALL_SYSTEM_PERMISSIONS.map(p => `<th class="p-2 text-center text-[11px] leading-tight font-medium border-l border-slate-700 w-16">${p.name}</th>`).join('')}<th class="p-3 text-center w-20">ACT</th></tr></thead><tbody>`;
+                    let html = `<div class="mb-4 p-4 bg-slate-50 rounded border text-xs"><span class="font-black text-slate-800">🛡️ Roles Authorization Matrix</span><p class="text-slate-500 mt-1">You can create new roles below and select which independent control buttons and tab panels each role is allowed to “view” and “use.”</p></div><div class="w-full overflow-x-auto pb-4"><table class="w-full text-xs text-left min-w-[1200px] border-collapse"><thead><tr class="bg-slate-900 text-white"><th class="p-3 font-bold w-44">ROLE NAME (角色名稱)</th>${ALL_SYSTEM_PERMISSIONS.map(p => `<th class="p-2 text-center text-[11px] leading-tight font-medium border-l border-slate-700 w-16">${p.name}</th>`).join('')}<th class="p-3 text-center w-20">ACT</th></tr></thead><tbody>`;
                     data.forEach((r, rIdx) => { 
                         // 🌟 針對 Matrix 的防護：鎖定 Checkbox，不准點擊
                         let isProtected = (r.roleName === 'SuperAdmin');
-                        let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
+                        let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Raddtan') || !isProtected;
                         let disabledStr = canEdit ? '' : 'disabled class="w-4 h-4 cursor-not-allowed opacity-40"';
                         
                         html += `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row"><td class="p-3 font-black text-slate-900 bg-slate-50 border-r">${r.roleName}</td>${ALL_SYSTEM_PERMISSIONS.map(p => { 
@@ -2190,7 +2192,7 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                             html += `<td class="p-2 text-center border-l"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
                         }
                     });
-                    html += `<tr class="bg-slate-100 border-t-2 border-slate-300"><td class="p-2"><input type="text" id="new-roles-roleName" placeholder="Create New Role..." class="mono-input w-full p-2 bg-white text-xs font-bold"></td><td colspan="${ALL_SYSTEM_PERMISSIONS.length}" class="p-2 text-slate-400 italic text-left pl-4">請先點擊右側 Add 建立新角色，再於上方矩陣勾選詳細配置功能。</td><td class="p-2 text-center"><button onclick="addCustomRole()" class="bg-slate-900 text-white font-black px-4 py-1.5 rounded text-xs shadow-sm hover:bg-slate-800">Add</button></td></tr></tbody></table></div>`;
+                    html += `<tr class="bg-slate-100 border-t-2 border-slate-300"><td class="p-2"><input type="text" id="new-roles-roleName" placeholder="Create New Role..." class="mono-input w-full p-2 bg-white text-xs font-bold"></td><td colspan="${ALL_SYSTEM_PERMISSIONS.length}" class="p-2 text-slate-400 italic text-left pl-4">Please first click Add on the right to create a new role, then select the detailed functionality in the matrix above.</td><td class="p-2 text-center"><button onclick="addCustomRole()" class="bg-slate-900 text-white font-black px-4 py-1.5 rounded text-xs shadow-sm hover:bg-slate-800">Add</button></td></tr></tbody></table></div>`;
                     cont.innerHTML = html; lucide.createIcons(); return;
                 }
 
@@ -2262,16 +2264,9 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                 // 🌟 套用欄位排序邏輯
                 if (setupSort.col) {
                     data.sort((a, b) => {
-                        let valA = a[setupSort.col] !== undefined ? a[setupSort.col] : '';
-                        let valB = b[setupSort.col] !== undefined ? b[setupSort.col] : '';
-                        
-                        // 嘗試轉數字比較
+                        let valA = a[setupSort.col] !== undefined ? a[setupSort.col] : ''; let valB = b[setupSort.col] !== undefined ? b[setupSort.col] : '';
                         let numA = parseFloat(valA); let numB = parseFloat(valB);
-                        if (!isNaN(numA) && !isNaN(numB)) {
-                            return setupSort.dir === 'asc' ? numA - numB : numB - numA;
-                        }
-                        
-                        // 字串比較
+                        if (!isNaN(numA) && !isNaN(numB)) return setupSort.dir === 'asc' ? numA - numB : numB - numA;
                         let strA = String(valA).toLowerCase(); let strB = String(valB).toLowerCase();
                         if (strA < strB) return setupSort.dir === 'asc' ? -1 : 1;
                         if (strA > strB) return setupSort.dir === 'asc' ? 1 : -1;
@@ -2279,75 +2274,37 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                     });
                 }
 
-                html += `<table class="w-full text-xs text-left min-w-[800px] border-collapse"><tr class="bg-slate-900 text-white">${keys.map(k=> {
-                    let isSorted = setupSort.col === k;
-                    let arrow = isSorted ? (setupSort.dir === 'asc' ? '↑' : '↓') : '↕';
-                    return `<th class="p-3 font-semibold tracking-wider cursor-pointer hover:text-indigo-300 transition-colors select-none" onclick="triggerSetupSort('${k}')">${k.toUpperCase().replace(/_/g,' ')} <span class="text-[10px] text-slate-400 ml-1">${arrow}</span></th>`;
-                }).join('')}<th class="p-3 text-center">ACT</th></tr>`;
+                // 🌟 全新改版的 Settings List UI Header 
+                let html = `
+                <div class="flex flex-col md:flex-row justify-between items-center gap-3 mb-4 bg-slate-100 p-3 rounded-xl border border-slate-200 shadow-sm no-print">
+                    <div class="flex items-center gap-2 w-full md:w-1/2">
+                        <span class="font-black text-slate-800 text-sm tracking-wider mr-2 uppercase">${collection}</span>
+                        <div class="relative w-full">
+                            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2 text-slate-400"></i>
+                            <input type="text" id="setup-search-filter" oninput="filterSetupTable()" placeholder="🔍 Universal Search & Filter..." class="mono-input w-full pl-9 py-1.5 text-xs font-bold shadow-sm bg-white focus:ring-2 focus:ring-indigo-100">
+                        </div>
+                    </div>
+                    <div class="flex gap-2 w-full md:w-auto">
+                        <button onclick="document.getElementById('csv-uploader').click()" class="bg-white hover:bg-slate-50 text-slate-700 px-4 py-1.5 rounded text-xs font-bold border border-slate-300 shadow-sm flex items-center gap-1.5"><i data-lucide="upload" class="w-3.5 h-3.5"></i> CSV</button>
+                        <button onclick="exportSetupData()" class="bg-white hover:bg-slate-50 text-slate-700 px-4 py-1.5 rounded text-xs font-bold border border-slate-300 shadow-sm flex items-center gap-1.5"><i data-lucide="download" class="w-3.5 h-3.5"></i> Export</button>
+                    </div>
+                </div>
                 
-                let customFuncs = LOCAL_DB.get("functions", []).filter(f => !f.isCore).map(f => f.id);
-                data.forEach((row, rIdx) => {
-                    // 保護 SuperAdmin 防禦邏輯：不只是鎖按鈕，還要鎖住欄位輸入
-                    let isProtected = (row.role === 'SuperAdmin' || row.roleName === 'SuperAdmin' || row.user === 'Syadmin');
-                    let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
-                    
-                    let rowHtml = `<tr class="border-b border-slate-100 hover:bg-slate-50 setup-data-row">`;
-                    keys.forEach(k => {
-                        const val = row[k] === undefined || row[k] === null ? '' : row[k];
-                        if (collection === 'products' && customFuncs.includes(k)) { 
-                            let isChecked = (val === 'Y' || val === true || String(val).toLowerCase() === 'true' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0));
-                            rowHtml += `<td class="p-2 min-w-[100px] text-center"><input type="checkbox" class="w-4 h-4 cursor-pointer accent-indigo-600" ${isChecked ? 'checked' : ''} onchange="updateDB('${collection}',${rIdx},'${k}', this.checked ? 'Y' : 'N')"></td>`; 
-                        }
-                        else if (k === 'region' && collection !== 'regions') { 
-                            if(currentUser.role === 'SuperAdmin') { rowHtml += `<td class="p-2 min-w-[100px]"><select class="mono-input w-full p-2 text-xs text-blue-700 font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="ALL" ${val==='ALL'?'selected':''}>ALL</option>${allRegions.map(reg => `<option value="${reg.region}" ${val===reg.region?'selected':''}>${reg.region}</option>`).join('')}</select></td>`; } 
-                            else { rowHtml += `<td class="p-2 min-w-[100px]"><span class="font-bold text-slate-500">${val}</span></td>`; }
-                        }
-                        else if(collection === 'users' && k === 'role') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${allRoles.map(role => `<option value="${role.roleName}" ${val===role.roleName?'selected':''}>${role.roleName}</option>`).join('')}</select></td>`; } 
-                        else if (collection === 'signatures' && k === 'name') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${LOCAL_DB.get("users", []).map(u => `<option value="${u.user}" ${val===u.user?'selected':''}>${u.user}</option>`).join('')}</select></td>`; } 
-                        else if (collection === 'outlets' && k === 'default_logo') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}" ${val===l.name?'selected':''}>${l.name}</option>`).join('')}</select></td>`; }
-                        else if (collection === 'approval_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Grand Total" ${val==='Grand Total'?'selected':''}>Grand Total</option><option value="Single Item Total" ${val==='Single Item Total'?'selected':''}>Single Item Total</option></select></td>`; }
-                        else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
-                        else if (collection === 'cn_reasons' && k === 'type') { 
-                            let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))];
-                            rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" list="dl-cntypes-${rIdx}" class="mono-input w-full p-2 text-xs font-bold text-indigo-700" value="${escapeHTML(val)}" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><datalist id="dl-cntypes-${rIdx}">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
-                        }
-                        else if (collection === 'products' && k === 'discontinued') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="false" ${String(val)!=='true'?'selected':''}>Active</option><option value="true" ${String(val)==='true'?'selected':''}>Discontinued</option></select></td>`; }
-                        else if (collection === 'products' && k === 'cost_per_100ml') { rowHtml += `<td class="p-2 min-w-[120px]"><input type="text" value="$${parseFloat(val||0).toFixed(4)}" class="mono-input w-full p-2 text-xs font-black bg-slate-100 text-slate-500 cursor-not-allowed border-dashed" disabled></td>`; }
-                        else if (collection === 'numbering_rules' && k === 'rule_name') { rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs font-bold" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
-                        else if (collection === 'numbering_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs font-bold text-slate-700" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="PR" ${val==='PR'?'selected':''}>PR</option><option value="PO" ${val==='PO'?'selected':''}>PO</option><option value="Merged PDF" ${val==='Merged PDF'?'selected':''}>Merged PDF</option><option value="Export PDF" ${val==='Export PDF'?'selected':''}>Export PDF</option></select></td>`; }
-                        else if (collection === 'numbering_rules' && k === 'follow_pr') { 
-                            let prRules = LOCAL_DB.get("numbering_rules", []).filter(r => r.type === 'PR');
-                            let options = `<option value="">- No, Independant -</option>` + prRules.map(r => `<option value="${r.rule_name}" ${val===r.rule_name?'selected':''}>Follow: ${r.rule_name}</option>`).join('');
-                            rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs ${row.type==='PR'?'opacity-50 pointer-events-none bg-slate-50 text-slate-400':''}" ${row.type==='PR'?'disabled':''} onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${options}</select></td>`;
-                        }
-                        else if (collection === 'numbering_rules' && k.startsWith('slot')) { rowHtml += `<td class="p-2 min-w-[130px]"><select class="mono-input w-full p-2 text-[11px]" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${SLOT_OPTIONS.map(opt => `<option value="${opt}" ${val===opt?'selected':''}>${opt}</option>`).join('')}</select></td>`; }
-                        else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { rowHtml += `<td class="p-2 min-w-[150px]"><div class="flex flex-col gap-2 items-start">${val ? `<img src="${val}" class="h-8 object-contain bg-slate-100 border border-slate-200 rounded p-1" />` : `<span class="text-[10px] text-slate-400">No Image</span>`}<label class="cursor-pointer bg-slate-100 text-slate-600 border border-slate-300 px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-200 shadow-sm"><i data-lucide="upload" class="w-3 h-3 inline"></i> Upload<input type="file" accept="image/*" class="hidden" onchange="handleLogoUpload(this, ${rIdx}, '${collection}', '${k}')"></label></div></td>`; }
-                        else if (collection === 'outlets' && k === 'pdf_header') { let allHeaders = LOCAL_DB.get("headers", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- Default (Settings) -</option>${allHeaders.map(h => `<option value="${escapeHTML(h.name)}" ${val===h.name?'selected':''}>${escapeHTML(h.name)}</option>`).join('')}</select></td>`; }
-                        else { if (['item', 'address', 'company'].includes(k)) rowHtml += `<td class="p-2 min-w-[200px]"><textarea class="mono-input w-full p-2 bg-transparent text-xs whitespace-normal break-words resize-none overflow-hidden" rows="2" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${val}</textarea></td>`;
-                        else rowHtml += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
-                    });
+                <div class="overflow-x-auto bg-white border border-slate-200 rounded-xl shadow-sm h-[calc(100vh-220px)] relative">
+                    <table class="w-full text-xs text-left min-w-[800px] border-collapse relative">
+                        <thead class="bg-slate-900 text-white sticky top-0 z-20 shadow-sm">
+                            <tr>${keys.map(k=> {
+                                let isSorted = setupSort.col === k; let arrow = isSorted ? (setupSort.dir === 'asc' ? '↑' : '↓') : '↕';
+                                return `<th class="p-3 font-semibold tracking-wider cursor-pointer hover:text-indigo-300 transition-colors select-none whitespace-nowrap" onclick="triggerSetupSort('${k}')">${k.toUpperCase().replace(/_/g,' ')} <span class="text-[10px] text-slate-400 ml-1">${arrow}</span></th>`;
+                            }).join('')}<th class="p-3 text-center">ACT</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                `;
 
-                    // 🌟 動態禁用 HTML：如果鎖定，將該行內的所有 input, select, textarea 禁用
-                    if (!canEdit) {
-                        rowHtml = rowHtml.replace(/<input /g, '<input disabled class="opacity-50 cursor-not-allowed" ')
-                                         .replace(/<select /g, '<select disabled class="opacity-50 cursor-not-allowed" ')
-                                         .replace(/<textarea /g, '<textarea disabled class="opacity-50 cursor-not-allowed" ')
-                                         .replace(/<label /g, '<label class="opacity-50 cursor-not-allowed pointer-events-none" '); // 連圖片上傳按鈕也鎖死
-                    }
-                    html += rowHtml;
-
-                    if (canEdit) {
-                        html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`;
-                    } else {
-                        html += `<td class="p-2 text-center"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`;
-                    }
-                });
-
-                html += `<tr class="bg-slate-50 border-t-2 border-slate-200">`;
+                // 🌟 Add New Row 置於表格最上方 (The New Add Row Logic)
+                html += `<tr class="bg-indigo-50 border-b-2 border-indigo-200 shadow-sm">`;
                 keys.forEach(k => { 
-                    if (collection === 'products' && customFuncs.includes(k)) { 
-                        html += `<td class="p-2 text-center"><input type="checkbox" id="new-${collection}-${k}" class="w-4 h-4 cursor-pointer accent-indigo-600"></td>`; 
-                    }
+                    if (collection === 'products' && customFuncs.includes(k)) { html += `<td class="p-2 text-center"><input type="checkbox" id="new-${collection}-${k}" class="w-4 h-4 cursor-pointer accent-indigo-600"></td>`; }
                     else if (k === 'region' && collection !== 'regions' && collection !== 'pdf_templates') { 
                         if(currentUser.role === 'SuperAdmin') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs text-blue-700 font-bold bg-white"><option value="ALL">ALL</option>${allRegions.map(reg => `<option value="${reg.region}">${reg.region}</option>`).join('')}</select></td>`; }
                         else { html += `<td class="p-2"><input type="hidden" id="new-${collection}-${k}" value="${currentUser.region}"><span class="font-bold text-slate-500 px-2">${currentUser.region}</span></td>`; }
@@ -2357,25 +2314,63 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
                     else if (collection === 'outlets' && k === 'default_logo') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}">${l.name}</option>`).join('')}</select></td>`; }
                     else if (collection === 'approval_rules' && k === 'type') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="Grand Total">Grand Total</option><option value="Single Item Total">Single Item Total</option></select></td>`; }
                     else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="">-</option>${sigs.map(s => `<option value="${s.name}">${s.name}</option>`).join('')}</select></td>`; }
-                    else if (collection === 'cn_reasons' && k === 'type') { 
-                        let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))];
-                        html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" list="dl-cntypes-new" class="mono-input w-full p-2 text-xs border-slate-300 bg-white font-bold text-indigo-700" placeholder="Type new or select..."><datalist id="dl-cntypes-new">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; 
-                    }
+                    else if (collection === 'cn_reasons' && k === 'type') { let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))]; html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" list="dl-cntypes-new" class="mono-input w-full p-2 text-xs border-slate-300 bg-white font-bold text-indigo-700" placeholder="Type new..."><datalist id="dl-cntypes-new">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; }
                     else if (collection === 'products' && k === 'discontinued') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="false">Active</option><option value="true">Discontinued</option></select></td>`; }
                     else if (collection === 'products' && k === 'cost_per_100ml') { html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" placeholder="Auto Calc" class="mono-input w-full p-2 text-xs border-dashed bg-slate-100 text-slate-400 cursor-not-allowed" disabled></td>`; }
-                    else if (collection === 'numbering_rules' && k === 'rule_name') { html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" placeholder="New Rule Name" class="mono-input w-full p-2 text-xs border-slate-300 font-bold bg-white"></td>`; }
+                    else if (collection === 'numbering_rules' && k === 'rule_name') { html += `<td class="p-2"><input type="text" id="new-${collection}-${k}" placeholder="Rule Name" class="mono-input w-full p-2 text-xs border-slate-300 font-bold bg-white"></td>`; }
                     else if (collection === 'numbering_rules' && k === 'type') { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white font-bold"><option value="PR">PR</option><option value="PO">PO</option><option value="Merged PDF">Merged PDF</option><option value="Export PDF">Export PDF</option></select></td>`; }
-                    else if (collection === 'numbering_rules' && k === 'follow_pr') { 
-                        let prRules = LOCAL_DB.get("numbering_rules", []).filter(r => r.type === 'PR');
-                        let options = `<option value="">- No, Independant -</option>` + prRules.map(r => `<option value="${r.rule_name}">Follow: ${r.rule_name}</option>`).join('');
-                        html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white">${options}</select></td>`;
-                    }
+                    else if (collection === 'numbering_rules' && k === 'follow_pr') { let prRules = LOCAL_DB.get("numbering_rules", []).filter(r => r.type === 'PR'); let options = `<option value="">- No, Independant -</option>` + prRules.map(r => `<option value="${r.rule_name}">Follow: ${r.rule_name}</option>`).join(''); html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white">${options}</select></td>`; }
                     else if (collection === 'numbering_rules' && k.startsWith('slot')) { html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-[11px] border-slate-300 bg-white">${SLOT_OPTIONS.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select></td>`; }
-                    else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { html += `<td class="p-2"><input type="file" id="new-${collection}-${k}" accept="image/*" class="text-[10px] w-full file:mr-2 file:py-1 file:px-2 file:border-0 file:text-[10px] file:font-bold file:bg-slate-900 file:text-white hover:file:bg-slate-800 cursor-pointer border border-slate-300 bg-white rounded"></td>`; }
+                    else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { html += `<td class="p-2"><input type="file" id="new-${collection}-${k}" accept="image/*" class="text-[10px] w-full border border-slate-300 bg-white rounded"></td>`; }
                     else if (collection === 'outlets' && k === 'pdf_header') { let allHeaders = LOCAL_DB.get("headers", []); html += `<td class="p-2"><select id="new-${collection}-${k}" class="mono-input w-full p-2 text-xs border-slate-300 bg-white"><option value="">- Default (Settings) -</option>${allHeaders.map(h => `<option value="${escapeHTML(h.name)}">${escapeHTML(h.name)}</option>`).join('')}</select></td>`; }
                     else { html += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" id="new-${collection}-${k}" placeholder="Add ${k}" class="mono-input w-full p-2 text-xs border-slate-300 font-bold bg-white"></td>`; } 
                 });
-                html += `<td class="p-2 text-center"><button onclick="addRowToCollection('${collection}')" class="bg-slate-900 text-white font-black px-3 py-1.5 rounded text-xs hover:bg-slate-800 shadow-sm">Add</button></td></tr>`; cont.innerHTML = html + `</table>`;
+                html += `<td class="p-2 text-center bg-indigo-50"><button onclick="addRowToCollection('${collection}')" class="bg-indigo-600 text-white font-black px-4 py-1.5 rounded text-xs hover:bg-indigo-700 shadow-sm flex items-center justify-center gap-1 mx-auto whitespace-nowrap"><i data-lucide="plus" class="w-3.5 h-3.5"></i> Add New</button></td></tr>`;
+
+                // 🌟 Render Data Rows
+                data.forEach((row, rIdx) => {
+                    let isProtected = (row.role === 'SuperAdmin' || row.roleName === 'SuperAdmin' || row.user === 'Syadmin');
+                    let canEdit = (currentUser.role === 'SuperAdmin' && currentUser.user === 'Syadmin') || !isProtected;
+                    
+                    let rowHtml = `<tr class="hover:bg-slate-50 setup-data-row transition-colors border-b border-slate-100">`;
+                    keys.forEach(k => {
+                        const val = row[k] === undefined || row[k] === null ? '' : row[k];
+                        if (collection === 'products' && customFuncs.includes(k)) { 
+                            let isChecked = (val === 'Y' || val === true || String(val).toLowerCase() === 'true' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0));
+                            rowHtml += `<td class="p-2 min-w-[100px] text-center"><input type="checkbox" class="w-4 h-4 cursor-pointer accent-indigo-600" ${isChecked ? 'checked' : ''} onchange="updateDB('${collection}',${rIdx},'${k}', this.checked ? 'Y' : 'N')"></td>`; 
+                        }
+                        else if (k === 'region' && collection !== 'regions') { 
+                            if(currentUser.role === 'SuperAdmin') { rowHtml += `<td class="p-2 min-w-[100px]"><select class="mono-input w-full p-2 text-xs text-blue-700 font-bold border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="ALL" ${val==='ALL'?'selected':''}>ALL</option>${allRegions.map(reg => `<option value="${reg.region}" ${val===reg.region?'selected':''}>${reg.region}</option>`).join('')}</select></td>`; } 
+                            else { rowHtml += `<td class="p-2 min-w-[100px]"><span class="font-bold text-slate-500">${val}</span></td>`; }
+                        }
+                        else if(collection === 'users' && k === 'role') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${allRoles.map(role => `<option value="${role.roleName}" ${val===role.roleName?'selected':''}>${role.roleName}</option>`).join('')}</select></td>`; } 
+                        else if (collection === 'signatures' && k === 'name') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${LOCAL_DB.get("users", []).map(u => `<option value="${u.user}" ${val===u.user?'selected':''}>${u.user}</option>`).join('')}</select></td>`; } 
+                        else if (collection === 'outlets' && k === 'default_logo') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- No Logo -</option>${allLogos.map(l => `<option value="${l.name}" ${val===l.name?'selected':''}>${l.name}</option>`).join('')}</select></td>`; }
+                        else if (collection === 'approval_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="Grand Total" ${val==='Grand Total'?'selected':''}>Grand Total</option><option value="Single Item Total" ${val==='Single Item Total'?'selected':''}>Single Item Total</option></select></td>`; }
+                        else if (collection === 'approval_rules' && k === 'approver') { let sigs = LOCAL_DB.get("signatures", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">-</option>${sigs.map(s => `<option value="${s.name}" ${val===s.name?'selected':''}>${s.name}</option>`).join('')}</select></td>`; }
+                        else if (collection === 'cn_reasons' && k === 'type') { let uniqueTypes = [...new Set(LOCAL_DB.get('cn_reasons', []).map(x => x.type))]; rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" list="dl-cntypes-${rIdx}" class="mono-input w-full p-2 text-xs font-bold text-indigo-700 border-transparent hover:border-slate-300" value="${escapeHTML(val)}" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><datalist id="dl-cntypes-${rIdx}">${uniqueTypes.map(t => `<option value="${escapeHTML(t)}"></option>`).join('')}</datalist></td>`; }
+                        else if (collection === 'products' && k === 'discontinued') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="false" ${String(val)!=='true'?'selected':''}>Active</option><option value="true" ${String(val)==='true'?'selected':''}>Discontinued</option></select></td>`; }
+                        else if (collection === 'products' && k === 'cost_per_100ml') { rowHtml += `<td class="p-2 min-w-[120px]"><input type="text" value="$${parseFloat(val||0).toFixed(4)}" class="mono-input w-full p-2 text-xs font-black bg-slate-50 text-slate-400 cursor-not-allowed border-transparent" disabled></td>`; }
+                        else if (collection === 'numbering_rules' && k === 'rule_name') { rowHtml += `<td class="p-2 min-w-[150px]"><input type="text" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs font-bold border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
+                        else if (collection === 'numbering_rules' && k === 'type') { rowHtml += `<td class="p-2 min-w-[120px]"><select class="mono-input w-full p-2 text-xs font-bold text-slate-700 border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="PR" ${val==='PR'?'selected':''}>PR</option><option value="PO" ${val==='PO'?'selected':''}>PO</option><option value="Merged PDF" ${val==='Merged PDF'?'selected':''}>Merged PDF</option><option value="Export PDF" ${val==='Export PDF'?'selected':''}>Export PDF</option></select></td>`; }
+                        else if (collection === 'numbering_rules' && k === 'follow_pr') { let prRules = LOCAL_DB.get("numbering_rules", []).filter(r => r.type === 'PR'); let options = `<option value="">- No, Independant -</option>` + prRules.map(r => `<option value="${r.rule_name}" ${val===r.rule_name?'selected':''}>Follow: ${r.rule_name}</option>`).join(''); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300 ${row.type==='PR'?'opacity-50 pointer-events-none bg-slate-50 text-slate-400':''}" ${row.type==='PR'?'disabled':''} onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${options}</select></td>`; }
+                        else if (collection === 'numbering_rules' && k.startsWith('slot')) { rowHtml += `<td class="p-2 min-w-[130px]"><select class="mono-input w-full p-2 text-[11px] border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${SLOT_OPTIONS.map(opt => `<option value="${opt}" ${val===opt?'selected':''}>${opt}</option>`).join('')}</select></td>`; }
+                        else if ((collection === 'logos' && k === 'url') || (collection === 'headers' && k === 'logo_url')) { rowHtml += `<td class="p-2 min-w-[150px]"><div class="flex flex-col gap-2 items-start">${val ? `<img src="${val}" class="h-8 object-contain bg-slate-50 border border-slate-200 rounded p-1" />` : `<span class="text-[10px] text-slate-400">No Image</span>`}<label class="cursor-pointer bg-white text-slate-600 border border-slate-300 px-2 py-1 rounded text-[10px] font-bold hover:bg-slate-100 shadow-sm"><i data-lucide="upload" class="w-3 h-3 inline"></i> Upload<input type="file" accept="image/*" class="hidden" onchange="handleLogoUpload(this, ${rIdx}, '${collection}', '${k}')"></label></div></td>`; }
+                        else if (collection === 'outlets' && k === 'pdf_header') { let allHeaders = LOCAL_DB.get("headers", []); rowHtml += `<td class="p-2 min-w-[150px]"><select class="mono-input w-full p-2 text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"><option value="">- Default (Settings) -</option>${allHeaders.map(h => `<option value="${escapeHTML(h.name)}" ${val===h.name?'selected':''}>${escapeHTML(h.name)}</option>`).join('')}</select></td>`; }
+                        else { if (['item', 'address', 'company'].includes(k)) rowHtml += `<td class="p-2 min-w-[200px]"><textarea class="mono-input w-full p-2 bg-transparent text-xs whitespace-normal break-words resize-none overflow-hidden border-transparent hover:border-slate-300" rows="2" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)">${val}</textarea></td>`;
+                        else rowHtml += `<td class="p-2"><input type="${['threshold','ex_rate','tax_rate'].includes(k)?'number':'text'}" value="${val}" class="mono-input w-full p-2 bg-transparent text-xs border-transparent hover:border-slate-300" onchange="updateDB('${collection}',${rIdx},'${k}',this.value)"></td>`; }
+                    });
+
+                    if (!canEdit) {
+                        rowHtml = rowHtml.replace(/<input /g, '<input disabled class="opacity-50 cursor-not-allowed" ').replace(/<select /g, '<select disabled class="opacity-50 cursor-not-allowed" ').replace(/<textarea /g, '<textarea disabled class="opacity-50 cursor-not-allowed" ').replace(/<label /g, '<label class="opacity-50 cursor-not-allowed pointer-events-none" ');
+                    }
+                    html += rowHtml;
+
+                    if (canEdit) { html += `<td class="p-2 text-center"><button onclick="deleteRow('${collection}',${rIdx})" class="text-red-500 font-bold hover:bg-red-50 px-3 py-1.5 rounded"><i data-lucide="trash-2" class="w-4 h-4 mx-auto"></i></button></td></tr>`; } 
+                    else { html += `<td class="p-2 text-center"><span class="text-[10px] font-black text-slate-300">LOCKED</span></td></tr>`; }
+                });
+
+                cont.innerHTML = html + `</tbody></table></div>`;
                 lucide.createIcons();
             } catch (e) { console.error(e); }
         }
@@ -2395,8 +2390,8 @@ let currPrice = r.history && r.history.length > 0 ? r.history[0].price : 0;
             let isSuper = currentUser && currentUser.role === 'SuperAdmin';
             
             // 🌟 獨立驗證 Users 與 Roles 的分權
-            if (tab === 'users' && !hasPermission('manage_users')) { showToast("❌ Permission Denied. 您需要 [Users Setup] 權限。"); return; }
-            if (tab === 'roles' && !hasPermission('manage_roles')) { showToast("❌ Permission Denied. 您需要 [Roles Setup] 權限。"); return; }
+            if (tab === 'users' && !hasPermission('manage_users')) { showToast("❌ Permission Denied. Required [Users Setup] Access."); return; }
+            if (tab === 'roles' && !hasPermission('manage_roles')) { showToast("❌ Permission Denied. Required [Roles Setup] Access."); return; }
             
             // 剩下的保留給 SuperAdmin 專屬 (如 Numbering, Regions 等系統底層設定)
             const restrictedTabs = ['regions', 'numbering_rules', 'layout', 'pdf_templates', 'headers'];
@@ -2507,7 +2502,7 @@ async function saveGlobalSettings() {
             if(!file) return; const reader = new FileReader();
             reader.onload = async function(e) {
                 try { const parsed = parseCSVText(e.target.result);
-                    if(parsed.length === 0) return alert("❌ 匯入失敗：CSV 檔案為空或格式錯誤。"); let data = LOCAL_DB.get(activeSetupTab, []); let pk = 'id';
+                    if(parsed.length === 0) return alert("❌ Import failed: The CSV file is empty or has an incorrect format."); let data = LOCAL_DB.get(activeSetupTab, []); let pk = 'id';
                     if(activeSetupTab === 'products') pk = 'composite'; else if(activeSetupTab === 'vendors' || activeSetupTab === 'outlets') pk = 'short_code';
                     else if(activeSetupTab === 'users') pk = 'user'; else if(activeSetupTab === 'signatures') pk = 'name';
                     else if (activeSetupTab === 'approval_rules') pk = 'type'; else if (activeSetupTab === 'regions') pk = 'region';
@@ -2599,12 +2594,12 @@ async function saveGlobalSettings() {
 
             await LOCAL_DB.set(activeSetupTab, data); 
             renderSetupTable(activeSetupTab); 
-            let toastMsg = `✅ 成功新增 ${newItems.length} 筆資料！`; 
-            if(approvedDuplicates.length > 0) toastMsg = `✅ 成功新增 ${newItems.length} 筆，並覆蓋更新了 ${approvedDuplicates.length} 筆！`; 
+            let toastMsg = `✅ Successfully added  ${newItems.length} ！`; 
+            if(approvedDuplicates.length > 0) toastMsg = `✅ Successfully added  ${newItems.length} items, and updated the following records accordingly. ${approvedDuplicates.length} ！`; 
             showToast(toastMsg);
             await triggerSystemSync(activeSetupTab);
         }
-                } catch(err) { alert("匯入時發生錯誤：" + err); } document.getElementById('csv-uploader').value = ''; 
+                } catch(err) { alert("Error occurred during import.：" + err); } document.getElementById('csv-uploader').value = ''; 
             }; reader.readAsText(file);
         }
 
@@ -2835,7 +2830,7 @@ function initTransferTable() {
             let remarks = document.getElementById('tf-remarks').value;
 
             if(!fromOutlet || !toOutlet) return alert("❌ Please select both From and To Outlets.");
-            if(fromOutlet === toOutlet) return alert("❌ 來源與目標 Outlet 不能相同！");
+            if(fromOutlet === toOutlet) return alert("❌ The source and destination outlets cannot be the same.！");
 
             let items = []; let totalVal = 0;
             document.querySelectorAll('#tf-tbody tr.tf-row').forEach(tr => {
@@ -3112,7 +3107,7 @@ async function editDoc(docId) {
                         updated = true;
                     }
                 });
-                if (updated) showToast("ℹ️ 此草稿為 Pending 狀態，已自動為您同步最新的產品價格。");
+                if (updated) showToast("ℹ️ This draft is in Pending status; the latest product prices have been automatically synchronized for you.");
             }
             
             const sigBlock = document.getElementById('signature-block');
@@ -3309,7 +3304,7 @@ async function saveCurrentDocument(sendEmail = false) {
                 if (doc.status === 'Approved' || doc.status === 'Partial Closed' || doc.status === 'Closed') {
                     await triggerPoEmailJS(doc.id);
                 } else {
-                    showToast("⏳ 單據已送出！將在采購主管完成 Approve PO 後自動發送到Teams。");
+                    showToast("⏳ Document submitted successfully! It will be automatically sent to Teams after the Procurement Manager or person in charge completes the PO approval.");
                 }
             }
             
@@ -3424,7 +3419,7 @@ async function saveCurrentDocument(sendEmail = false) {
             
             try {
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-                showToast(`✅ 內部 Approve 通知已成功寄出`);
+                showToast(`✅ Internal approval notification has been successfully sent.`);
                 if (!doc.history_logs) doc.history_logs = [];
                 // 🌟 修正這裡的 Log，拔除對 toEmail 變數的依賴，徹底解決當機不跳轉的問題
                 doc.history_logs.push(`Internal Approval Email sent via EmailJS.`);
@@ -3432,7 +3427,7 @@ async function saveCurrentDocument(sendEmail = false) {
             } catch (error) {
                 console.error('EmailJS Error:', error);
                 // 🌟 即使寄信失敗，也只顯示提示，不阻擋畫面跳轉 (讓單據能順利 Approve)
-                showToast("⚠️ Email 寄送失敗，但單據已成功 Approve！");
+                showToast("⚠️ Email sending failed, but the document has been successfully approved!");
             }
         }
  
@@ -3443,9 +3438,9 @@ async function saveCurrentDocument(sendEmail = false) {
             let doc = orders.find(o => o.id === docId);
             
             // 防呆：防止滑鼠連點兩下導致寄出兩次
-            if(doc && doc.status === 'Approved') return alert("⚠️ 這張單據已經核准並寄出過了，請勿重複點擊！");
+            if(doc && doc.status === 'Approved') return alert("⚠️ This document has already been approved and sent. Please do not click again.");
 
-            if(!confirm(`確定要 Approve 並且寄送 Email嗎？`)) return;
+            if(!confirm(`Are you sure you want to approve and send the email?`)) return;
             
             if(doc) {
                 doc.status = 'Approved';
@@ -3613,7 +3608,7 @@ async function saveCurrentDocument(sendEmail = false) {
             if (viewType === 'CLOSED_PO') {
                 if (!bulkBtn) {
                     bulkBtn = document.createElement('div'); bulkBtn.id = 'btn-bulk-merge'; bulkBtn.className = 'mb-4 flex justify-end no-print';
-                    bulkBtn.innerHTML = `<button onclick="openAdvancedMergeModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-black shadow-lg flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5"></i> BULK MERGE & EXPORT (多筆合併)</button>`;
+                    bulkBtn.innerHTML = `<button onclick="openAdvancedMergeModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-lg font-black shadow-lg flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5"></i> BULK MERGE & EXPORT </button>`;
                     historyContainer.insertBefore(bulkBtn, historyContainer.querySelector('.bg-white')); lucide.createIcons();
                 }
                 bulkBtn.style.display = 'flex';
@@ -3892,11 +3887,12 @@ document.getElementById('modal-content-area').innerHTML = content;
         }
         // 永久刪除單據功能
         async function deleteDocForever(id) {
-            if(!confirm(`⚠️ 警告：確定要永久刪除 ${id} 嗎？此動作無法復原。`)) return;
+            if(!confirm(`⚠️Warning: Are you sure you want to permanently delete ${id}? This action cannot be undone.`)) return;
             let orders = LOCAL_DB.get("orders", []);
             orders = orders.filter(o => o.id !== id);
             await LOCAL_DB.set("orders", orders);
-            showToast(`✅ 單據 ${id} 已永久刪除。`);
+            showToast(`✅ The document ${id} has been permanently deleted.
+`);
             closeModal();
             renderHistory(); // 重新整理畫面
         }
@@ -4353,7 +4349,7 @@ function exportDocPDF(id) {
         function handleExternalMergeFilesSelect(event) {
             const files = event.target.files;
             if (files && files.length > 0) {
-                if (files.length > 10) return alert("最多只能上傳 10 個檔案！");
+                if (files.length > 10) return alert("Max 10 Files");
                 window.externalMergeFiles = Array.from(files);
                 renderExternalMergeList();
                 document.getElementById('btn-process-merge').disabled = false;
@@ -4463,12 +4459,12 @@ async function processExternalMerge() {
                 a.download = `${docName}.pdf`;
                 a.click();
                 
-                showToast("✅ 檔案合併與浮水印製作成功！");
+                showToast("✅ File merging and watermark creation completed successfully!");
                 closeExternalMergeModal();
                 
             } catch (err) {
                 console.error(err);
-                alert("合併檔案時發生錯誤：" + err.message);
+                alert("Error occurred while merging files：" + err.message);
             } finally {
                 document.getElementById('btn-process-merge').disabled = false;
             }
@@ -4484,27 +4480,36 @@ async function processExternalMerge() {
 // 🌟 供應鏈大腦：Performance, OTIF & Analytics 引擎
         window.renderAnalyticsDashboard = function(days) {
             const container = document.getElementById('setup-table-container');
+            container.classList.add('h-[calc(100vh-140px)]', 'overflow-y-auto', 'pr-2'); // 🌟 Auto fit to view size
             let orders = LOCAL_DB.get("orders", []) || []; let products = LOCAL_DB.get("products", []) || [];
             
-            // 自動匯入 Filter 選項
-            if (document.getElementById('ana-filter-region') && document.getElementById('ana-filter-region').options.length <= 1) {
-                let regs = [...new Set(LOCAL_DB.get('outlets', []).map(o=>o.region).filter(Boolean))];
-                document.getElementById('ana-filter-region').innerHTML += regs.map(r=>`<option value="${r}">${r}</option>`).join('');
-                document.getElementById('ana-filter-outlet').innerHTML += LOCAL_DB.get('outlets', []).map(o=>`<option value="${o.short_code}">${o.short_code}</option>`).join('');
-                document.getElementById('ana-filter-vendor').innerHTML += LOCAL_DB.get('vendors', []).map(v=>`<option value="${v.short_code}">${v.short_code}</option>`).join('');
-                document.getElementById('ana-filter-product').innerHTML += LOCAL_DB.get('products', []).map(p=>`<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('');
-            }
-
-            // 🌟 獲取過濾器設定
             let fReg = document.getElementById('ana-filter-region') ? document.getElementById('ana-filter-region').value : '';
             let fOut = document.getElementById('ana-filter-outlet') ? document.getElementById('ana-filter-outlet').value : '';
             let fVen = document.getElementById('ana-filter-vendor') ? document.getElementById('ana-filter-vendor').value : '';
             let fProduct = document.getElementById('ana-filter-product') ? document.getElementById('ana-filter-product').value : '';
+
+            // 🌟 修復 Filter 關聯：使用 TomSelect 並動態捕捉資料
+            if (!window.anaFiltersInit) {
+                let regs = [...new Set(LOCAL_DB.get('outlets', []).map(o=>o.region).filter(Boolean))];
+                let outl = LOCAL_DB.get('outlets', []); let vends = LOCAL_DB.get('vendors', []); let prods = LOCAL_DB.get('products', []);
+                
+                const rSel = document.getElementById('ana-filter-region');
+                if (rSel) {
+                    rSel.innerHTML = `<option value="">All Regions</option>` + regs.map(r=>`<option value="${r}">${r}</option>`).join('');
+                    document.getElementById('ana-filter-outlet').innerHTML = `<option value="">All Outlets</option>` + outl.map(o=>`<option value="${o.short_code}">${o.short_code}</option>`).join('');
+                    document.getElementById('ana-filter-vendor').innerHTML = `<option value="">All Vendors</option>` + vends.map(v=>`<option value="${v.short_code}">${v.short_code} - ${v.company}</option>`).join('');
+                    document.getElementById('ana-filter-product').innerHTML = `<option value="">All Products</option>` + prods.map(p=>`<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('');
+                    
+                    ['region', 'outlet', 'vendor', 'product'].forEach(k => initSearchableSelect(document.getElementById(`ana-filter-${k}`), () => renderAnalyticsDashboard(window.anaDays)));
+                    window.anaFiltersInit = true;
+                }
+            }
+
             let fFrom = document.getElementById('ana-filter-from') ? document.getElementById('ana-filter-from').value : '';
             let fTo = document.getElementById('ana-filter-to') ? document.getElementById('ana-filter-to').value : '';
-
-            let daysNum = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : (days || 30);
-            let cutoff = new Date(); cutoff.setDate(cutoff.getDate() - daysNum);
+            
+            window.anaDays = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : (days || 30);
+            let cutoff = new Date(); cutoff.setDate(cutoff.getDate() - window.anaDays);
 
             let validOrders = orders.filter(o => {
                 let d = new Date(o.date || o.created_at);
@@ -4543,7 +4548,13 @@ async function processExternalMerge() {
                     let focBaseQty = (parseFloat(it.foc_qty) || 0) * packMultiplier;
                     let lineTotal = parseFloat(it.price || 0) * (parseFloat(it.qty) || 0);
 
-                    if(it.item && !prods[it.item]) prods[it.item] = { estCost: 0, actCost: 0 };
+                    if(it.item && !prods[it.item]) prods[it.item] = { estCost: 0, actCost: 0, ordQty: 0, ordCount: 0 };
+                    
+                    // 🌟 紀錄產品訂購總量與次數，用於計算 Average Order Quantity
+                    if(it.item && (isPR || (isPO && !o.pr_reference))) {
+                        prods[it.item].ordQty += baseQty;
+                        prods[it.item].ordCount += 1;
+                    }
 
                     if (isPR) {
                         metrics.prQty += baseQty; metrics.estCost += lineTotal;
@@ -4573,14 +4584,11 @@ async function processExternalMerge() {
                         outlets[o.outlet].actCost -= lineTotal;
                         if(vCode) { 
                             vendors[vCode].actCost -= lineTotal; 
-                            
-                            // 🌟 動態捕捉 CN Type (例如從 "XXX [Rebate by CN]" 中抓出 "Rebate by CN")
                             let matchedType = 'Uncategorized';
                             let match = o.remarks ? o.remarks.match(/\[(.*?)\]/) : null;
                             if(match) matchedType = match[1];
                             else if(o.remarks && o.remarks.includes('Vendor Error')) matchedType = 'Vendor Error';
                             else if(o.remarks && o.remarks.includes('Human Error')) matchedType = 'Human Error';
-                            
                             if(!vendors[vCode].cnTypes[matchedType]) vendors[vCode].cnTypes[matchedType] = 0;
                             vendors[vCode].cnTypes[matchedType]++;
                         }
@@ -4588,17 +4596,13 @@ async function processExternalMerge() {
                     }
                 });
 
-                // 🌟 OTIF 時間追蹤：計算 GRN Date 相比 PR Req Date 的延遲天數
                 if (isGRN && o.po_reference) {
                     let po = orders.find(x => x.id === o.po_reference);
                     if (po && po.pr_reference) {
                         let pr = orders.find(x => x.id === po.pr_reference);
                         if (pr && pr.req_delivery_date) {
-                            let grnDate = new Date(o.do_date || o.date);
-                            let reqDate = new Date(pr.req_delivery_date);
-                            let diffTime = grnDate - reqDate;
-                            let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); // >0 遲到, <0 早到
-                            
+                            let grnDate = new Date(o.do_date || o.date); let reqDate = new Date(pr.req_delivery_date);
+                            let diffDays = Math.round((grnDate - reqDate) / 86400000); 
                             metrics.totalDelayDays += diffDays; metrics.delayCount++;
                             if(vCode) { vendors[vCode].delayDays += diffDays; vendors[vCode].grnCount++; }
                         }
@@ -4606,7 +4610,6 @@ async function processExternalMerge() {
                 }
             });
 
-            // 4. 計算 KPI 百分比
             let prFulfilment = metrics.prQty > 0 ? ((metrics.poQty / metrics.prQty) * 100).toFixed(1) : '100';
             let deliveryRate = metrics.poQty > 0 ? ((metrics.grnQty / metrics.poQty) * 100).toFixed(1) : '100';
             let cnRate = metrics.grnQty > 0 ? ((metrics.cnQty / metrics.grnQty) * 100).toFixed(1) : '0.0';
@@ -4614,7 +4617,6 @@ async function processExternalMerge() {
             let avgPurchase = (metrics.actCost / days).toFixed(2);
             let avgDelayTotal = metrics.delayCount > 0 ? (metrics.totalDelayDays / metrics.delayCount).toFixed(1) : '0';
 
-            // 5. 產生 HTML 畫布
             let genCostTable = (dataObj, title) => {
                 let rows = Object.keys(dataObj).sort((a,b) => dataObj[b].actCost - dataObj[a].actCost).slice(0, 10).map(k => {
                     let d = dataObj[k]; let varCost = d.actCost - d.estCost;
@@ -4623,49 +4625,35 @@ async function processExternalMerge() {
                 return `<div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm w-full"><h3 class="text-[10px] font-black text-slate-400 tracking-widest uppercase mb-3">${title}</h3><table class="w-full text-xs text-left"><thead><tr class="bg-slate-50 text-slate-500 border-b"><th class="p-2">Name</th><th class="p-2 text-right">Est. Cost</th><th class="p-2 text-right">Act. Cost</th><th class="p-2 text-right">Variance</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="p-4 text-center text-slate-400">No data</td></tr>'}</tbody></table></div>`;
             };
 
-            // 🌟 供應商能力追蹤表 (OTIF) + Inventory Error Count
             let genVendorOtifTable = () => {
                 let rows = Object.keys(vendors).filter(k => vendors[k].prQty > 0 || vendors[k].poQty > 0).sort((a,b) => vendors[b].poQty - vendors[a].poQty).map(k => {
-                    let d = vendors[k];
-                    let fulfillPct = d.poQty > 0 ? ((d.grnQty / d.poQty) * 100).toFixed(1) : 0;
-                    let avgDly = d.grnCount > 0 ? (d.delayDays / d.grnCount).toFixed(1) : 0;
+                    let d = vendors[k]; let fulfillPct = d.poQty > 0 ? ((d.grnQty / d.poQty) * 100).toFixed(1) : 0; let avgDly = d.grnCount > 0 ? (d.delayDays / d.grnCount).toFixed(1) : 0;
                     let dlyColor = avgDly > 0 ? 'text-red-500 font-black' : (avgDly < 0 ? 'text-indigo-500 font-bold' : 'text-emerald-500 font-bold');
                     let dlyText = avgDly > 0 ? `+${avgDly} Days (Late)` : (avgDly < 0 ? `${avgDly} Days (Early)` : `On Time`);
-                    
-                    return `<tr class="border-b border-slate-100 hover:bg-slate-50">
-                        <td class="p-3 font-bold text-slate-800">${k}</td>
-                        <td class="p-3 text-center text-slate-400 font-medium" title="Requested by Outlet">${d.prQty.toFixed(0)}</td>
-                        <td class="p-3 text-center text-indigo-600 font-bold" title="Ordered by HQ">${d.poQty.toFixed(0)}</td>
-                        <td class="p-3 text-center text-emerald-600 font-black" title="Actually Received">${d.grnQty.toFixed(0)}</td>
-                        <td class="p-3 text-center font-bold text-slate-700">
-                            <div class="w-full bg-slate-200 rounded-full h-1.5 mb-1"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: ${Math.min(fulfillPct, 100)}%"></div></div>
-                            ${fulfillPct}%
-                        </td>
-                        <td class="p-3 text-right ${dlyColor}">${dlyText}</td>
-                        <td class="p-3 text-left whitespace-normal border-l border-slate-100">
-                            ${Object.keys(d.cnTypes).length > 0 ? Object.keys(d.cnTypes).map(t => `<span class="text-[9px] bg-slate-100 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded inline-block mr-1 mb-1">${t}: <span class="font-black text-slate-800">${d.cnTypes[t]}</span></span>`).join('') : '-'}
-                        </td>
-                    </tr>`;
+                    return `<tr class="border-b border-slate-100 hover:bg-slate-50"><td class="p-3 font-bold text-slate-800">${k}</td><td class="p-3 text-center text-slate-400 font-medium">${d.prQty.toFixed(0)}</td><td class="p-3 text-center text-indigo-600 font-bold">${d.poQty.toFixed(0)}</td><td class="p-3 text-center text-emerald-600 font-black">${d.grnQty.toFixed(0)}</td><td class="p-3 text-center font-bold text-slate-700"><div class="w-full bg-slate-200 rounded-full h-1.5 mb-1"><div class="bg-emerald-500 h-1.5 rounded-full" style="width: ${Math.min(fulfillPct, 100)}%"></div></div>${fulfillPct}%</td><td class="p-3 text-right ${dlyColor}">${dlyText}</td><td class="p-3 text-left whitespace-normal border-l border-slate-100">${Object.keys(d.cnTypes).length > 0 ? Object.keys(d.cnTypes).map(t => `<span class="text-[9px] bg-slate-100 border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded inline-block mr-1 mb-1">${t}: <span class="font-black text-slate-800">${d.cnTypes[t]}</span></span>`).join('') : '-'}</td></tr>`;
                 }).join('');
-                return `<div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm w-full lg:col-span-3 mt-4"><h3 class="text-xs font-black text-slate-800 tracking-widest uppercase mb-1">Supplier Reliability & Fulfillment (OTIF)</h3><p class="text-[10px] text-slate-400 mb-4">Quantity funnel, average delivery delay tracked from PR to GRN, and Error tracking.</p><div class="overflow-x-auto"><table class="w-full text-xs text-left whitespace-nowrap"><thead><tr class="bg-slate-100 text-slate-500 border-b"><th class="p-3">Vendor</th><th class="p-3 text-center border-x border-white">PR Qty<br><span class="text-[9px] font-normal">Requested</span></th><th class="p-3 text-center border-r border-white">PO Qty<br><span class="text-[9px] font-normal">Approved</span></th><th class="p-3 text-center border-r border-white">GRN Qty<br><span class="text-[9px] font-normal">Received</span></th><th class="p-3 text-center w-24">Supply Rate</th><th class="p-3 text-right">Avg Delivery Time<br><span class="text-[9px] font-normal">vs PR Req Date</span></th><th class="p-3 text-left w-48 border-l border-white">CN Category<br><span class="text-[9px] font-normal">Breakdown</span></th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="p-6 text-center text-slate-400">No OTIF data generated yet</td></tr>'}</tbody></table></div></div>`;
+                return `<div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm w-full lg:col-span-3 mt-4"><h3 class="text-xs font-black text-slate-800 tracking-widest uppercase mb-1">Supplier Reliability & Fulfillment (OTIF)</h3><p class="text-[10px] text-slate-400 mb-4">Quantity funnel, average delivery delay tracked from PR to GRN, and Error tracking.</p><div class="overflow-x-auto"><table class="w-full text-xs text-left whitespace-nowrap"><thead><tr class="bg-slate-100 text-slate-500 border-b"><th class="p-3">Vendor</th><th class="p-3 text-center">PR Qty</th><th class="p-3 text-center">PO Qty</th><th class="p-3 text-center">GRN Qty</th><th class="p-3 text-center w-24">Supply Rate</th><th class="p-3 text-right">Avg Delivery Time</th><th class="p-3 text-left w-48">CN Breakdown</th></tr></thead><tbody>${rows||'<tr><td colspan="7" class="p-6 text-center text-slate-400">No OTIF data</td></tr>'}</tbody></table></div></div>`;
             };
 
-            container.innerHTML = `
-                <div class="mb-4 flex flex-col xl:flex-row justify-between items-start gap-4">
+            let headHtml = !window.anaFiltersInit ? `
+                <div class="mb-4 flex flex-col xl:flex-row justify-between items-start gap-4 sticky top-0 bg-slate-50 z-20 py-2 border-b border-slate-200 no-print">
                     <div><h2 class="text-xl font-black text-slate-900">Supply Chain Analytics & Inventory</h2><p class="text-[10px] text-slate-500 mt-1">Variance, Fulfillment, Inventory, and Cost tracking.</p></div>
-                    <div class="flex flex-wrap gap-2 items-center bg-slate-50 p-1.5 rounded-lg border border-slate-200">
-                        <select id="ana-filter-region" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-20"><option value="">All Regions</option></select>
-                        <select id="ana-filter-outlet" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24"><option value="">All Outlets</option></select>
-                        <select id="ana-filter-vendor" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24"><option value="">All Vendors</option></select>
-                        <select id="ana-filter-product" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-28"><option value="">All Products</option></select>
+                    <div class="flex flex-wrap gap-2 items-center bg-white p-1.5 rounded-lg border border-slate-200 shadow-sm">
+                        <select id="ana-filter-region" class="mono-input text-[10px] py-1 w-24"></select>
+                        <select id="ana-filter-outlet" class="mono-input text-[10px] py-1 w-28"></select>
+                        <select id="ana-filter-vendor" class="mono-input text-[10px] py-1 w-32"></select>
+                        <select id="ana-filter-product" class="mono-input text-[10px] py-1 w-40"></select>
                         <input type="date" id="ana-filter-from" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24">
                         <span class="text-[10px] text-slate-400 font-bold">-</span>
                         <input type="date" id="ana-filter-to" onchange="renderAnalyticsDashboard()" class="mono-input text-[10px] py-1 w-24">
-                        <button onclick="document.getElementById('ana-filter-from').value=''; document.getElementById('ana-filter-to').value=''; renderAnalyticsDashboard(30);" class="bg-indigo-600 text-white px-2 py-1 rounded text-[10px] font-bold shadow-sm hover:bg-indigo-700">30D Reset</button>
+                        <button onclick="document.getElementById('ana-filter-from').value=''; document.getElementById('ana-filter-to').value=''; window.anaFiltersInit=false; renderAnalyticsDashboard(30);" class="bg-indigo-600 text-white px-2 py-1 rounded text-[10px] font-bold shadow-sm hover:bg-indigo-700">30D Reset</button>
                     </div>
-                </div>
+                </div><div id="ana-dash-content"></div>` : '';
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            if(!window.anaFiltersInit) container.innerHTML = headHtml;
+            
+            document.getElementById('ana-dash-content').innerHTML = `
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 mt-4">
                     <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 shadow-sm col-span-2"><div class="text-[10px] text-indigo-500 font-black uppercase mb-1">Purchased Inventory</div><div class="text-2xl font-black text-indigo-800">${metrics.normalQty.toFixed(0)} <span class="text-sm font-bold text-indigo-400">+ ${metrics.focQty.toFixed(0)} FOC</span></div><div class="text-[9px] text-indigo-600 mt-1">Actual (GRN - CN) x Pack Size</div></div>
                     <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-400 font-black uppercase mb-1">PR Fulfilment</div><div class="text-2xl font-black text-slate-800">${prFulfilment}%</div><div class="text-[9px] text-slate-400 mt-1">PO Qty / PR Est. Qty</div></div>
                     <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-400 font-black uppercase mb-1">Supply Rate</div><div class="text-2xl font-black ${deliveryRate < 90 ? 'text-amber-500' : 'text-emerald-500'}">${deliveryRate}%</div><div class="text-[9px] text-slate-400 mt-1">GRN / PO Qty</div></div>
@@ -4675,10 +4663,19 @@ async function processExternalMerge() {
                     <div class="bg-slate-800 border border-slate-900 rounded-lg p-4 shadow-sm"><div class="text-[10px] text-slate-300 font-black uppercase mb-1">Avg Purchase</div><div class="text-2xl font-black text-white">$${avgPurchase}</div><div class="text-[9px] text-slate-400 mt-1">Per day (Avg)</div></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-8">
                     ${genCostTable(outlets, 'Cost By Outlet (Top 10)')}
                     ${genCostTable(vendors, 'Cost By Vendor (Top 10)')}
-                    ${genCostTable(prods, 'Cost By Product (Top 10)')}
+                    ${(() => {
+                        let rows = Object.keys(prods).sort((a,b) => prods[b].actCost - prods[a].actCost).slice(0, 10).map(k => {
+                            let d = prods[k]; let avg = d.ordCount > 0 ? (d.ordQty / d.ordCount).toFixed(1) : 0;
+                            return `<tr class="border-b border-slate-100 hover:bg-slate-50"><td class="p-2 truncate max-w-[120px] font-bold text-slate-700">${escapeHTML(k)}</td><td class="p-2 text-center font-bold text-indigo-600">${avg}</td><td class="p-2 text-right font-black text-slate-800">$${d.actCost.toFixed(2)}</td></tr>`;
+                        }).join('');
+                        return `<div class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm w-full"><h3 class="text-[10px] font-black text-slate-400 tracking-widest uppercase mb-3">Cost & Avg Order Qty By Product</h3><table class="w-full text-xs text-left"><thead><tr class="bg-slate-50 text-slate-500 border-b"><th class="p-2">Product Name</th><th class="p-2 text-center">Avg Order Qty</th><th class="p-2 text-right">Act. Cost</th></tr></thead><tbody>${rows||'<tr><td colspan="3" class="p-4 text-center text-slate-400">No data</td></tr>'}</tbody></table></div>`;
+                    })()}
+                    ${genVendorOtifTable()}
+                </div>
+            `;
                     
                     ${genVendorOtifTable()}
                 </div>
