@@ -1676,8 +1676,7 @@ if (poIdx > -1) {
                 }
             });
 
-            if (items.length === 0) return alert("❌ Submission failed: Please select at least one item for the credit/discount and enter valid values.
-");
+            if (items.length === 0) return alert("❌ Submission failed: Please select at least one item for the credit/discount and enter valid values.");
 
             let orders = LOCAL_DB.get("orders", []);
             let refDoc = orders.find(x => x.id === docId);
