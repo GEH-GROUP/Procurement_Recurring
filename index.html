@@ -1763,13 +1763,6 @@ if (poIdx > -1) {
     title: 'Create Credit Note' 
 });
 
-if(hasPermission('create_transfer')) {
-    links.push({ 
-        id: 'transfer', 
-        icon: 'arrow-right-left', 
-        title: 'Internal Transfer' 
-    });
-}
 
 if(hasPermission('create_order')) links.push({ id: 'transfer', icon: 'arrow-right-left', title: 'Internal Transfer' });
             if(hasPermission('view_history_pr')) links.push({ id: 'history_pr', icon: 'file-text', title: 'Document Archive (PR)' });
@@ -2899,7 +2892,7 @@ function initTransferTable() {
                     } else { 
                         // 自動計算：(數量) * (啟用乘數通常為1) * (System Setup 中定義的費率 cost)
                         // BCRS 通常是看 qty_in_pack (一箱有多少瓶)，這裡可以用 qty * multi * f.cost 計算。
-                        feeAmt = qty * multi * parseFloat(f.cost || 0);
+                        let feeAmt = qty * multi * parseFloat(f.cost || 0);
                         if (cell) cell.value = feeAmt.toFixed(2); 
                     }
                     
@@ -3401,7 +3394,7 @@ async function saveCurrentDocument(sendEmail = false) {
                 items_text: itemsText
             };
 
-            showToast("⏳ 正在發送內部核准通知...");
+            showToast("⏳ Sending Approval...");
             
             try {
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
@@ -4365,7 +4358,7 @@ function exportDocPDF(id) {
 async function processExternalMerge() {
             if (!window.externalMergeFiles || window.externalMergeFiles.length === 0) return;
             
-            showToast("⏳ 正在處理與合併檔案，請稍候...");
+            showToast("⏳ Merging, please wait...");
             document.getElementById('btn-process-merge').disabled = true;
             
             try {
