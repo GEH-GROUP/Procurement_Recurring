@@ -4459,25 +4459,29 @@ async function processExternalMerge() {
 
         window.renderAnalyticsDashboard = function(days) {
             const container = document.getElementById('setup-table-container');
-            container.classList.add('h-[calc(100vh-140px)]', 'overflow-y-auto', 'pr-2'); // 🌟 Auto fit to view size
-            let orders = LOCAL_DB.get("orders", []) || []; let products = LOCAL_DB.get("products", []) || [];
+            if(!container) return;
+            container.classList.add('h-[calc(100vh-140px)]', 'overflow-y-auto', 'pr-2');
+            
+            let orders = LOCAL_DB.get("orders", []) || []; 
+            let products = LOCAL_DB.get("products", []) || [];
             
             let fReg = document.getElementById('ana-filter-region') ? document.getElementById('ana-filter-region').value : '';
             let fOut = document.getElementById('ana-filter-outlet') ? document.getElementById('ana-filter-outlet').value : '';
             let fVen = document.getElementById('ana-filter-vendor') ? document.getElementById('ana-filter-vendor').value : '';
             let fProduct = document.getElementById('ana-filter-product') ? document.getElementById('ana-filter-product').value : '';
 
-            // 🌟 修復 Filter 關聯：使用 TomSelect 並動態捕捉資料
             if (!window.anaFiltersInit) {
-                let regs = [...new Set(LOCAL_DB.get('outlets', []).map(o=>o.region).filter(Boolean))];
-                let outl = LOCAL_DB.get('outlets', []); let vends = LOCAL_DB.get('vendors', []); let prods = LOCAL_DB.get('products', []);
+                let regs = [...new Set((LOCAL_DB.get('outlets', []) || []).map(o=>o.region).filter(Boolean))];
+                let outl = LOCAL_DB.get('outlets', []) || []; 
+                let vends = LOCAL_DB.get('vendors', []) || []; 
+                let prodsData = LOCAL_DB.get('products', []) || [];
                 
                 const rSel = document.getElementById('ana-filter-region');
                 if (rSel) {
                     rSel.innerHTML = `<option value="">All Regions</option>` + regs.map(r=>`<option value="${r}">${r}</option>`).join('');
                     document.getElementById('ana-filter-outlet').innerHTML = `<option value="">All Outlets</option>` + outl.map(o=>`<option value="${o.short_code}">${o.short_code}</option>`).join('');
                     document.getElementById('ana-filter-vendor').innerHTML = `<option value="">All Vendors</option>` + vends.map(v=>`<option value="${v.short_code}">${v.short_code} - ${v.company}</option>`).join('');
-                    document.getElementById('ana-filter-product').innerHTML = `<option value="">All Products</option>` + prods.map(p=>`<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('');
+                    document.getElementById('ana-filter-product').innerHTML = `<option value="">All Products</option>` + prodsData.map(p=>`<option value="${escapeHTML(p.item)}">${escapeHTML(p.item)}</option>`).join('');
                     
                     ['region', 'outlet', 'vendor', 'product'].forEach(k => initSearchableSelect(document.getElementById(`ana-filter-${k}`), () => renderAnalyticsDashboard(window.anaDays)));
                     window.anaFiltersInit = true;
@@ -4489,6 +4493,11 @@ async function processExternalMerge() {
             
             window.anaDays = (fFrom && fTo) ? Math.max(1, Math.round((new Date(fTo) - new Date(fFrom)) / 86400000)) : (days || 30);
             let cutoff = new Date(); cutoff.setDate(cutoff.getDate() - window.anaDays);
+
+            let metrics = { prQty:0, poQty:0, grnQty:0, cnQty:0, estCost:0, actCost:0, normalQty:0, focQty:0, totalDelayDays:0, delayCount:0 };
+            let outlets = {}; (LOCAL_DB.get("outlets", [])||[]).forEach(o => outlets[o.short_code] = { estCost:0, actCost:0 });
+            let vendors = {}; (LOCAL_DB.get("vendors", [])||[]).forEach(v => vendors[v.code] = { prQty:0, poQty:0, grnQty:0, estCost:0, actCost:0, delayDays:0, grnCount:0, cnTypes:{} });
+            let prods = {};
 
             let validOrders = orders.filter(o => {
                 let d = new Date(o.date || o.created_at);
@@ -4502,68 +4511,52 @@ async function processExternalMerge() {
                 
                 return true;
             });
-             days = daysNum; // 讓下方按鈕 highlight 顯示
-
-            // 加入了 NormalQty 與 FocQty 的分離追蹤
-            let metrics = { prQty: 0, poQty: 0, grnQty: 0, cnQty: 0, estCost: 0, actCost: 0, totalDelayDays: 0, delayCount: 0, focQty: 0, normalQty: 0 };
-            let outlets = {}; let vendors = {}; let prods = {};
-
-            let getPackQty = (itemName) => {
-                let p = products.find(x => x.item === itemName);
-                return p && parseFloat(p.qty_in_pack) > 0 ? parseFloat(p.qty_in_pack) : 1;
-            };
 
             validOrders.forEach(o => {
-                let isPR = o.type === 'PR'; let isPO = o.type === 'PO'; 
-                let isGRN = o.type === 'GRN'; let isCN = o.type === 'CN';
+                let isPR = o.type === 'PR'; let isPO = o.type === 'PO'; let isGRN = o.type === 'GRN'; let isCN = o.type === 'CN';
                 let vCode = o.vendor;
-
-                if(!outlets[o.outlet]) outlets[o.outlet] = { estCost: 0, actCost: 0 };
-                if(vCode && !vendors[vCode]) vendors[vCode] = { estCost: 0, actCost: 0, prQty: 0, poQty: 0, grnQty: 0, delayDays: 0, grnCount: 0, cnTypes: {} };
+                if(vCode && !vendors[vCode]) vendors[vCode] = { prQty:0, poQty:0, grnQty:0, estCost:0, actCost:0, delayDays:0, grnCount:0, cnTypes:{} };
+                if(o.outlet && !outlets[o.outlet]) outlets[o.outlet] = { estCost:0, actCost:0 };
 
                 (o.items || []).forEach(it => {
-                    let packMultiplier = getPackQty(it.item);
-                    let baseQty = (parseFloat(it.qty) || 0) * packMultiplier;
-                    let focBaseQty = (parseFloat(it.foc_qty) || 0) * packMultiplier;
-                    let lineTotal = parseFloat(it.price || 0) * (parseFloat(it.qty) || 0);
+                    let qty = parseFloat(it.qty) || 0; let price = parseFloat(it.price) || 0;
+                    let pMatch = products.find(x => x.item === it.item);
+                    let packSize = pMatch ? (parseFloat(pMatch.qty_in_pack) || 1) : 1;
+                    
+                    let baseQty = qty * packSize;
+                    let lineTotal = qty * price;
+                    let focBaseQty = (it.foc === 'Y' || it.foc === true) ? baseQty : 0;
 
                     if(it.item && !prods[it.item]) prods[it.item] = { estCost: 0, actCost: 0, ordQty: 0, ordCount: 0 };
-                    
-                    // 🌟 紀錄產品訂購總量與次數，用於計算 Average Order Quantity
                     if(it.item && (isPR || (isPO && !o.pr_reference))) {
-                        prods[it.item].ordQty += baseQty;
-                        prods[it.item].ordCount += 1;
+                        prods[it.item].ordQty += baseQty; prods[it.item].ordCount += 1;
                     }
 
                     if (isPR) {
-                        metrics.prQty += baseQty; metrics.estCost += lineTotal;
-                        outlets[o.outlet].estCost += lineTotal;
+                        metrics.prQty += baseQty; metrics.estCost += lineTotal; 
+                        if(outlets[o.outlet]) outlets[o.outlet].estCost += lineTotal;
                         if(vCode) { vendors[vCode].estCost += lineTotal; vendors[vCode].prQty += baseQty; }
                         if(it.item) prods[it.item].estCost += lineTotal;
                     } 
                     else if (isPO) {
-                        metrics.poQty += baseQty; 
-                        if(vCode) vendors[vCode].poQty += baseQty;
-                        if(!o.pr_reference) { // Direct PO
-                            metrics.estCost += lineTotal; outlets[o.outlet].estCost += lineTotal;
-                            if(vCode) vendors[vCode].estCost += lineTotal;
-                            if(it.item) prods[it.item].estCost += lineTotal;
+                        metrics.poQty += baseQty; if(vCode) vendors[vCode].poQty += baseQty;
+                        if(!o.pr_reference) { 
+                            metrics.estCost += lineTotal; 
+                            if(outlets[o.outlet]) outlets[o.outlet].estCost += lineTotal;
+                            if(vCode) vendors[vCode].estCost += lineTotal; if(it.item) prods[it.item].estCost += lineTotal;
                         }
                     }
                     else if (isGRN) {
-                        metrics.grnQty += baseQty; metrics.actCost += lineTotal;
-                        metrics.normalQty += baseQty; metrics.focQty += focBaseQty;
-                        outlets[o.outlet].actCost += lineTotal;
+                        metrics.grnQty += baseQty; metrics.actCost += lineTotal; metrics.normalQty += baseQty; metrics.focQty += focBaseQty;
+                        if(outlets[o.outlet]) outlets[o.outlet].actCost += lineTotal;
                         if(vCode) { vendors[vCode].actCost += lineTotal; vendors[vCode].grnQty += baseQty; }
                         if(it.item) prods[it.item].actCost += lineTotal;
                     }
                     else if (isCN) {
-                        metrics.cnQty += baseQty; metrics.actCost -= lineTotal; 
-                        metrics.normalQty -= baseQty; // Deduct from normal inventory
-                        outlets[o.outlet].actCost -= lineTotal;
+                        metrics.cnQty += baseQty; metrics.actCost -= lineTotal; metrics.normalQty -= baseQty;
+                        if(outlets[o.outlet]) outlets[o.outlet].actCost -= lineTotal;
                         if(vCode) { 
-                            vendors[vCode].actCost -= lineTotal; 
-                            let matchedType = 'Uncategorized';
+                            vendors[vCode].actCost -= lineTotal; let matchedType = 'Uncategorized';
                             let match = o.remarks ? o.remarks.match(/\[(.*?)\]/) : null;
                             if(match) matchedType = match[1];
                             else if(o.remarks && o.remarks.includes('Vendor Error')) matchedType = 'Vendor Error';
@@ -4593,7 +4586,7 @@ async function processExternalMerge() {
             let deliveryRate = metrics.poQty > 0 ? ((metrics.grnQty / metrics.poQty) * 100).toFixed(1) : '100';
             let cnRate = metrics.grnQty > 0 ? ((metrics.cnQty / metrics.grnQty) * 100).toFixed(1) : '0.0';
             let variance = metrics.actCost - metrics.estCost;
-            let avgPurchase = (metrics.actCost / days).toFixed(2);
+            let avgPurchase = (metrics.actCost / window.anaDays).toFixed(2);
             let avgDelayTotal = metrics.delayCount > 0 ? (metrics.totalDelayDays / metrics.delayCount).toFixed(1) : '0';
 
             let genCostTable = (dataObj, title) => {
@@ -4658,9 +4651,19 @@ async function processExternalMerge() {
             lucide.createIcons();
         };
 
-    </script>
+        // 🌟 確保 filterSetupTable 存在，完美對接 Settings 頁面的 Search Bar 功能
+        window.filterSetupTable = function() {
+            const rows = document.querySelectorAll('.setup-data-row'); 
+            const inp = document.getElementById('setup-search-filter');
+            if(!inp) return;
+            const v = inp.value.toLowerCase().trim();
+            rows.forEach(r => { 
+                if(!v) { r.style.display = ''; return; }
+                const txt = r.textContent.toLowerCase(); 
+                r.style.display = txt.includes(v) ? '' : 'none'; 
+            });
+        };
 
+    </script>
 </body>
 </html>
-
-
