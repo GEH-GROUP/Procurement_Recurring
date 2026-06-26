@@ -2517,7 +2517,7 @@ async function saveGlobalSettings() {
                         executeCsvSave(newItems, []);
                     }
                 } catch(err) { 
-                    alert("匯入時發生錯誤：" + err); 
+                    alert("Import Error：" + err); 
                 } 
                 document.getElementById('csv-uploader').value = ''; 
             }; 
@@ -2577,6 +2577,13 @@ async function saveGlobalSettings() {
             if(approvedDuplicates.length > 0) toastMsg = `✅ Successfully added  ${newItems.length} items, and updated the following records accordingly. ${approvedDuplicates.length} ！`; 
             showToast(toastMsg);
             await triggerSystemSync(activeSetupTab);
+        }
+                } catch(err) { 
+                    alert("Import Error：" + err); 
+                } 
+                document.getElementById('csv-uploader').value = ''; 
+            }; 
+            reader.readAsText(file);
         }
 
         function renderOrderTableHeaders() {
